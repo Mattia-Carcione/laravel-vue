@@ -9,6 +9,8 @@
 
 # About Laravel Vue Project
 
+## Laravel Server side
+
 see the documentation to know the project build:
 
 ### For Laravel Sanctum and Cors
@@ -48,7 +50,7 @@ php artisan key:generate
 php artisan serve
 ```
 
-# vue-client
+# Vue Client side
 
 
 This template should help get you started developing with Vue 3 in Vite.
