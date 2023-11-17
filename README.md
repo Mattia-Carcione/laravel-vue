@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Install Project
+# About Laravel Vue Project
 
 see the documentation to know the project build:
 
@@ -19,7 +19,9 @@ https://laravel.com/docs/10.x/sanctum#spa-authentication
 
 https://laravel.com/docs/10.x/fortify#installation
 
-## Add in .env:
+## Install and Setup 
+
+### Add in .env:
 
 ```sh
 APP_URL=http://localhost:8000 // with your backend port
