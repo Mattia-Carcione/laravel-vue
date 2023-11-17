@@ -15,8 +15,8 @@ SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
 SPA_URL=http://localhost:5173 // frontend port
 SESSION_DOMAIN=localhost
 
--launch "php artisan serve"
+- launch "php artisan serve"
 
--cd to /vue-client
--"npm i"  //to install the dependiencies
--launch "npm run dev"
+- cd to /vue-client
+- "npm i"  //to install the dependiencies
+- launch "npm run dev"
