@@ -20,10 +20,13 @@ https://laravel.com/docs/10.x/sanctum#spa-authentication
 https://laravel.com/docs/10.x/fortify#installation
 
 ## Add in .env:
-- APP_URL=http://localhost:8000 //with the backend port
-- SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
-- SPA_URL=http://localhost:5173 // frontend port
-- SESSION_DOMAIN=localhost
+
+```sh
+APP_URL=http://localhost:8000 // with your backend port
+SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
+SPA_URL=http://localhost:5173 // frontend port
+SESSION_DOMAIN=localhost
+```
 
 ### Create Migration
 
