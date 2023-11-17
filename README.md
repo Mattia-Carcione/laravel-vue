@@ -10,10 +10,10 @@
 ## Install Project
 
 - add in .env:
-APP_URL=http://localhost:8000 //with the backend port
-SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
-SPA_URL=http://localhost:5173 // frontend port
-SESSION_DOMAIN=localhost
+- APP_URL=http://localhost:8000 //with the backend port
+- SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
+- SPA_URL=http://localhost:5173 // frontend port
+- SESSION_DOMAIN=localhost
 
 - launch "php artisan serve"
 
