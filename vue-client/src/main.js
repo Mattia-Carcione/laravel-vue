@@ -12,8 +12,18 @@ axios.defaults.baseURL = 'http://localhost:8000';
 
 import '@fortawesome/fontawesome-free';
 
-const app = createApp(App)
+import useAuth from './auth/useAuth';
 
-app.use(router, VueAxios, axios)
+// setting attempt
+const { attempt } = useAuth();
 
-app.mount('#app')
+attempt()
+    .then(() => {
+        const app = createApp(App)
+
+        app.use(router, VueAxios, axios)
+
+        app.mount('#app')
+    })
+
+
