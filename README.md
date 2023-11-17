@@ -9,16 +9,15 @@
 
 # Install Project
 
--see the documentation to know the project build
+see the documentation to know the project build:
 
 ### For Laravel Sanctum and Cors
-```sh
+
 https://laravel.com/docs/10.x/sanctum#spa-authentication
-```
+
 ### For Laravel Fortify
-```sh
+
 https://laravel.com/docs/10.x/fortify#installation
-```
 
 ## Add in .env:
 - APP_URL=http://localhost:8000 //with the backend port
@@ -32,28 +31,27 @@ https://laravel.com/docs/10.x/fortify#installation
 php artisan serve
 ```
 
-
 # vue-client
 
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+### Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Customize configuration
+### Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
-
 
 ### change directory
 
 ```sh
 cd vue-client/
 ```
+
 ### Install the dependiencies
 
 ```sh
