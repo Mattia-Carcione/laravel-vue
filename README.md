@@ -9,6 +9,17 @@
 
 # Install Project
 
+-see the documentation to know the project build
+
+### For Laravel Sanctum and Cors
+```sh
+https://laravel.com/docs/10.x/sanctum#spa-authentication
+```
+### For Laravel Fortify
+```sh
+https://laravel.com/docs/10.x/fortify#installation
+```
+
 ## Add in .env:
 - APP_URL=http://localhost:8000 //with the backend port
 - SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
