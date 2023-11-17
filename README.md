@@ -7,19 +7,23 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Install Project
-- add in .env:
+# Install Project
 
+## Add in .env:
 - APP_URL=http://localhost:8000 //with the backend port
 - SANCTUM_STATEFUL_DOMAINS=localhost:8000 // backend port
 - SPA_URL=http://localhost:5173 // frontend port
 - SESSION_DOMAIN=localhost
 
-- launch "php artisan serve"
+### start the server
+
+```sh
+php artisan serve
+```
 
 
 # vue-client
-- cd to /vue-client
+
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -32,6 +36,14 @@ This template should help get you started developing with Vue 3 in Vite.
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
+
+
+### change directory
+
+```sh
+cd vue-client/
+```
+### Install the dependiencies
 
 ```sh
 npm install
