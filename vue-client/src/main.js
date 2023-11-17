@@ -7,7 +7,10 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import '@fortawesome/fontawesome-free'
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
+
+import '@fortawesome/fontawesome-free';
 
 const app = createApp(App)
 
