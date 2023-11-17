@@ -25,6 +25,18 @@ https://laravel.com/docs/10.x/fortify#installation
 - SPA_URL=http://localhost:5173 // frontend port
 - SESSION_DOMAIN=localhost
 
+### Create Migration
+
+```sh
+php artisan migrate:fresh
+```
+
+### Generate the key
+
+```sh
+php artisan key:generate
+```
+
 ### start the server
 
 ```sh
