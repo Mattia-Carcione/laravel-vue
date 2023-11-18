@@ -1,6 +1,6 @@
 <template>
     <!-- top navigation -->
-    <nav class="navbar bg-base-100 hidden md:flex">
+    <nav class="navbar bg-base-100 hidden lg:flex">
         <div class="navbar-start">
             <!-- dropdwown hover -->
             <div class="dropdown dropdown-hover">
@@ -10,6 +10,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
                 </label>
+
+                <!-- dropdown content -->
                 <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
                         <RouterLink to="/">Homepage</RouterLink>
@@ -18,6 +20,7 @@
                         <RouterLink to="/about">About</RouterLink>
                     </li>
                 </ul>
+
             </div>
         </div>
 
@@ -35,7 +38,10 @@
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </button>
+
             <span class="border-l-2 mx-1 border-current h-5"></span>
+
+            <!-- sign in button -->
             <RouterLink class="mx-1" v-if="!state.authenticated" to="/login">
                 <button class="btn btn-md btn-ghost">
                     <div class="indicator">
@@ -43,17 +49,35 @@
                     </div>
                 </button>
             </RouterLink>
-            <button v-if="state.authenticated" class="btn btn-ghost" @click="logout">
-                <div class="indicator">
-                    <span class="text-lg">{{ state.user.name }}<i
-                            class="fa-solid fa-arrow-right-to-bracket px-1"></i></span>
-                </div>
-            </button>
+
+            <!-- dropdown hover -->
+            <div v-if="state.authenticated" class="dropdown dropdown-hover">
+                <label tabindex="0">
+                    <button class="btn btn-ghost" @click="logout">
+                        <div class="indicator">
+                            <span class="text-lg">{{ state.user.name }}
+                                <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
+                            </span>
+                        </div>
+                    </button>
+                </label>
+
+                <!-- dropdown content -->
+                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                        <RouterLink to="#">Profile</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="#">Dashboard</RouterLink>
+                    </li>
+                </ul>
+
+            </div>
         </div>
     </nav>
 
     <!-- bottom navigation for mobile -->
-    <div class="btm-nav btm-nav-sm md:hidden">
+    <div class="btm-nav btm-nav-sm lg:hidden">
         <RouterLink to="/">
             <button>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -88,6 +112,9 @@
                 </li>
                 <li>
                     <RouterLink to="/about">About</RouterLink>
+                </li>
+                <li>
+                    <RouterLink v-if="state.authenticated" to="#">Profile</RouterLink>
                 </li>
                 <li>
                     <RouterLink v-if="!state.authenticated" to="/login">Sign in</RouterLink>
