@@ -54,7 +54,7 @@ php artisan serve
 
 * Go in vendor/laravel/fortify/src/Rules/Password.php:
 
-### Set the rule to true:
+### Set this rule to true:
 ```sh
 protected $requireUppercase = true;
 
