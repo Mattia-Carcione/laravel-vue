@@ -55,8 +55,8 @@ export default {
       <form class="space-y-6" action="#" method="POST" @submit.prevent="login(form)">
 
         <!-- validation email error -->
-        <div v-if="form.error.email"
-          class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <div v-if="form.error.email" class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert">
           <span class="font-bold block sm:inline">{{ state.errors.email[0] }}</span>
         </div>
 
