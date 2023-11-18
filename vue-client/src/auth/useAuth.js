@@ -11,13 +11,12 @@ function getToken() {
     return decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"));
 }
 
-// login attempt methods
+// login and authentication methods
 export default function useAuth() {
-    // getting state
     const getAuthenticated = computed(() => state.authenticated);
     const getUser = computed(() => state.user);
     const getErrors = computed(() => state.errors);
-    // setting state
+
     const setAuthenticated = (authenticated) => {
         state.authenticated = authenticated;
     }
@@ -27,7 +26,7 @@ export default function useAuth() {
     const setErrors = (errors) => {
         state.errors = errors
     }
-    // attempt
+
     const attempt = async () => {
         try {
             const response = await axios.get('/api/user');
@@ -43,7 +42,7 @@ export default function useAuth() {
             console.log(e);
         }
     }
-    // login
+
     const login = async (credentials) => {
         await axios.get('/sanctum/csrf-cookie')
         try {
@@ -59,7 +58,7 @@ export default function useAuth() {
             }
         }
     }
-    // logout
+
     const logout = async () => {
         try {
             await axios.post('/logout', {}, {
