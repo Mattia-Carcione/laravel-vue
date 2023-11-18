@@ -50,12 +50,9 @@ php artisan key:generate
 php artisan serve
 ```
 
-- For setting password rules validation:
+### For setting password rules validation:
 
-* change directory:
-```sh
-cd vendor/laravel/fortify/src/Rules/Password.php
-```
+* Go in vendor/laravel/fortify/src/Rules/Password.php:
 
 ### Change the rule:
 ```sh
