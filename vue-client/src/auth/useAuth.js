@@ -73,9 +73,28 @@ export default function useAuth() {
         }
     }
 
+    const registerUser = async (credentials) => {
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+            await axios.post("/register", credentials, {
+                headers: {
+                    "X-XSRF-TOKEN": getToken(),
+                },
+            });
+            setAuthenticated(true);
+            setUser(credentials);
+        } catch (error) {
+            if (error.response.status === 422) {
+                console.log(error.response.data.errors);
+                setErrors(error.response.data.errors);
+            }
+        }
+    }
+
     return {
         login,
         logout,
+        registerUser,
         attempt,
         getAuthenticated,
         getUser,
