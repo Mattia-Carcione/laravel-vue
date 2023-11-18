@@ -50,7 +50,7 @@ php artisan key:generate
 php artisan serve
 ```
 
-### For setting password rules validation:
+## For setting password rules validation:
 
 * Go in vendor/laravel/fortify/src/Rules/Password.php:
 
