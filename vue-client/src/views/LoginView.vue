@@ -32,6 +32,9 @@ export default {
 </script>
 
 <template>
+
+  <!-- !!!temporary template login form!!! -->
+
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -41,13 +44,16 @@ export default {
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <!-- login form -->
       <form class="space-y-6" action="#" method="POST" @submit.prevent="login(form)">
 
+        <!-- validation email error -->
         <div v-if="state.errors.email"
           class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <span v-if="state.errors.email" class="font-bold block sm:inline">{{ state.errors.email[0] }}</span>
         </div>
 
+        <!-- email input -->
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
@@ -56,11 +62,13 @@ export default {
           </div>
         </div>
 
+        <!-- validation password error -->
         <div v-if="state.errors.password"
           class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <span v-if="state.errors.password" class="font-bold block sm:inline">{{ state.errors.password[0] }}</span>
         </div>
 
+        <!-- password input -->
         <div>
           <div class="flex items-center justify-between">
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
@@ -75,6 +83,7 @@ export default {
           </div>
         </div>
 
+        <!-- login button -->
         <div>
           <button type="submit"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
