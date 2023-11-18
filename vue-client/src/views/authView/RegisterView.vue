@@ -16,6 +16,7 @@ export default {
                 email: '',
                 password: '',
                 password_confirmation: '',
+                error: '',
             },
             showPassword: false,
             showPasswordConfirm: false,
@@ -23,10 +24,11 @@ export default {
         }
     },
     methods: {
-        registerUser() {
+        async registerUser() {
             this.showPassword = false;
             this.showPasswordConfirm = false;
-            useAuth().registerUser(this.form)
+            await useAuth().registerUser(this.form)
+            this.form.error = this.state.errors
             this.redirect(this.state.authenticated)
         },
         redirect(boolean: boolean) {
@@ -46,12 +48,16 @@ export default {
 </script>
 
 <template>
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">Create an Account
+        </h2>
+    </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <!-- Register form -->
         <form class="space-y-6" action="#" method="POST" @submit.prevent="registerUser">
 
             <!-- Validation name error -->
-            <div v-if="state.errors.name"
+            <div v-if="form.error.name"
                 class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <span v-if="state.errors.name" class="font-bold block sm:inline">{{ state.errors.name[0] }}</span>
             </div>
@@ -60,13 +66,13 @@ export default {
             <div>
                 <label for="name" class="block text-sm font-medium leading-6 text-white-900">Your Name</label>
                 <div class="mt-2">
-                    <input v-model="form.name" id="name" name="name" type="text" required placeholder="First Name Last Name"
-                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input v-model="form.name" id="name" name="name" type="text" placeholder="First Name Last Name" required
+                        class="block w-full rounded-md border-0 px-3 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
 
             <!-- Validation email error -->
-            <div v-if="state.errors.email"
+            <div v-if="form.error.email"
                 class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <span v-if="state.errors.email" class="font-bold block sm:inline">{{ state.errors.email[0] }}</span>
             </div>
@@ -76,12 +82,12 @@ export default {
                 <label for="email" class="block text-sm font-medium leading-6 text-white-900">Email</label>
                 <div class="mt-2">
                     <input v-model="form.email" id="email" name="email" type="email" required placeholder="Enter your email"
-                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        class="block w-full px-3 rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
 
             <!-- Validation password error -->
-            <div v-if="state.errors.password"
+            <div v-if="form.error.password"
                 class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <span v-if="state.errors.password" class="font-bold block sm:inline">{{ state.errors.password[0] }}</span>
             </div>
@@ -94,7 +100,7 @@ export default {
                 <div class="mt-2 relative rounded-md shadow-sm">
                     <input v-model="form.password" :type="showPassword ? 'text' : 'password'" id="password" name="password"
                         required placeholder="Password"
-                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
+                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         <!-- toggle password -->
                         <button @click="togglePasswordVisibility" type="button"
@@ -106,13 +112,6 @@ export default {
                 </div>
             </div>
 
-            <!-- Validation password confirm error -->
-            <div v-if="state.errors.password_confirmation"
-                class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                <span v-if="state.errors.password_confirmation" class="font-bold block sm:inline">{{
-                    state.errors.password_confirmation[0] }}</span>
-            </div>
-
             <!-- Input Conferma Password -->
             <div class="mt-4">
                 <div class="flex items-center justify-between">
@@ -122,7 +121,7 @@ export default {
                 <div class="mt-2 relative rounded-md shadow-sm">
                     <input v-model="form.password_confirmation" :type="showPasswordConfirm ? 'text' : 'password'"
                         id="password-confirm" name="password-confirm" required placeholder="Confirm Password"
-                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
+                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         <!-- toggle password confirm -->
                         <button @click="togglePasswordConfirmVisibility" type="button"
@@ -143,9 +142,9 @@ export default {
             </div>
         </form>
 
-        <p class="mt-10 text-center text-sm text-white-500">
+        <p class="mt-10 pb-5 text-center text-sm text-white-500">
             Already have an account?
-            <RouterLink to="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in
+            <RouterLink to="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in
             </RouterLink>
         </p>
     </div>
