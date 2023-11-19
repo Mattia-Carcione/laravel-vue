@@ -1,6 +1,7 @@
 <script lang="ts">
-import useAuth from '../auth/useAuth';
 import { RouterLink } from 'vue-router';
+import ProfileView from '../views/dashboardView/ProfileView.vue';
+import useAuth from '../auth/useAuth';
 export default {
     data() {
         return {
@@ -17,15 +18,18 @@ export default {
             useAuth().logout();
             this.$router.push({ name: 'home' })
         }
+    },
+    components: {
+        ProfileView
     }
 }
 </script>
 
 <template>
-    <div class="font-sans bg-gray-100 h-full flex">
+    <div class="font-sans bg-gray-100 h-full flex overflow-hidden">
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
-            class="lg:w-64 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
+            class="fixed lg:w-1/4 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
             <div class="flex justify-end">
                 <div class="lg:hidden p-2 cursor-pointer btn btn-circle btn-outline" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -40,7 +44,7 @@ export default {
             <ul>
                 <li class="mb-2">
                     <RouterLink to="#" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-regular fa-user"></i>Profilo
+                        <i class="pe-1 fa-regular fa-user"></i>Account
                     </RouterLink>
                 </li>
                 <li class="mb-2">
@@ -56,12 +60,17 @@ export default {
             <ul>
                 <li class="mb-2">
                     <RouterLink to="#" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-solid fa-palette"></i>Aspetto
+                        <i class="pe-1 fa-solid fa-user-pen"></i>Edit Profile
                     </RouterLink>
                 </li>
                 <li class="mb-2">
                     <RouterLink to="#" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-solid fa-gear"></i>Impostazioni
+                        <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy
+                    </RouterLink>
+                </li>
+                <li class="mb-2">
+                    <RouterLink to="#" class="block hover:text-blue-300">
+                        <i class="pe-1 fa-solid fa-palette"></i>Appearance
                     </RouterLink>
                 </li>
             </ul>
@@ -81,9 +90,9 @@ export default {
             </ul>
         </aside>
         <!-- Template User -->
-        <main class="flex-1 p-4" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
+        <main class="margin-custom flex-1 p-4" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
             <!-- Navbar -->
-            <nav class="navbar bg-base-100 justify-between">
+            <nav class="navbar bg-gray-800 justify-between">
                 <div class="lg:hidden p-2 cursor-pointer" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="inline-block w-5 h-5 stroke-current">
@@ -143,6 +152,7 @@ export default {
             <!-- Main content -->
             <div class="p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
+                <ProfileView :user="user" />
             </div>
         </main>
     </div>
@@ -157,5 +167,11 @@ export default {
     .visible-sidebar {
         display: block !important;
     }
+}
+
+@media (min-width: 1024px) {
+    .margin-custom {
+        margin-left: 25%;
+    } 
 }
 </style>
