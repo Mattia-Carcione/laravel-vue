@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('surname')->after('name')->nullable();
             $table->string('phone')->after('email')->nullable();
             $table->string('address')->after('phone')->nullable();
-            $table->longText('about')->after('address')->nullable();
+            $table->string('about')->after('address')->nullable();
+            $table->longText('bio')->after('about')->nullable();
             $table->string('image')->after('about')->nullable();
         });
     }
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->dropColumn('phone');
             $table->dropColumn('address');
             $table->dropColumn('about');
+            $table->dropColumn('bio');
             $table->dropColumn('image');
         });
     }
