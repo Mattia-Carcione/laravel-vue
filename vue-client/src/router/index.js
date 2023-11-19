@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import useAuth from '../auth/useAuth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,19 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/authView/RegisterView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../profileTemplate/Profile.vue'),
+      // Add middleware (è temporaneo)
+      beforeEnter: (to, from, next) => {
+        if (useAuth().getAuthenticated.value) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })

@@ -29,7 +29,7 @@ export default {
     },
     redirect(boolean: boolean) {
       if (boolean) {
-        this.$router.push({ name: 'home' })
+        this.$router.push({ name: 'profile' })
       }
     },
     togglePasswordVisibility() {
