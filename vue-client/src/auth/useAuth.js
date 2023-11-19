@@ -91,10 +91,28 @@ export default function useAuth() {
         }
     }
 
+    const updateUser = async (credentials) => {
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+            await axios.put("/api/user-update", credentials, {
+                headers: {
+                    "X-XSRF-TOKEN": getToken(),
+                },
+            });
+            setUser(credentials);
+        } catch (error) {
+            if (error.response.status === 422) {
+                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
+            }
+        }
+    }
+
     return {
         login,
         logout,
         registerUser,
+        updateUser,
         attempt,
         getAuthenticated,
         getUser,

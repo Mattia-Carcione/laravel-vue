@@ -31,11 +31,10 @@ export default {
                         <!-- User info -->
                         <div class="mt-4">
                             <h3 class="mb-1.5 text-2xl font-medium text-black ">
-                                {{ user.name }}
+                                {{ user.name }} {{ user.surname }}
                             </h3>
                             <p class="font-medium">
-                                Web Developer
-                            <!-- Sarà dinamico -->
+                                <!-- {{ user.description }} -->
                             </p>
 
                             <!-- User description -->
@@ -44,10 +43,7 @@ export default {
                                     About Me
                                 </h4>
                                 <p class="mt-3 mx-20 text-sm font-medium">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam officiis blanditiis,
-                                    aut hic non perferendis repudiandae nihil veritatis sunt modi laboriosam, voluptatibus
-                                    deleniti iure inventore esse, mollitia eum ullam similique.
-                                    <!-- Sarà dinamico -->
+                                    {{ user.about }}
                                 </p>
                             </div>
 

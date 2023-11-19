@@ -31,8 +31,19 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('../profileTemplate/Profile.vue'),
-      // Add middleware (è temporaneo)
+      component: () => import('../templateUser/Profile.vue'),
+      beforeEnter: (to, from, next) => {
+        if (useAuth().getAuthenticated.value) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/profile-edit',
+      name: 'profile-edit',
+      component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {
           next()

@@ -1,12 +1,28 @@
 <script lang="ts">
 import { RouterLink } from 'vue-router';
-import ProfileView from '../views/dashboardView/ProfileView.vue';
+import { useRoute } from 'vue-router';
+
+import ProfileView from '../views/userView/ProfileView.vue';
+import UpdateUserView from '../views/userView/UpdateUserView.vue';
+
 import useAuth from '../auth/useAuth';
+
 export default {
     data() {
         return {
             sidebarOpen: false,
             user: useAuth().getUser,
+        }
+    },
+    computed: {
+        path() {
+            return useRoute().path;
+        },
+        showProfile() {
+            return !this.path.includes('/profile-');
+        },
+        showEdit() {
+            return this.path.includes('/profile-edit');
         }
     },
     methods: {
@@ -20,7 +36,8 @@ export default {
         }
     },
     components: {
-        ProfileView
+        ProfileView,
+        UpdateUserView
     }
 }
 </script>
@@ -43,7 +60,7 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink to="#" class="block hover:text-blue-300">
+                    <RouterLink to="/profile" class="block hover:text-blue-300">
                         <i class="pe-1 fa-regular fa-user"></i>Account
                     </RouterLink>
                 </li>
@@ -59,7 +76,7 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink to="#" class="block hover:text-blue-300">
+                    <RouterLink to="/profile-edit" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-user-pen"></i>Edit Profile
                     </RouterLink>
                 </li>
@@ -152,7 +169,8 @@ export default {
             <!-- Main content -->
             <div class="p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
-                <ProfileView :user="user" />
+                <ProfileView :user="user" v-if="showProfile"/>
+                <UpdateUserView :user="user" v-if="showEdit" />
             </div>
         </main>
     </div>
