@@ -11,7 +11,7 @@ class UpdateUserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $request->validated();
-
+        
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,

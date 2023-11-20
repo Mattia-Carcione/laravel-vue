@@ -8,19 +8,20 @@ export default {
         user: Object
     },
     data() {
+        const account = reactive({
+            name: this.user.name,
+            surname: this.user.surname,
+            phone: this.user.phone,
+            about: this.user.about,
+            bio: this.user.bio,
+        })
         const state = reactive({
             errors: useAuth().getErrors,
         })
         return {
             state,
-            account: {
-                name: this.user.name,
-                surname: this.user.surname,
-                phone: this.user.phone,
-                about: this.user.about,
-                bio: this.user.bio,
-            },
-            error: '',         
+            account,
+            error: '',
         }
     },
     methods: {
@@ -163,8 +164,8 @@ export default {
                                 <textarea v-model="account.bio"
                                     class="w-full rounded border border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                        {{ account.bio }}
-                                                                    </textarea>
+                                                                            {{ account.bio }}
+                                                                        </textarea>
                             </div>
                         </div>
 
