@@ -70,12 +70,21 @@ export default {
                 <div class="p-7">
                     <!-- Form Edit -->
                     <form @submit.prevent="updateUser(account)" method="POST">
-                        <!-- Validation error -->
+                        <!-- Validation name error -->
                         <div v-if="state.errors.name"
                             class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                             role="alert">
                             <span class="font-bold block sm:inline">
                                 {{ state.errors.name[0] }}
+                            </span>
+                        </div>
+
+                        <!-- Validation surname error -->
+                        <div v-if="state.errors.surname"
+                            class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                            role="alert">
+                            <span class="font-bold block sm:inline">
+                                {{ state.errors.surname[0] }}
                             </span>
                         </div>
 
@@ -118,6 +127,16 @@ export default {
                             </div>
                         </div>
 
+
+                        <!-- Validation error -->
+                        <div v-if="state.errors.phone"
+                            class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                            role="alert">
+                            <span class="font-bold block sm:inline">
+                                {{ state.errors.phone[0] }}
+                            </span>
+                        </div>
+
                         <!-- Phone -->
                         <div class="mb-5.5">
                             <label class="mb-3 block text-sm font-medium text-black" for="phone">
@@ -134,6 +153,15 @@ export default {
                             </div>
                         </div>
 
+                        <!-- Validation about error -->
+                        <div v-if="state.errors.about"
+                            class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                            role="alert">
+                            <span class="font-bold block sm:inline">
+                                {{ state.errors.about[0] }}
+                            </span>
+                        </div>
+
                         <!-- About Job -->
                         <div class="my-5">
                             <label class="mb-3 block text-sm font-medium text-black" for="about">About Job</label>
@@ -146,6 +174,15 @@ export default {
                                     class="w-full rounded border border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     type="text" name="about" id="about">
                             </div>
+                        </div>
+
+                        <!-- Validation bio error -->
+                        <div v-if="state.errors.bio"
+                            class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                            role="alert">
+                            <span class="font-bold block sm:inline">
+                                {{ state.errors.bio[0] }}
+                            </span>
                         </div>
 
                         <!-- Bio -->
@@ -174,8 +211,8 @@ export default {
                                 <textarea v-model="account.bio"
                                     class="w-full rounded border border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                                                                            {{ account.bio }}
-                                                                                                                        </textarea>
+                                                                                                                                    {{ account.bio }}
+                                                                                                                                </textarea>
                             </div>
                         </div>
 
