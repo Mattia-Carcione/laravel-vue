@@ -249,9 +249,10 @@ export default {
                     <form action="#">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="h-14 w-14 rounded-full">
-                                <img src="https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png"
+                                <img src="default-user-image.png"
                                     alt="User" class="h-14 w-14 rounded-full">
                             </div>
+                            <!-- public/storage/default-user-image.png -->
                             <div>
                                 <span class="mb-1.5 font-medium text-black">Edit your photo</span>
                                 <span class="flex gap-2.5">
