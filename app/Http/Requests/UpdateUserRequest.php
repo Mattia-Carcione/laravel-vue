@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
             'surname' => 'nullable|string',
             'phone' => 'nullable|string',
             'about' => ['nullable', 'string'],
-            'bio' => ['nullable', 'string', 'max:255'],
+            'bio' => ['nullable', 'string', 'max:255', 'min:8'],
             'image' => 'nullable|image|mimes:png,jpg,jpeg'
         ];
     }
