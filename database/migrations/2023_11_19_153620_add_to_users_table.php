@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address')->after('phone')->nullable();
             $table->string('about')->after('address')->nullable();
             $table->longText('bio')->after('about')->nullable();
+            $table->string('path_image')->after('bio')->nullable();
         });
     }
 
