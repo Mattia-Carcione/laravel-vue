@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => 'nullable|string',
             'about' => ['nullable', 'string'],
             'bio' => ['nullable', 'string', 'max:255', 'min:8'],
-            'path_image' => ['nullable', 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'],
+            'path_image' => ['nullable', 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', 'dimensions:max_width=200,max_height=200'],
         ];
     }
 }

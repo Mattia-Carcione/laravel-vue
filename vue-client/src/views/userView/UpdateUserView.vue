@@ -109,8 +109,8 @@ export default {
 
                                     <input :class="{ 'border-red-700': state.errors.name, 'border-green-700': message }"
                                         v-model="account.name"
-                                        class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Your Name"
-                                        type="text" name="name" id="name">
+                                        class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                        placeholder="Your Name" type="text" name="name" id="name">
                                 </div>
                             </div>
 
@@ -122,8 +122,8 @@ export default {
 
                                 <input :class="{ 'border-red-700': state.errors.surname, 'border-green-700': message }"
                                     v-model="account.surname"
-                                    class="w-full rounded border-2 border-stroke bg-slate-200 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Your Surname"
-                                    type="text" name="surname" id="surname">
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    placeholder="Your Surname" type="text" name="surname" id="surname">
                             </div>
                         </div>
 
@@ -149,8 +149,8 @@ export default {
 
                                 <input :class="{ 'border-red-700': state.errors.phone, 'border-green-700': message }"
                                     v-model="account.phone"
-                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Phone"
-                                    type="text" name="phone" id="phone">
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    placeholder="Phone" type="text" name="phone" id="phone">
                             </div>
                         </div>
 
@@ -173,8 +173,8 @@ export default {
 
                                 <input :class="{ 'border-red-700': state.errors.about, 'border-green-700': message }"
                                     v-model="account.about"
-                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Enter about job"
-                                    type="text" name="about" id="about">
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    placeholder="Enter about job" type="text" name="about" id="about">
                             </div>
                         </div>
 
@@ -214,17 +214,17 @@ export default {
                                     v-model="account.bio"
                                     class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                            {{ account.bio }}
-                                        </textarea>
+                                                                    {{ account.bio }}
+                                                                </textarea>
                             </div>
                         </div>
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5">
-                                <div @click="deleteInfo"
-                                    class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
-                                    Cancel
-                                </div>
+                            <div @click="deleteInfo"
+                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
+                                Clear
+                            </div>
                             <button
                                 class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
                                 type="submit">
@@ -249,14 +249,34 @@ export default {
                     <form action="#">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="h-14 w-14 rounded-full">
-                                <img src="src/images/user/user-03.png" alt="User">
+                                <img src="https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png"
+                                    alt="User" class="h-14 w-14 rounded-full">
                             </div>
                             <div>
                                 <span class="mb-1.5 font-medium text-black">Edit your photo</span>
                                 <span class="flex gap-2.5">
-                                    <button class="text-sm font-medium hover:text-primary">
+                                    <div onclick="my_modal_5.showModal()"
+                                        class="text-sm font-medium hover:text-error cursor-pointer">
                                         Delete
-                                    </button>
+                                    </div>
+
+                                    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                                        <div class="modal-box">
+                                            <h3 class="font-bold text-lg">Are you sure?</h3>
+                                            <p class="py-4">Click Delete button below to delete image</p>
+                                            <div class="modal-action">
+                                                <form method="dialog">
+                                                    <div class="flex justify-between">
+                                                        <div class="btn btn-outline btn-error cursor-pointer mr-1">
+                                                            Delete
+                                                        </div>
+                                                        <button class="btn btn-outline">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </dialog>
+
                                     <button class="text-sm font-medium hover:text-primary">
                                         Update
                                     </button>
@@ -292,19 +312,19 @@ export default {
                                     SVG, PNG, JPG or GIF
                                 </p>
                                 <p class="text-sm font-medium">
-                                    (max, 800 X 800px)
+                                    (max, 200 X 200px)
                                 </p>
                             </div>
                         </div>
 
-                        <div class="flex justify-end gap-4.5">
-                            <button
-                                class="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark"
-                                type="submit">
+                        <!-- Save button -->
+                        <div class="flex justify-end gap-4.5 mt-2">
+                            <div
+                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
                                 Cancel
-                            </button>
+                            </div>
                             <button
-                                class="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                                class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
                                 type="submit">
                                 Save
                             </button>

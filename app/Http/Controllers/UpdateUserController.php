@@ -30,7 +30,7 @@ class UpdateUserController extends Controller
     public function updateImage(Request $request, User $user)
     {
         $request->validate([
-            'path_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'path_image' => ['image|mimes:jpeg,png,jpg,gif,svg|max:2048', 'dimensions:max_width=200,max_height=200']
         ]);
 
         $path_image = $user->path_image;
@@ -39,8 +39,9 @@ class UpdateUserController extends Controller
             $path_image = $request->file('path_image')->storeAs('/public/storage', $path_name);
         }
 
+        $user->deleteImage();
+
         $user->update([
-            'name' => $user->name,
             'path_image' => $path_image
         ]);
 
