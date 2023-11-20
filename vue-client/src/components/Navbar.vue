@@ -30,7 +30,7 @@ export default {
 
 <template>
     <!-- Top navigation -->
-    <nav class="navbar bg-base-100 hidden lg:flex" v-if="ShowNavbar">
+    <nav class="navbar bg-base-100 hidden lg:flex z-40" v-if="ShowNavbar">
         <div class="navbar-start">
             <!-- Dropdwown hover -->
             <div class="dropdown dropdown-hover">
@@ -107,7 +107,7 @@ export default {
     </nav>
 
     <!-- Bottom navigation for mobile -->
-    <div class="btm-nav btm-nav-sm lg:hidden">
+    <div class="btm-nav btm-nav-sm lg:hidden z-40">
         <RouterLink to="/">
             <button>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"

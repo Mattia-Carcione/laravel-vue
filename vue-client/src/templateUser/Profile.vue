@@ -98,8 +98,8 @@ export default {
                 <li class="mb-2">
                     <RouterLink to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
-                </RouterLink>
-                </li>
+                    </RouterLink>
+            </li>
                 <li class="mb-2">
                     <button class="block hover:text-blue-300" @click="logout">
                         <i class="fa-solid pe-1 fa-arrow-right-from-bracket"></i>
@@ -110,9 +110,9 @@ export default {
         </aside>
 
         <!-- Template User -->
-        <main class="margin-custom flex-1 p-4" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
+        <main class="margin-custom flex-1" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
             <!-- Navbar -->
-            <nav class="navbar bg-gray-800 justify-between">
+            <nav class="navbar bg-white sticky z-999 top-0 drop-shadow">
                 <div class="lg:hidden p-2 cursor-pointer" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="inline-block w-5 h-5 stroke-current">
@@ -120,11 +120,11 @@ export default {
                         </path>
                     </svg>
                 </div>
-                <div class="hidden sm:block flex-1 items-start">
+                <div class="flex-1 items-start">
                     <form action="" method="POST">
                         <div class="relative">
                             <button class="absolute top-1/2 left-0 -translate-y-1/2">
-                                <svg class="fill-white hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                                <svg class=" fill-slate-800 hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
                                     width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -144,8 +144,8 @@ export default {
                 <div class="flex-none gap-2">
                     <ul class="menu items-center menu-horizontal bg-inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
-                        <!-- <li class="px-1">Item 1</li>
-                                    <li class="px-1">Item 2</li> -->
+                        <!-- <li class="px-1">Item 1li>
+                        <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden text-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
@@ -155,11 +155,11 @@ export default {
                             </div>
                         </label>
                         <ul tabindex="0"
-                            class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                            class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded w-52 drop-shadow">
                             <li>
                                 <a class="justify-between">
                                     Profile
-                                    <span class="badge">New</span>
+                                    <span class="bg-white badge">New</span>
                                 </a>
                             </li>
                             <li><a>Settings</a></li>

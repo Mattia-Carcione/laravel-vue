@@ -58,9 +58,9 @@ export default {
         {{ message }}
     </div>
 
-    <div class="grid grid-cols-5 gap-8">
+    <div class="grid grid-cols-10 gap-6">
         <!-- Personal Information -->
-        <div class="col-span-5 xl:col-span-3">
+        <div class="col-span-6">
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
                     <h3 class="font-medium text-black">
@@ -109,8 +109,9 @@ export default {
                                         </svg>
                                     </span>
 
-                                    <input :class="{ 'border-red-700': state.errors.name, 'border-green-700': message }" v-model="account.name"
-                                        class="w-full rounded border-2 border-stroke bg-slate-400 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    <input :class="{ 'border-red-700': state.errors.name, 'border-green-700': message }"
+                                        v-model="account.name"
+                                        class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Your Name"
                                         type="text" name="name" id="name">
                                 </div>
                             </div>
@@ -121,8 +122,9 @@ export default {
                                     Surname
                                 </label>
 
-                                <input :class="{ 'border-red-700': state.errors.surname, 'border-green-700': message }" v-model="account.surname"
-                                    class="w-full rounded border-2 border-stroke bg-slate-400 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.surname, 'border-green-700': message }"
+                                    v-model="account.surname"
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Your Surname"
                                     type="text" name="surname" id="surname">
                             </div>
                         </div>
@@ -147,8 +149,9 @@ export default {
                                     <i class="fa-solid fa-phone text-black"></i>
                                 </span>
 
-                                <input :class="{ 'border-red-700': state.errors.phone,  'border-green-700': message }" v-model="account.phone"
-                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.phone, 'border-green-700': message }"
+                                    v-model="account.phone"
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Phone"
                                     type="text" name="phone" id="phone">
                             </div>
                         </div>
@@ -170,8 +173,9 @@ export default {
                                     <i class="fa-solid fa-briefcase text-black"></i>
                                 </span>
 
-                                <input :class="{ 'border-red-700': state.errors.about,  'border-green-700': message }" v-model="account.about"
-                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.about, 'border-green-700': message }"
+                                    v-model="account.about"
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary" placeholder="Enter about job"
                                     type="text" name="about" id="about">
                             </div>
                         </div>
@@ -208,20 +212,21 @@ export default {
                                     </svg>
                                 </span>
 
-                                <textarea :class="{ 'border-red-700': state.errors.bio,  'border-green-700': message }" v-model="account.bio"
-                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <textarea :class="{ 'border-red-700': state.errors.bio, 'border-green-700': message }"
+                                    v-model="account.bio"
+                                    class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                                                                                        {{ account.bio }}
-                                                                                                                                    </textarea>
+                                            {{ account.bio }}
+                                        </textarea>
                             </div>
                         </div>
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5">
-                            <div @click="deleteInfo"
-                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark">
-                                Cancel
-                            </div>
+                                <div @click="deleteInfo"
+                                    class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
+                                    Cancel
+                                </div>
                             <button
                                 class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
                                 type="submit">
@@ -235,7 +240,7 @@ export default {
 
         <!-- Personal photo -->
         <!-- DA MODIFICARE -->
-        <div class="col-span-5 xl:col-span-2">
+        <div class="col-span-4">
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
                     <h3 class="font-medium text-black">

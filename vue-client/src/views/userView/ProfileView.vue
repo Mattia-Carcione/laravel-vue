@@ -28,7 +28,7 @@ export default {
                     <!-- User info -->
                     <div class="mt-4">
                         <h3 class="mb-1.5 text-2xl font-medium text-black ">
-                            {{ user.name }} {{ user.surname }}
+                            {{ user.name }} {{ user.surname }} <span><RouterLink :to="{ name: 'profile-edit' }"><i class="fa-regular fa-pen-to-square"></i></RouterLink></span>
                         </h3>
                         <p class="font-medium">
                             {{ user.about }}
