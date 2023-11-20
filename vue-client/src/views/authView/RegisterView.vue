@@ -54,7 +54,7 @@ export default {
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <!-- Register form -->
-        <form class="space-y-6" action="#" method="POST" @submit.prevent="registerUser">
+        <form class="space-y-6 mx-2 lg:mx-0" action="#" method="POST" @submit.prevent="registerUser">
 
             <!-- Validation name error -->
             <div v-if="form.error.name"
@@ -66,7 +66,8 @@ export default {
             <div>
                 <label for="name" class="block text-sm font-medium leading-6 text-white-900">Your Name</label>
                 <div class="mt-2">
-                    <input v-model="form.name" id="name" name="name" type="text" placeholder="First Name Last Name" required
+                    <input :class="{ 'border-red-700': form.error.name, 'border-2': form.error.name }" v-model="form.name"
+                        id="name" name="name" type="text" placeholder="First Name Last Name" required
                         class="block w-full rounded-md border-0 px-3 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
@@ -81,7 +82,8 @@ export default {
             <div>
                 <label for="email" class="block text-sm font-medium leading-6 text-white-900">Email</label>
                 <div class="mt-2">
-                    <input v-model="form.email" id="email" name="email" type="email" required placeholder="Enter your email"
+                    <input :class="{ 'border-red-700': form.error.email, 'border-2': form.error.email }"
+                        v-model="form.email" id="email" name="email" type="email" required placeholder="Enter your email"
                         class="block w-full px-3 rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
@@ -98,7 +100,8 @@ export default {
                     <label for="password" class="block text-sm font-medium leading-6 text-white-900">Choose Password</label>
                 </div>
                 <div class="mt-2 relative rounded-md shadow-sm">
-                    <input v-model="form.password" :type="showPassword ? 'text' : 'password'" id="password" name="password"
+                    <input :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
+                        v-model="form.password" :type="showPassword ? 'text' : 'password'" id="password" name="password"
                         required placeholder="Password"
                         class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -119,7 +122,9 @@ export default {
                         Password</label>
                 </div>
                 <div class="mt-2 relative rounded-md shadow-sm">
-                    <input v-model="form.password_confirmation" :type="showPasswordConfirm ? 'text' : 'password'"
+                    <input
+                        :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
+                        v-model="form.password_confirmation" :type="showPasswordConfirm ? 'text' : 'password'"
                         id="password-confirm" name="password-confirm" required placeholder="Confirm Password"
                         class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">

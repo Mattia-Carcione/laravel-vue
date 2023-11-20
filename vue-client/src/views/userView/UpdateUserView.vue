@@ -109,8 +109,8 @@ export default {
                                         </svg>
                                     </span>
 
-                                    <input v-model="account.name"
-                                        class="w-full rounded border border-stroke bg-slate-400 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    <input :class="{ 'border-red-700': state.errors.name, 'border-green-700': message }" v-model="account.name"
+                                        class="w-full rounded border-2 border-stroke bg-slate-400 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                         type="text" name="name" id="name">
                                 </div>
                             </div>
@@ -121,8 +121,8 @@ export default {
                                     Surname
                                 </label>
 
-                                <input v-model="account.surname"
-                                    class="w-full rounded border border-stroke bg-slate-400 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.surname, 'border-green-700': message }" v-model="account.surname"
+                                    class="w-full rounded border-2 border-stroke bg-slate-400 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     type="text" name="surname" id="surname">
                             </div>
                         </div>
@@ -147,8 +147,8 @@ export default {
                                     <i class="fa-solid fa-phone text-black"></i>
                                 </span>
 
-                                <input v-model="account.phone"
-                                    class="w-full rounded border border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.phone,  'border-green-700': message }" v-model="account.phone"
+                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     type="text" name="phone" id="phone">
                             </div>
                         </div>
@@ -170,8 +170,8 @@ export default {
                                     <i class="fa-solid fa-briefcase text-black"></i>
                                 </span>
 
-                                <input v-model="account.about"
-                                    class="w-full rounded border border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <input :class="{ 'border-red-700': state.errors.about,  'border-green-700': message }" v-model="account.about"
+                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     type="text" name="about" id="about">
                             </div>
                         </div>
@@ -208,11 +208,11 @@ export default {
                                     </svg>
                                 </span>
 
-                                <textarea v-model="account.bio"
-                                    class="w-full rounded border border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                <textarea :class="{ 'border-red-700': state.errors.bio,  'border-green-700': message }" v-model="account.bio"
+                                    class="w-full rounded border-2 border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                                                                                    {{ account.bio }}
-                                                                                                                                </textarea>
+                                                                                                                                        {{ account.bio }}
+                                                                                                                                    </textarea>
                             </div>
                         </div>
 
