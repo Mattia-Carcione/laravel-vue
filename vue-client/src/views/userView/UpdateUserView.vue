@@ -30,9 +30,7 @@ export default {
         async updateUser(credentials: Object) {
             await useAuth().updateUser(credentials);
             this.error = this.state.errors;
-            console.log(this.error);
             this.message = this.state.success;
-            console.log(this.message);
         },
         deleteInfo() {
             this.account.name = '';
