@@ -1,5 +1,5 @@
 <script lang="ts">
-import { reactive } from 'vue';
+import { reactive, toHandlers } from 'vue';
 
 import useAuth from '../../auth/useAuth';
 
@@ -14,20 +14,25 @@ export default {
             phone: this.user.phone,
             about: this.user.about,
             bio: this.user.bio,
-        })
+        });
         const state = reactive({
             errors: useAuth().getErrors,
-        })
+            success: useAuth().getMessage
+        });
         return {
             state,
             account,
             error: '',
+            message: '',
         }
     },
     methods: {
         async updateUser(credentials: Object) {
             await useAuth().updateUser(credentials);
             this.error = this.state.errors;
+            console.log(this.error);
+            this.message = this.state.success;
+            console.log(this.message);
         },
         deleteInfo() {
             this.account.name = '';
@@ -48,6 +53,11 @@ export default {
         </h2>
     </div>
 
+    <div v-if="message"
+        class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
+        {{ message }}
+    </div>
+
     <div class="grid grid-cols-5 gap-8">
         <!-- Personal Information -->
         <div class="col-span-5 xl:col-span-3">
@@ -61,8 +71,8 @@ export default {
                     <!-- Form Edit -->
                     <form @submit.prevent="updateUser(account)" method="POST">
                         <!-- Validation error -->
-                        <div v-if="error"
-                            class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        <div v-if="state.errors.name"
+                            class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                             role="alert">
                             <span class="font-bold block sm:inline">
                                 {{ state.errors.name[0] }}
@@ -164,8 +174,8 @@ export default {
                                 <textarea v-model="account.bio"
                                     class="w-full rounded border border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                            {{ account.bio }}
-                                                                        </textarea>
+                                                                                                                            {{ account.bio }}
+                                                                                                                        </textarea>
                             </div>
                         </div>
 

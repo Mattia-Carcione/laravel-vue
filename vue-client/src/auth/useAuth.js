@@ -4,6 +4,7 @@ import axios from 'axios';
 const state = reactive({
     authenticated: false,
     user: {},
+    message: {},
     errors: {},
 });
 
@@ -15,6 +16,7 @@ function getToken() {
 export default function useAuth() {
     const getAuthenticated = computed(() => state.authenticated);
     const getUser = computed(() => state.user);
+    const getMessage = computed(() => state.message);
     const getErrors = computed(() => state.errors);
 
     const setAuthenticated = (authenticated) => {
@@ -22,6 +24,9 @@ export default function useAuth() {
     }
     const setUser = (user) => {
         state.user = user;
+    }
+    const setMessage = (message) => {
+        state.message = message;
     }
     const setErrors = (errors) => {
         state.errors = errors
@@ -32,7 +37,7 @@ export default function useAuth() {
             const response = await axios.get('/api/user');
             setAuthenticated(true);
             setUser(response.data);
-            setErrors({});
+            setErrors('');
             return {
                 response
             }
@@ -76,13 +81,14 @@ export default function useAuth() {
     const registerUser = async (credentials) => {
         try {
             await axios.get("/sanctum/csrf-cookie");
-            await axios.post("/register", credentials, {
+            const response = await axios.post("/register", credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
             setAuthenticated(true);
             setUser(credentials);
+            setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -95,13 +101,17 @@ export default function useAuth() {
         const user = state.user.id;
         try {
             await axios.get("/sanctum/csrf-cookie");
-            await axios.put(`/api/user-update/${user}`, credentials, {
+            const respone = await axios.put(`/api/user-update/${user}`, credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
+            setUser(respone.data.user);
+            setMessage(respone.data.message);
+            setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
+                setMessage('');
                 setErrors(error.response.data.errors);
                 console.log(error.response.data.errors);
             }
@@ -116,6 +126,7 @@ export default function useAuth() {
         attempt,
         getAuthenticated,
         getUser,
+        getMessage,
         getErrors,
     }
 }

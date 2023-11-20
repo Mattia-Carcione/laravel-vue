@@ -25,15 +25,19 @@ export default {
     },
     methods: {
         async registerUser() {
+            console.log('Registering user...');
             this.showPassword = false;
             this.showPasswordConfirm = false;
-            await useAuth().registerUser(this.form)
-            this.form.error = this.state.errors
-            this.redirect(this.state.authenticated)
+            await useAuth().registerUser(this.form);
+            console.log('Registration completed.');
+            this.form.error = this.state.errors;
+            this.redirect(this.state.authenticated);
         },
         redirect(boolean: boolean) {
             if (boolean) {
-                this.$router.push({ name: 'home' })
+                console.log('Redirecting to home...');
+                this.$router.push({ name: 'profile' })
+                console.log('Redirected to home.');
             }
         },
         togglePasswordVisibility() {

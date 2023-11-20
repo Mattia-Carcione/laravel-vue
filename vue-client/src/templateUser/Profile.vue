@@ -1,6 +1,6 @@
 <script lang="ts">
-import { RouterLink } from 'vue-router';
-import { useRoute } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
+import { reactive } from 'vue';
 
 import ProfileView from '../views/userView/ProfileView.vue';
 import UpdateUserView from '../views/userView/UpdateUserView.vue';
@@ -9,9 +9,12 @@ import useAuth from '../auth/useAuth';
 
 export default {
     data() {
+        const state = reactive({
+            user: useAuth().getUser,
+        })
         return {
             sidebarOpen: false,
-            user: useAuth().getUser,
+            state
         }
     },
     computed: {
@@ -28,7 +31,6 @@ export default {
     methods: {
         toggleSidebar() {
             this.sidebarOpen = !this.sidebarOpen;
-            console.log(this.sidebarOpen);
         },
         logout() {
             useAuth().logout();
@@ -46,7 +48,7 @@ export default {
     <div class="font-sans bg-gray-100 h-full flex overflow-hidden">
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
-            class="fixed lg:w-1/4 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
+            class="fixed lg:w-1/5 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
             <div class="flex justify-end">
                 <div class="lg:hidden p-2 cursor-pointer btn btn-circle btn-outline" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -96,7 +98,7 @@ export default {
                 <li class="mb-2">
                     <RouterLink to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
-                    </RouterLink>
+                </RouterLink>
                 </li>
                 <li class="mb-2">
                     <button class="block hover:text-blue-300" @click="logout">
@@ -106,6 +108,7 @@ export default {
                 </li>
             </ul>
         </aside>
+
         <!-- Template User -->
         <main class="margin-custom flex-1 p-4" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
             <!-- Navbar -->
@@ -142,8 +145,8 @@ export default {
                     <ul class="menu items-center menu-horizontal bg-inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1</li>
-                        <li class="px-1">Item 2</li> -->
-                        <li class="px-1 hidden md:block">{{ user.name }} <br> {{ user.email }}</li>
+                                    <li class="px-1">Item 2</li> -->
+                        <li class="px-1 hidden text-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -169,8 +172,8 @@ export default {
             <!-- Main content -->
             <div class="p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
-                <ProfileView :user="user" v-if="showProfile"/>
-                <UpdateUserView :user="user" v-if="showEdit" />
+                <ProfileView :user="state.user" v-if="showProfile" />
+                <UpdateUserView :user="state.user" v-if="showEdit" />
             </div>
         </main>
     </div>
@@ -189,7 +192,7 @@ export default {
 
 @media (min-width: 1024px) {
     .margin-custom {
-        margin-left: 25%;
-    } 
+        margin-left: 20%;
+    }
 }
 </style>
