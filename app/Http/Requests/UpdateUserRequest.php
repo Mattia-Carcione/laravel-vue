@@ -25,7 +25,6 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|string',
             'surname' => 'nullable|string',
             'phone' => 'nullable|string',
-            'address' => 'nullable|string',
             'about' => ['nullable', 'string'],
             'bio' => ['nullable', 'string', 'max:255'],
             'image' => 'nullable|image|mimes:png,jpg,jpeg'

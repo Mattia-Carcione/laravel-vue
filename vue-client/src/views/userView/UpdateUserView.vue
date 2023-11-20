@@ -1,4 +1,6 @@
 <script lang="ts">
+import { reactive } from 'vue';
+
 import useAuth from '../../auth/useAuth';
 
 export default {
@@ -6,19 +8,25 @@ export default {
         user: Object
     },
     data() {
+        const state = reactive({
+            errors: useAuth().getErrors,
+        })
         return {
+            state,
             account: {
                 name: this.user.name,
                 surname: this.user.surname,
                 phone: this.user.phone,
                 about: this.user.about,
                 bio: this.user.bio,
-            }
+            },
+            error: '',         
         }
     },
     methods: {
         async updateUser(credentials: Object) {
             await useAuth().updateUser(credentials);
+            this.error = this.state.errors;
         },
         deleteInfo() {
             this.account.name = '';
@@ -26,6 +34,7 @@ export default {
             this.account.phone = '';
             this.account.about = '';
             this.account.bio = '';
+            this.account.error = '';
         }
     }
 }
@@ -50,6 +59,15 @@ export default {
                 <div class="p-7">
                     <!-- Form Edit -->
                     <form @submit.prevent="updateUser(account)" method="POST">
+                        <!-- Validation error -->
+                        <div v-if="error"
+                            class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                            role="alert">
+                            <span class="font-bold block sm:inline">
+                                {{ state.errors.name[0] }}
+                            </span>
+                        </div>
+
                         <div class="mb-5.5 flex mb-3 flex-col gap-5.5 sm:flex-row">
                             <!-- Name -->
                             <div class="w-full sm:w-1/2 mr-1">
@@ -100,7 +118,7 @@ export default {
                                 </span>
 
                                 <input v-model="account.phone"
-                                    class="w-full rounded border border-stroke bg-slate-400 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                    class="w-full rounded border border-stroke bg-slate-400 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     type="text" name="phone" id="phone">
                             </div>
                         </div>
@@ -142,20 +160,20 @@ export default {
                                     </svg>
                                 </span>
 
-                                <textarea
+                                <textarea v-model="account.bio"
                                     class="w-full rounded border border-stroke bg-slate-400 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                        {{ account.about }}
-                                    </textarea>
+                                                                        {{ account.bio }}
+                                                                    </textarea>
                             </div>
                         </div>
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5">
-                            <button @click="deleteInfo"
+                            <div @click="deleteInfo"
                                 class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark">
                                 Cancel
-                            </button>
+                            </div>
                             <button
                                 class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
                                 type="submit">

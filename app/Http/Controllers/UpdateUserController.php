@@ -10,14 +10,15 @@ class UpdateUserController extends Controller
 {
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->validate([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'about' => $request->about,
-            'bio' => $request->bio
-        ]));
+        $validatedData = $request->validated();
+
+        $user->update([
+            'name' => $validatedData['name'],
+            'surname' => $validatedData['surname'],
+            'phone' => $validatedData['phone'],
+            'about' => $validatedData['about'],
+            'bio' => $validatedData['bio'],
+        ]);
 
         return response()->json([
             'message' => 'User updated successfully',

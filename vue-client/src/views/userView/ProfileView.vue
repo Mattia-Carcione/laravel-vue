@@ -34,7 +34,7 @@ export default {
                                 {{ user.name }} {{ user.surname }}
                             </h3>
                             <p class="font-medium">
-                                <!-- {{ user.description }} -->
+                                {{ user.about }}
                             </p>
 
                             <!-- User description -->
@@ -43,7 +43,7 @@ export default {
                                     About Me
                                 </h4>
                                 <p class="mt-3 mx-20 text-sm font-medium">
-                                    {{ user.about }}
+                                    {{ user.bio }}
                                 </p>
                             </div>
 
