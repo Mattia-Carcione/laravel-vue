@@ -26,10 +26,9 @@ export default {
             error: '',
             message: '',
             data: new FormData(),
-            image: "http://localhost:8000/storage/storage/" + this.user.path_image,
-            default: `http://localhost:8000/storage/storage/file.jpeg`
+            image: "http://localhost:8000/storage/avatars/" + this.user.path_image,
+            default: `http://localhost:8000/storage/default/file.jpeg`
         }
-        // public/storage/
     },
     methods: {
         async updateUser(credentials: Object) {
@@ -45,12 +44,10 @@ export default {
         async updateUserImage() {
             await useAuth().updateUserImage(this.data);
             this.setResponse();
-            this.image = "http://localhost:8000/storage/storage/" + this.user.path_image
-            console.log(this.user.path_image)
+            this.image = "http://localhost:8000/storage/avatars/" + this.user.path_image
         },
         getImageSource() {
-            console.log(this.image)
-            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/storage/null" ? this.image : this.default;
+            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/avatars/null" ? this.image : this.default;
         },
         async deleteUserImage() {
             this.account.path_image = '';
@@ -354,7 +351,7 @@ export default {
                                     or drag and drop
                                 </p>
                                 <p class="mt-1.5 text-sm font-medium">
-                                    SVG, PNG, JPG or GIF
+                                    PNG, JPG or JPEG
                                 </p>
                                 <p class="text-sm font-medium">
                                     (max: 2048Kb)

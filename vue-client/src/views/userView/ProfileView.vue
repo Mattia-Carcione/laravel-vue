@@ -5,13 +5,13 @@ export default {
     },
     data() {
         return {
-            image: "http://localhost:8000/storage/storage/" + this.user.path_image,
-            default: `http://localhost:8000/storage/storage/file.jpeg`
+            image: "http://localhost:8000/storage/avatars/" + this.user.path_image,
+            default: `http://localhost:8000/storage/default/file.jpeg`
         }
     },
     methods: {
         getImageSource() {
-            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/storage/null" ? this.image : this.default;
+            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/avatars/null" ? this.image : this.default;
         }
     }
 }

@@ -30,9 +30,9 @@ export default {
     },
     methods: {
         getImageSource() {
-            const image = "http://localhost:8000/storage/storage/" + this.state.user.path_image;
-            const defaultImage = `http://localhost:8000/storage/storage/file.jpeg`;
-            return image !== null && this.image !== '' && image !== "http://localhost:8000/storage/storage/null" ? image : defaultImage;
+            const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
+            const defaultImage = `http://localhost:8000/storage/default/file.jpeg`;
+            return image !== null && this.image !== '' && image !== "http://localhost:8000/storage/avatars/null" ? image : defaultImage;
         },
         toggleSidebar() {
             this.sidebarOpen = !this.sidebarOpen;

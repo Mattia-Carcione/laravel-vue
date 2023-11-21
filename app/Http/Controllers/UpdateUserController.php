@@ -41,7 +41,7 @@ class UpdateUserController extends Controller
             $image = $request->file('path_image');
             $ext = $image->extension();
             $file = time() . '.' . $ext;
-            $image->storeAs('public/storage', $file);
+            $image->storeAs('public/avatars', $file);
             $user->path_image = $file;
             $user->save();
         }
