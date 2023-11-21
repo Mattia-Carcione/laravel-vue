@@ -55,9 +55,14 @@ export default {
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
             class="fixed lg:w-1/5 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
             <div class="flex justify-end">
-                <div class="lg:hidden p-2 border-white hover:border-white cursor-pointer btn btn-circle btn-outline" @click="toggleSidebar">
-                    <svg class="swap-on fill-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
-  
+                <div class="lg:hidden p-2 border-white hover:border-white cursor-pointer btn btn-circle btn-outline"
+                    @click="toggleSidebar">
+                    <svg class="swap-on fill-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                        viewBox="0 0 512 512">
+                        <polygon
+                            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                    </svg>
+
                 </div>
             </div>
             <div class="mb-3 lg:mt-12">
@@ -148,7 +153,7 @@ export default {
                     <ul class="menu items-center menu-horizontal bg-inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                            <li class="px-1">Item 2</li> -->
+                                <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden text-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
@@ -173,7 +178,7 @@ export default {
             </nav>
 
             <!-- Main content -->
-            <div class="p-4 min-h-screen">
+            <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <ProfileView :user="state.user" v-if="showProfile" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
@@ -184,6 +189,7 @@ export default {
 
 <style scoped>
 @media (max-width: 1023px) {
+
     .hidden-sidebar {
         display: none !important;
     }
@@ -191,11 +197,21 @@ export default {
     .visible-sidebar {
         display: block !important;
     }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        z-index: 10;
+    }
+
+    .margin-top {
+        margin-top: 4.5rem;
+        margin-bottom: 4.5rem;
+    }
 }
 
 @media (min-width: 1024px) {
     .margin-custom {
         margin-left: 20%;
     }
-}
-</style>
+}</style>

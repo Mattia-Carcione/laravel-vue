@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-    <div class="mx-auto mb-10 max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <div class="mx-auto max-w-242.5">
                 <h2 class="mb-6 text-title-md2 text-lg  font-bold text-black">
                     Profile
