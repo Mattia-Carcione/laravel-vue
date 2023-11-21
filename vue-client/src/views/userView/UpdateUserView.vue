@@ -74,6 +74,7 @@ export default {
     }
 }
 </script>
+
 <template>
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 text-lg  font-bold text-black">
@@ -81,7 +82,7 @@ export default {
         </h2>
     </div>
 
-
+    <!-- Message Success -->
     <div v-if="message"
         class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
         {{ message }}
@@ -89,7 +90,7 @@ export default {
 
     <div class="grid grid-cols-10 gap-6">
         <!-- Personal Information -->
-        <div class="col-span-6">
+        <div class="md:col-span-6 col-span-10">
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
                     <h3 class="font-medium text-black">
@@ -245,8 +246,8 @@ export default {
                                     v-model="account.bio"
                                     class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                            {{ account.bio }}
-                                                        </textarea>
+                                                                {{ account.bio }}
+                                                            </textarea>
                             </div>
                         </div>
 
@@ -267,9 +268,8 @@ export default {
             </div>
         </div>
 
-        <!-- Personal photo -->
-        <!-- DA MODIFICARE -->
-        <div class="col-span-4">
+        <!-- Form Update Photo -->
+        <div class="md:col-span-4 col-span-10 mb-12">
             <!-- Validation error -->
             <div v-if="state.errors.path_image" v-for="error in state.errors.path_image"
                 class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative" role="alert">
@@ -290,8 +290,7 @@ export default {
                         <div class="mb-4 flex items-center gap-3">
                             <!-- Profile image -->
                             <div class="h-14 w-14 rounded-full">
-                                <img :src="getImageSource()"
-                                    alt="Profile Image" class="h-14 w-14 rounded-full">
+                                <img :src="getImageSource()" alt="Profile Image" class="h-14 w-14 rounded-full">
                             </div>
 
                             <!-- Edit -->

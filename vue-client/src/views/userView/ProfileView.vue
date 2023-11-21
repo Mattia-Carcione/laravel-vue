@@ -18,13 +18,11 @@ export default {
 </script>
 
 <template>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+    <div class="mx-auto mb-10 max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <div class="mx-auto max-w-242.5">
-            <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h2 class="text-title-md2 text-lg  font-bold text-black">
+                <h2 class="mb-6 text-title-md2 text-lg  font-bold text-black">
                     Profile
                 </h2>
-            </div>
 
             <!-- Profile section -->
             <section class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -53,14 +51,14 @@ export default {
                             <h4 class="font-medium text-black">
                                 About Me
                             </h4>
-                            <p class="mt-3 mx-20 text-sm font-medium">
+                            <p class="mt-3 sm: text-sm font-medium">
                                 {{ user.bio }}
                             </p>
                         </div>
 
                         <!-- Social icons -->
                         <div class="mt-6.5">
-                            <hr class="my-6 mx-52">
+                            <hr class="my-6 sm:mx-52">
                             <div class="flex items-center justify-center gap-3.5">
                                 <a href="#" class="hover:text-primary" name="social-icon" aria-label="social-icon">
                                     <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -148,3 +146,6 @@ export default {
         </div>
     </div>
 </template>
+
+<style scoped>
+</style>

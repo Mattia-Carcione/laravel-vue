@@ -55,11 +55,9 @@ export default {
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
             class="fixed lg:w-1/5 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
             <div class="flex justify-end">
-                <div class="lg:hidden p-2 cursor-pointer btn btn-circle btn-outline" @click="toggleSidebar">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                <div class="lg:hidden p-2 border-white hover:border-white cursor-pointer btn btn-circle btn-outline" @click="toggleSidebar">
+                    <svg class="swap-on fill-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
+  
                 </div>
             </div>
             <div class="mb-3 lg:mt-12">
@@ -67,12 +65,12 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink to="/profile" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="/profile" class="block hover:text-blue-300">
                         <i class="pe-1 fa-regular fa-user"></i>Account
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
                     </RouterLink>
                 </li>
@@ -83,17 +81,17 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink to="/profile-edit" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="/profile-edit" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-user-pen"></i>Edit Profile
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-palette"></i>Appearance
                     </RouterLink>
                 </li>
@@ -101,7 +99,7 @@ export default {
             <hr class="my-4 border-t border-gray-700 me-20">
         <ul>
                 <li class="mb-2">
-                    <RouterLink to="/" class="block hover:text-blue-300">
+                    <RouterLink @click="toggleSidebar" to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
                     </RouterLink>
                 </li>

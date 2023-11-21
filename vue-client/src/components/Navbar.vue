@@ -93,7 +93,7 @@ export default {
                 </label>
 
                 <!-- Dropdown list -->
-                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box">
                     <li>
                         <RouterLink to="/profile">Profile</RouterLink>
                     </li>
