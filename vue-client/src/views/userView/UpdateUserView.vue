@@ -1,5 +1,5 @@
 <script lang="ts">
-import { reactive, toHandlers } from 'vue';
+import { reactive } from 'vue';
 
 import useAuth from '../../auth/useAuth';
 
@@ -14,6 +14,7 @@ export default {
             phone: this.user.phone,
             about: this.user.about,
             bio: this.user.bio,
+            path_image: this.user.path_image,
         });
         const state = reactive({
             errors: useAuth().getErrors,
@@ -24,13 +25,38 @@ export default {
             account,
             error: '',
             message: '',
+            data: new FormData(),
+            image: "http://localhost:8000/storage/storage/" + this.user.path_image,
+            default: `http://localhost:8000/storage/storage/file.jpeg`
         }
+        // public/storage/
     },
     methods: {
         async updateUser(credentials: Object) {
             await useAuth().updateUser(credentials);
-            this.error = this.state.errors;
-            this.message = this.state.success;
+            this.setResponse();
+        },
+        async getUserImage(event) {
+            this.message = '';
+            this.account.path_image = event.target.files[0];
+            this.data.append('path_image', this.account.path_image);
+            this.image = URL.createObjectURL(this.account.path_image)
+        },
+        async updateUserImage() {
+            await useAuth().updateUserImage(this.data);
+            this.setResponse();
+            this.image = "http://localhost:8000/storage/storage/" + this.user.path_image
+            console.log(this.user.path_image)
+        },
+        getImageSource() {
+            console.log(this.image)
+            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/storage/null" ? this.image : this.default;
+        },
+        async deleteUserImage() {
+            this.account.path_image = '';
+            await useAuth().deleteImage();
+            this.setResponse();
+            this.image = '';
         },
         deleteInfo() {
             this.account.name = '';
@@ -39,17 +65,22 @@ export default {
             this.account.about = '';
             this.account.bio = '';
             this.account.error = '';
+            this.account.message = '';
+        },
+        setResponse() {
+            this.message = this.state.success;
+            this.error = this.state.errors;
         }
     }
 }
 </script>
-
 <template>
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 text-lg  font-bold text-black">
             Update Profile
         </h2>
     </div>
+
 
     <div v-if="message"
         class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
@@ -214,8 +245,8 @@ export default {
                                     v-model="account.bio"
                                     class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                    {{ account.bio }}
-                                                                </textarea>
+                                                            {{ account.bio }}
+                                                        </textarea>
                             </div>
                         </div>
 
@@ -239,20 +270,31 @@ export default {
         <!-- Personal photo -->
         <!-- DA MODIFICARE -->
         <div class="col-span-4">
+            <!-- Validation error -->
+            <div v-if="state.errors.path_image" v-for="error in state.errors.path_image"
+                class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative" role="alert">
+                <span class="font-bold block sm:inline">
+                    {{ error }}
+                </span>
+            </div>
+
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
                     <h3 class="font-medium text-black">
                         Your Photo
                     </h3>
                 </div>
+
                 <div class="p-7">
-                    <form action="#">
+                    <form enctype="multipart/form-data" @submit.prevent="updateUserImage" method="POST">
                         <div class="mb-4 flex items-center gap-3">
+                            <!-- Profile image -->
                             <div class="h-14 w-14 rounded-full">
-                                <img src="default-user-image.png"
-                                    alt="User" class="h-14 w-14 rounded-full">
+                                <img :src="getImageSource()"
+                                    alt="Profile Image" class="h-14 w-14 rounded-full">
                             </div>
-                            <!-- public/storage/default-user-image.png -->
+
+                            <!-- Edit -->
                             <div>
                                 <span class="mb-1.5 font-medium text-black">Edit your photo</span>
                                 <span class="flex gap-2.5">
@@ -261,6 +303,7 @@ export default {
                                         Delete
                                     </div>
 
+                                    <!-- Modal -->
                                     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
                                         <div class="modal-box">
                                             <h3 class="font-bold text-lg">Are you sure?</h3>
@@ -268,9 +311,10 @@ export default {
                                             <div class="modal-action">
                                                 <form method="dialog">
                                                     <div class="flex justify-between">
-                                                        <div class="btn btn-outline btn-error cursor-pointer mr-1">
+                                                        <button @click="deleteUserImage"
+                                                            class="btn btn-outline btn-error cursor-pointer mr-1">
                                                             Delete
-                                                        </div>
+                                                        </button>
                                                         <button class="btn btn-outline">Close</button>
                                                     </div>
                                                 </form>
@@ -278,7 +322,8 @@ export default {
                                         </div>
                                     </dialog>
 
-                                    <button class="text-sm font-medium hover:text-primary">
+                                    <!-- Update button -->
+                                    <button type="submit" class="text-sm font-medium hover:text-primary">
                                         Update
                                     </button>
                                 </span>
@@ -287,7 +332,7 @@ export default {
 
                         <div id="FileUpload"
                             class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
-                            <input type="file" accept="image/*"
+                            <input @change="getUserImage" name="path_image" type="file"
                                 class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <span
@@ -313,16 +358,16 @@ export default {
                                     SVG, PNG, JPG or GIF
                                 </p>
                                 <p class="text-sm font-medium">
-                                    (max, 200 X 200px)
+                                    (max: 2048Kb)
                                 </p>
                             </div>
                         </div>
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5 mt-2">
-                            <div
-                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
-                                Cancel
+                            <div onclick="my_modal_5.showModal()"
+                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-red-600 hover:text-white dark:border-strokedark cursor-pointer hover:border-white">
+                                Delete
                             </div>
                             <button
                                 class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"

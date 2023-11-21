@@ -11,7 +11,7 @@ class UpdateUserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $request->validated();
-
+        
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -29,24 +29,35 @@ class UpdateUserController extends Controller
 
     public function updateImage(Request $request, User $user)
     {
-        $request->validate([
-            'path_image' => ['image|mimes:jpeg,png,jpg,gif,svg|max:2048', 'dimensions:max_width=200,max_height=200']
-        ]);
-
-        $path_image = $user->path_image;
-        if ($request->hasFile('path_image') && $request->file('path_image')->isValid()) {
-            $path_name = $request->file('path_image')->getClientOriginalName();
-            $path_image = $request->file('path_image')->storeAs('/public/storage', $path_name);
+        if ($user->path_image) {
+            $user->deleteImage();
         }
 
-        $user->deleteImage();
-
-        $user->update([
-            'path_image' => $path_image
+        $request->validate([
+            'path_image' => ['nullable', 'mimes:png,jpg,jpeg|max:2048']
         ]);
 
+        if ($request->hasFile('path_image')) {
+            $image = $request->file('path_image');
+            $ext = $image->extension();
+            $file = time() . '.' . $ext;
+            $image->storeAs('public/storage', $file);
+            $user->path_image = $file;
+            $user->save();
+        }
+
         return response()->json([
-            'message' => 'User updated successfully',
+            'message' => 'File Uploaded Successfully',
+            'user' => $user,
+            'status' => 'success'
+        ]);
+    }
+
+    public function destroyImage(User $user){
+        $user->deleteImage();
+
+        return response()->json([
+            'message' => 'File Deleted Successfully',
             'user' => $user,
             'status' => 'success'
         ]);

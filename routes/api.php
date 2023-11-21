@@ -26,5 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // User update Routes
     Route::put('/user-update/{user}', [UpdateUserController::class, 'update']);
-    Route::put('/user-update-image/{user}', [UpdateUserController::class, 'updateImage']);
+    Route::post('/user-update-image/{user}', [UpdateUserController::class, 'updateImage']);
+    Route::delete('/user-delete-image/{user}', [UpdateUserController::class, 'destroyImage']);
 });

@@ -29,6 +29,11 @@ export default {
         }
     },
     methods: {
+        getImageSource() {
+            const image = "http://localhost:8000/storage/storage/" + this.state.user.path_image;
+            const defaultImage = `http://localhost:8000/storage/storage/file.jpeg`;
+            return image !== null && this.image !== '' && image !== "http://localhost:8000/storage/storage/null" ? image : defaultImage;
+        },
         toggleSidebar() {
             this.sidebarOpen = !this.sidebarOpen;
         },
@@ -94,12 +99,12 @@ export default {
                 </li>
             </ul>
             <hr class="my-4 border-t border-gray-700 me-20">
-            <ul>
+        <ul>
                 <li class="mb-2">
                     <RouterLink to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
                     </RouterLink>
-            </li>
+                </li>
                 <li class="mb-2">
                     <button class="block hover:text-blue-300" @click="logout">
                         <i class="fa-solid pe-1 fa-arrow-right-from-bracket"></i>
@@ -145,13 +150,13 @@ export default {
                     <ul class="menu items-center menu-horizontal bg-inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                        <li class="px-1">Item 2</li> -->
+                            <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden text-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                             <div class="w-10 rounded-full">
-                                <img alt="Tailwind CSS Navbar component" src="" />
+                                <img alt="Tailwind CSS Navbar component" :src="getImageSource()" />
                             </div>
                         </label>
                         <ul tabindex="0"

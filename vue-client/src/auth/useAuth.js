@@ -118,11 +118,56 @@ export default function useAuth() {
         }
     }
 
+    const updateUserImage = async (credentials) => {
+        console.log(credentials);
+        const user = state.user.id;
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+            const respone = await axios.post(`/api/user-update-image/${user}`, credentials, {
+                headers: {
+                    "X-XSRF-TOKEN": getToken(),
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            setUser(respone.data.user);
+            setMessage(respone.data.message);
+            setErrors('');
+        } catch (error) {
+            if (error.response.status === 422) {
+                setMessage('');
+                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
+            }
+        }
+    }
+
+    const deleteImage = async () => {
+        const user = state.user.id;
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+            const respone = await axios.delete(`/api/user-delete-image/${user}`, {
+                headers: {
+                    "X-XSRF-TOKEN": getToken(),
+                },
+            });
+            setUser(respone.data.user);
+            setMessage(respone.data.message);
+            setErrors('');
+        } catch (error) {
+            if (error.response.status === 422) {
+                setMessage('');
+                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
+            }
+        }
+    }
     return {
         login,
         logout,
         registerUser,
         updateUser,
+        updateUserImage,
+        deleteImage,
         attempt,
         getAuthenticated,
         getUser,

@@ -2,6 +2,17 @@
 export default {
     props: {
         user: Object
+    },
+    data() {
+        return {
+            image: "http://localhost:8000/storage/storage/" + this.user.path_image,
+            default: `http://localhost:8000/storage/storage/file.jpeg`
+        }
+    },
+    methods: {
+        getImageSource() {
+            return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/storage/null" ? this.image : this.default;
+        }
     }
 }
 </script>
@@ -21,14 +32,17 @@ export default {
                     <!-- Profile img -->
                     <div class="mx-auto h-32 w-48 mb-10 bg-white/20 p-1 backdrop-blur flex items-center justify-center">
                         <div class="drop-shadow-2">
-                            <img class="rounded-full" src="/user-06.png" alt="profile">
+                            <img class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 w-48 h-48" :src="getImageSource()" alt="profile">
                         </div>
                     </div>
 
                     <!-- User info -->
                     <div class="mt-4">
                         <h3 class="mb-1.5 text-2xl font-medium text-black ">
-                            {{ user.name }} {{ user.surname }} <span><RouterLink :to="{ name: 'profile-edit' }"><i class="fa-regular fa-pen-to-square"></i></RouterLink></span>
+                            {{ user.name }} {{ user.surname }} <span>
+                                <RouterLink :to="{ name: 'profile-edit' }"><i class="fa-regular fa-pen-to-square"></i>
+                                </RouterLink>
+                            </span>
                         </h3>
                         <p class="font-medium">
                             {{ user.about }}
