@@ -3,7 +3,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import { reactive } from 'vue';
 
 import ProfileView from '../views/userView/ProfileView.vue';
-import UpdateUserView from '../views/userView/UpdateUserView.vue';
+import UpdateUserView from '../views/authView/UpdateUserView.vue';
 
 import useAuth from '../auth/useAuth';
 

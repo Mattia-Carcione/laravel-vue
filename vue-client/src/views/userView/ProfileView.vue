@@ -30,7 +30,7 @@ export default {
                     <!-- Profile img -->
                     <div class="mx-auto h-32 w-48 mb-10 bg-white/20 p-1 backdrop-blur flex items-center justify-center">
                         <div class="drop-shadow-2">
-                            <img class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 w-48 h-48" :src="getImageSource()" alt="profile">
+                            <img class="img-profile rounded-full ring ring-primary ring-offset-base-100 ring-offset-2" :src="getImageSource()" alt="profile">
                         </div>
                     </div>
 
@@ -148,4 +148,8 @@ export default {
 </template>
 
 <style scoped>
+.img-profile {
+    width: 150px;
+    height: 150px;
+}
 </style>
