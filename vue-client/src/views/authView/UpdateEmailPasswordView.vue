@@ -17,8 +17,8 @@ export default {
                 current_password: '',
                 password: '',
                 password_confirmation: '',
-                error: useAuth().getErrors,
-                success: useAuth().getMessage,
+                error: '',
+                success: '',
             },
         };
     },
@@ -34,9 +34,11 @@ export default {
         changeEmail() {
             this.clearInfo();
         },
-        async resetPassword() {
-            await useAuth().resetPassword(this.form);
+        async updatePassword() {
+            await useAuth().updatePassword(this.form);
             this.clearInfo();
+            this.form.error = useAuth().getErrors;
+            this.form.success = useAuth().getMessage;
         },
         clearInfo() {
             this.form.email = '';
@@ -44,6 +46,7 @@ export default {
             this.form.password = '';
             this.form.password_confirmation = '';
             this.form.error = '';
+            this.form.success = '';
         },
         toggleCurrentPasswordVisibility() {
             this.showCurrentPassword = !this.showCurrentPassword;
@@ -65,7 +68,13 @@ export default {
         </h2>
     </div>
 
-    <div class="md:mx-20 mt-20 border border-stroke bg-white shadow-default">
+    <!-- Message Success -->
+    <div v-if="form.success"
+        class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
+        {{ form.success }}
+    </div>
+
+    <div class="md:mx-20 mt-10 border border-stroke bg-white shadow-default">
         <div class="accordion">
             <div class="accordion-header" @click="toggleEmailAccordion">
                 <div class="accordion-title">Change Email</div>
@@ -143,7 +152,8 @@ export default {
                         New Password
                     </label>
                     <div class="relative">
-                        <input :type="showPassword ? 'text' : 'password'" :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
+                        <input :type="showPassword ? 'text' : 'password'"
+                            :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
                             v-model="form.password" type="password" id="newPassword" name="newPassword"
                             placeholder="Enter New Password" class="w-full bg-slate-200 border rounded-md mb-5 py-2 px-3" />
                         <div class="absolute top-0 bottom-5 right-0 pr-3 flex text-sm leading-5">
@@ -161,15 +171,16 @@ export default {
                         Confirm Password
                     </label>
                     <div class="relative">
-                        <input :type="showCurrentPassword ? 'text' : 'password'" :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
+                        <input :type="showPasswordConfirm ? 'text' : 'password'"
+                            :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
                             v-model="form.password_confirmation" type="password" id="newPasswordConfirm"
                             name="newPasswordConfirm" placeholder="Confirm Password"
                             class="w-full bg-slate-200 border rounded-md mb-5 py-2 px-3" />
                         <div class="absolute top-0 bottom-5 right-0 pr-3 flex text-sm leading-5">
                             <!-- toggle password confirm -->
-                            <button @click="toggleCurrentPasswordVisibility" type="button"
+                            <button @click="togglePasswordConfirmVisibility" type="button"
                                 class="text-gray-500 focus:outline-none focus:text-gray-700">
-                                <span v-if="showCurrentPassword"><i class=" far fa-eye"></i></span>
+                                <span v-if="showPasswordConfirm"><i class=" far fa-eye"></i></span>
                                 <span v-else><i class=" far fa-eye-slash"></i></span>
                             </button>
                         </div>

@@ -4,7 +4,7 @@ import { reactive } from 'vue';
 
 import ProfileView from '../views/userView/ProfileView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
-import ResetPasswordView from '../views/authView/ResetPasswordView.vue';
+import UpdateEmailPasswordView from '../views/authView/UpdateEmailPasswordView.vue';
 
 import useAuth from '../auth/useAuth';
 
@@ -49,7 +49,7 @@ export default {
     components: {
         ProfileView,
         UpdateUserView,
-        ResetPasswordView
+        UpdateEmailPasswordView
     }
 }
 </script>
@@ -187,7 +187,7 @@ export default {
                 <!-- Qui richiamo i contenuti -->
                 <ProfileView :user="state.user" v-if="showProfile" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
-                <ResetPasswordView :user="state.user" v-if="showResetPassword" />
+                <UpdateEmailPasswordView :user="state.user" v-if="showResetPassword" />
             </div>
         </main>
     </div>

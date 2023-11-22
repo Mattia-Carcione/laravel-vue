@@ -43,12 +43,13 @@ export default function useAuth() {
             }
         } catch (e) {
             setAuthenticated(false);
-            setUser({});
+            setUser('');
             console.log(e);
         }
     }
 
     const login = async (credentials) => {
+        console.log(credentials);
         await axios.get('/sanctum/csrf-cookie')
         try {
             await axios.post('/login', credentials, {
@@ -86,9 +87,7 @@ export default function useAuth() {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
-            setAuthenticated(true);
-            setUser(credentials);
-            setErrors('');
+            await attempt();
         } catch (error) {
             if (error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -106,9 +105,8 @@ export default function useAuth() {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
-            setUser(respone.data.user);
+            await attempt();
             setMessage(respone.data.message);
-            setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
                 setMessage('');
@@ -129,9 +127,8 @@ export default function useAuth() {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            setUser(respone.data.user);
+            await attempt();
             setMessage(respone.data.message);
-            setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
                 setMessage('');
@@ -150,9 +147,8 @@ export default function useAuth() {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
-            setUser(respone.data.user);
+            await attempt();
             setMessage(respone.data.message);
-            setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
                 setMessage('');
@@ -166,13 +162,13 @@ export default function useAuth() {
         console.log(credentials);
         try {
             await axios.get("/sanctum/csrf-cookie");
-            await axios.put("/user/password", credentials, {
+            const response = await axios.put("/user/password", credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
                 },
             });
-            setUser(respone.data.user);
-            setMessage(respone.data.message);
+            setAuthenticated(true);
+            setMessage('Password updated successfully');
             setErrors('');
         } catch (error) {
             if (error.response.status === 422) {
