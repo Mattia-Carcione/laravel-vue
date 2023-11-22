@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 
 import ProfileView from '../views/userView/ProfileView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
+import ResetPasswordView from '../views/authView/ResetPasswordView.vue';
 
 import useAuth from '../auth/useAuth';
 
@@ -26,13 +27,16 @@ export default {
         },
         showEdit() {
             return this.path.includes('/profile-edit');
+        },
+        showResetPassword() {
+            return this.path.includes('/profile-password');
         }
     },
     methods: {
         getImageSource() {
             const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
             const defaultImage = `http://localhost:8000/storage/default/file.jpeg`;
-            return image !== null && this.image !== '' && image !== "http://localhost:8000/storage/avatars/null" ? image : defaultImage;
+            return image !== null && image !== '' && image !== "http://localhost:8000/storage/avatars/null" ? image : defaultImage;
         },
         toggleSidebar() {
             this.sidebarOpen = !this.sidebarOpen;
@@ -44,7 +48,8 @@ export default {
     },
     components: {
         ProfileView,
-        UpdateUserView
+        UpdateUserView,
+        ResetPasswordView
     }
 }
 </script>
@@ -70,12 +75,12 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="/profile" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-regular fa-user"></i>Account
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile" class="block hover:text-blue-300">
+                        <i class="pe-1 fa-regular fa-user"></i>Profile
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="#" class="block hover:text-blue-300">
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
                     </RouterLink>
                 </li>
@@ -86,17 +91,17 @@ export default {
             </div>
             <ul>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="/profile-edit" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-solid fa-user-pen"></i>Edit Profile
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile-edit" class="block hover:text-blue-300">
+                        <i class="pe-1 fa-solid fa-user-pen"></i>Account
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile-password" class="block hover:text-blue-300">
+                        <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="#" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-palette"></i>Appearance
                     </RouterLink>
                 </li>
@@ -104,7 +109,7 @@ export default {
             <hr class="my-4 border-t border-gray-700 me-20">
         <ul>
                 <li class="mb-2">
-                    <RouterLink @click="toggleSidebar" to="/" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
                     </RouterLink>
                 </li>
@@ -182,6 +187,7 @@ export default {
                 <!-- Qui richiamo i contenuti -->
                 <ProfileView :user="state.user" v-if="showProfile" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
+                <ResetPasswordView :user="state.user" v-if="showResetPassword" />
             </div>
         </main>
     </div>

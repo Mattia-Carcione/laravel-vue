@@ -68,7 +68,7 @@ export default {
                 <div class="mt-2">
                     <input :class="{ 'border-red-700': form.error.name, 'border-2': form.error.name }" v-model="form.name"
                         id="name" name="name" type="text" placeholder="First Name Last Name" required
-                        class="block w-full rounded-md border-0 px-3 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        class="block w-full rounded-md border-0 px-3 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
 
@@ -84,7 +84,7 @@ export default {
                 <div class="mt-2">
                     <input :class="{ 'border-red-700': form.error.email, 'border-2': form.error.email }"
                         v-model="form.email" id="email" name="email" type="email" required placeholder="Enter your email"
-                        class="block w-full px-3 rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        class="block w-full px-3 rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
 
@@ -103,13 +103,13 @@ export default {
                     <input :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
                         v-model="form.password" :type="showPassword ? 'text' : 'password'" id="password" name="password"
                         required placeholder="Password"
-                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
+                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         <!-- toggle password -->
                         <button @click="togglePasswordVisibility" type="button"
                             class="text-gray-500 focus:outline-none focus:text-gray-700">
-                            <span v-if="showPassword"><i class="text-white far fa-eye"></i></span>
-                            <span v-else><i class="text-white far fa-eye-slash"></i></span>
+                            <span v-if="showPassword"><i class=" far fa-eye"></i></span>
+                            <span v-else><i class=" far fa-eye-slash"></i></span>
                         </button>
                     </div>
                 </div>
@@ -126,13 +126,13 @@ export default {
                         :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
                         v-model="form.password_confirmation" :type="showPasswordConfirm ? 'text' : 'password'"
                         id="password-confirm" name="password-confirm" required placeholder="Confirm Password"
-                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
+                        class="form-input py-2 px-3 block w-full leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         <!-- toggle password confirm -->
                         <button @click="togglePasswordConfirmVisibility" type="button"
                             class="text-gray-500 focus:outline-none focus:text-gray-700">
-                            <span v-if="showPasswordConfirm"><i class="text-white far fa-eye"></i></span>
-                            <span v-else><i class="text-white far fa-eye-slash"></i></span>
+                            <span v-if="showPasswordConfirm"><i class=" far fa-eye"></i></span>
+                            <span v-else><i class=" far fa-eye-slash"></i></span>
                         </button>
                     </div>
                 </div>

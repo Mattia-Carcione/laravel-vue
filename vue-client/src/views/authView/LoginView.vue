@@ -66,7 +66,7 @@ export default {
           <div class="mt-2">
             <input v-model="form.email" id="email" name="email" type="email" autocomplete="email" required
               placeholder="Enter your email"
-              class="block w-full px-3 rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              class="block w-full px-3 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -84,13 +84,13 @@ export default {
           <div class="mt-2 relative rounded-md shadow-sm">
             <input v-model="form.password" :type="showPassword ? 'text' : 'password'" id="password" name="password"
               required placeholder="Password"
-              class="form-input py-2 px-3 block w-full text-white leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
+              class="form-input py-2 px-3 block w-full  leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
               <!-- toggle password -->
               <button @click="togglePasswordVisibility" type="button"
-                class="text-gray-500 focus:outline-none focus:text-gray-700">
-                <span v-if="showPassword"><i class="text-white far fa-eye"></i></span>
-                <span v-else><i class="text-white far fa-eye-slash"></i></span>
+                class=" focus:outline-none focus:text-gray-700">
+                <span v-if="showPassword"><i class="t far fa-eye"></i></span>
+                <span v-else><i class=" far fa-eye-slash"></i></span>
               </button>
             </div>
           </div>

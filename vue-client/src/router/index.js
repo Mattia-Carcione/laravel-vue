@@ -51,6 +51,18 @@ const router = createRouter({
           next('/login')
         }
       }
+    },
+    {
+      path: '/profile-password',
+      name: 'profile-password',
+      component: () => import('../templateUser/Profile.vue'),
+      beforeEnter: (to, from, next) => {
+        if (useAuth().getAuthenticated.value) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })

@@ -55,7 +55,10 @@ export default {
             this.setResponse();
             this.image = '';
         },
-        deleteInfo() {
+        clearImage() {
+            this.image = "http://localhost:8000/storage/avatars/" + this.user.path_image
+        },
+        clearInfo() {
             this.account.name = '';
             this.account.surname = '';
             this.account.phone = '';
@@ -243,14 +246,14 @@ export default {
                                     v-model="account.bio"
                                     class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                {{ account.bio }}
-                                                            </textarea>
+                                                                        {{ account.bio }}
+                                                                    </textarea>
                             </div>
                         </div>
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5">
-                            <div @click="deleteInfo"
+                            <div @click="clearInfo"
                                 class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
                                 Clear
                             </div>
@@ -329,7 +332,7 @@ export default {
                         <div id="FileUpload"
                             class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
                             <input @change="getUserImage" name="path_image" type="file"
-                                class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
+                                class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" accept=".jpg, .jpeg, .png">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <span
                                     class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -361,9 +364,9 @@ export default {
 
                         <!-- Save button -->
                         <div class="flex justify-end gap-4.5 mt-2">
-                            <div onclick="my_modal_5.showModal()"
-                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-red-600 hover:text-white dark:border-strokedark cursor-pointer hover:border-white">
-                                Delete
+                            <div @click="clearImage"
+                                class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
+                                Clear
                             </div>
                             <button
                                 class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"

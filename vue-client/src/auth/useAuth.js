@@ -161,10 +161,33 @@ export default function useAuth() {
             }
         }
     }
+
+    const updatePassword = async (credentials) => {
+        console.log(credentials);
+        try {
+            await axios.get("/sanctum/csrf-cookie");
+            await axios.put("/user/password", credentials, {
+                headers: {
+                    "X-XSRF-TOKEN": getToken(),
+                },
+            });
+            setUser(respone.data.user);
+            setMessage(respone.data.message);
+            setErrors('');
+        } catch (error) {
+            if (error.response.status === 422) {
+                setMessage('');
+                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
+            }
+        }
+    }
+
     return {
         login,
         logout,
         registerUser,
+        updatePassword,
         updateUser,
         updateUserImage,
         deleteImage,
