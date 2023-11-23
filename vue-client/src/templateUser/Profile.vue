@@ -2,9 +2,9 @@
 import { RouterLink, useRoute } from 'vue-router';
 import { reactive } from 'vue';
 
-import ProfileView from '../views/userView/ProfileView.vue';
+import AccountView from '../views/authView/AccountView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
-import UpdateEmailPasswordView from '../views/authView/UpdateEmailPasswordView.vue';
+import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 
 import useAuth from '../auth/useAuth';
 
@@ -29,7 +29,7 @@ export default {
             return this.path.includes('/profile-edit');
         },
         showResetPassword() {
-            return this.path.includes('/profile-password');
+            return this.path.includes('/profile-privacy');
         }
     },
     methods: {
@@ -47,7 +47,7 @@ export default {
         }
     },
     components: {
-        ProfileView,
+        AccountView,
         UpdateUserView,
         UpdateEmailPasswordView
     }
@@ -96,7 +96,7 @@ export default {
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/profile-password" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile-privacy" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
                     </RouterLink>
                 </li>
@@ -185,7 +185,7 @@ export default {
             <!-- Main content -->
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
-                <ProfileView :user="state.user" v-if="showProfile" />
+                <AccountView :user="state.user" v-if="showProfile" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showResetPassword" />
             </div>

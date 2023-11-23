@@ -21,12 +21,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/authView/LoginView.vue')
+      component: () => import('../views/authForm/LoginView.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/authView/RegisterView.vue')
+      component: () => import('../views/authForm/RegisterView.vue')
     },
     {
       path: '/profile',
@@ -53,8 +53,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile-password',
-      name: 'profile-password',
+      path: '/profile-privacy',
+      name: 'profile-privacy',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {

@@ -51,7 +51,7 @@ export default {
                             <h4 class="font-medium text-black">
                                 About Me
                             </h4>
-                            <p class="mt-3 sm: text-sm font-medium">
+                            <p class="mt-3 md:mx-20 lg:mx-36 text-sm font-medium">
                                 {{ user.bio }}
                             </p>
                         </div>
