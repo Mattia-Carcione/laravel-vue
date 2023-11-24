@@ -4,11 +4,6 @@ import ThemeController from '../../components/ThemeController.vue';
 export default {
     components: {
         ThemeController
-    },
-    methods: {
-        handleThemeChanged(theme) {
-            console.log('Tema cambiato:', theme);
-        },
     }
 }
 </script>
@@ -21,6 +16,6 @@ export default {
     </div>
 
     <div class="p-4">
-        <ThemeController @theme-changed="handleThemeChanged" />
+        <ThemeController />
     </div>
 </template>

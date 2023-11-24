@@ -1,13 +1,24 @@
 <script>
 import { RouterView } from 'vue-router'
+import { themeChange } from 'theme-change';
+
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 
 export default {
   components: {
-    Navbar: Navbar,
-    Footer: Footer
-  }
+    Navbar,
+    Footer
+  },
+  mounted() {
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme) {
+            themeChange(savedTheme);
+        } else {
+            themeChange(false);
+        }
+    },
 }
 </script>
 
