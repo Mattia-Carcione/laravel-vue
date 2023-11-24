@@ -16,7 +16,8 @@ export default {
         })
         return {
             sidebarOpen: false,
-            state
+            state,
+            showHello: false,
         }
     },
     computed: {
@@ -37,6 +38,10 @@ export default {
         }
     },
     methods: {
+        toggleDashboard() {
+            this.showHello = !this.showHello;
+            console.log(this.showHello)
+        },
         getImageSource() {
             const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
             const defaultImage = `http://localhost:8000/storage/default/file.jpeg`;
@@ -82,8 +87,12 @@ export default {
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="#" class="block hover:text-blue-300">
+                    <div @click="toggleDashboard" class="hover:text-blue-300 cursor-pointer">
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
+                        <i class="fa-solid fa-chevron-down pl-5"></i>
+                    </div>
+                    <RouterLink @click="toggleDashboard" to="/profile">
+                        <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
                     </RouterLink>
                 </li>
             </ul>
@@ -95,11 +104,11 @@ export default {
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile-edit" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-user-pen"></i>Account
-                    </RouterLink>
+                </RouterLink>
                 </li>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile-privacy" class="block hover:text-blue-300">
-                    <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
+                        <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
                     </RouterLink>
                 </li>
                 <li class="mb-2">
@@ -160,7 +169,7 @@ export default {
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                                    <li class="px-1">Item 2</li> -->
+                                                                                    <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
