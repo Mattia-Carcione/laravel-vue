@@ -94,7 +94,7 @@ export default {
 
                         <!-- Surname -->
                         <div class="w-full sm:w-1/2">
-                            <label class="mb-3 block text-sm font-medium text-black" for="surname">
+                            <label class="mb-3 block text-sm font-medium " for="surname">
                                 Surname
                             </label>
 
@@ -117,7 +117,7 @@ export default {
 
                     <!-- Phone -->
                     <div class="mb-5.5">
-                        <label class="mb-3 block text-sm font-medium text-black" for="phone">
+                        <label class="mb-3 block text-sm font-medium" for="phone">
                             Phone
                         </label>
                         <div class="relative">
@@ -167,7 +167,7 @@ export default {
 
                     <!-- Bio -->
                     <div class="mb-5.5">
-                        <label class="my-3 block text-sm font-medium text-black" for="bio">BIO</label>
+                        <label class="my-3 block text-sm font-medium" for="bio">BIO</label>
                         <div class="relative">
                             <span class="absolute left-4.5 top-4 pl-3">
                                 <svg class="fill-black" width="20" height="20" viewBox="0 0 20 20" fill="none"

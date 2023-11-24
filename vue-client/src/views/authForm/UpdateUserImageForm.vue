@@ -80,7 +80,7 @@ export default {
                     <div class="mb-4 flex items-center gap-3">
                         <!-- Profile image -->
                         <div class="h-14 w-14 rounded-full">
-                            <img :src="getImageSource()" alt="Profile Image" class="h-14 w-14 rounded-full">
+                            <img :src="getImageSource()" alt="Profile Image" class="h-14 w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         </div>
 
                         <!-- Edit -->

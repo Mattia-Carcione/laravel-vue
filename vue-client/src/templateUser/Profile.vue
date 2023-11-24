@@ -3,6 +3,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import { reactive } from 'vue';
 
 import AccountView from '../views/authView/AccountView.vue';
+import DashboardView from '../views/authView/DashboardView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 import AppereanceView from '../views/authView/AppereanceView.vue';
@@ -13,6 +14,9 @@ export default {
     data() {
         const state = reactive({
             user: useAuth().getUser,
+            errors: useAuth().getErrors,
+            authenticated: useAuth().getAuthenticated,
+            success: useAuth().getMessage
         })
         return {
             sidebarOpen: false,
@@ -26,6 +30,9 @@ export default {
         },
         showProfile() {
             return !this.path.includes('/profile-');
+        },
+        showDashboard() {
+            return this.path.includes('/profile-dashboard');
         },
         showEdit() {
             return this.path.includes('/profile-edit');
@@ -57,6 +64,7 @@ export default {
     },
     components: {
         AccountView,
+        DashboardView,
         UpdateUserView,
         UpdateEmailPasswordView,
         AppereanceView
@@ -91,7 +99,7 @@ export default {
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
                         <i class="fa-solid fa-chevron-down pl-5"></i>
                     </div>
-                    <RouterLink @click="toggleDashboard" to="/profile">
+                    <RouterLink @click="toggleDashboard" to="/profile-dashboard">
                         <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
                     </RouterLink>
                 </li>
@@ -196,6 +204,7 @@ export default {
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
+                <DashboardView :state="state" v-if="showDashboard" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

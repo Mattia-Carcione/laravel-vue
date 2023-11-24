@@ -41,6 +41,18 @@ const router = createRouter({
       }
     },
     {
+      path: '/profile-dashboard',
+      name: 'profile-dashboard',
+      component: () => import('../templateUser/Profile.vue'),
+      beforeEnter: (to, from, next) => {
+        if (useAuth().getAuthenticated.value) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
       path: '/profile-edit',
       name: 'profile-edit',
       component: () => import('../templateUser/Profile.vue'),
