@@ -5,6 +5,7 @@ import { reactive } from 'vue';
 import AccountView from '../views/authView/AccountView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
+import AppereanceView from '../views/authView/AppereanceView.vue';
 
 import useAuth from '../auth/useAuth';
 
@@ -28,8 +29,11 @@ export default {
         showEdit() {
             return this.path.includes('/profile-edit');
         },
-        showResetPassword() {
+        showUpdatePassword() {
             return this.path.includes('/profile-privacy');
+        },
+        showAppereance() {
+            return this.path.includes('/profile-appereance');
         }
     },
     methods: {
@@ -49,29 +53,27 @@ export default {
     components: {
         AccountView,
         UpdateUserView,
-        UpdateEmailPasswordView
+        UpdateEmailPasswordView,
+        AppereanceView
     }
 }
 </script>
 
 <template>
-    <div class="font-sans bg-gray-100 h-full flex overflow-hidden">
+    <div class="font-sans h-full flex overflow-hidden">
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
-            class="fixed lg:w-1/5 lg:block settings-sidebar hidden w-screen bg-gray-800 text-white p-4 min-h-screen">
+            class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-screen">
             <div class="flex justify-end">
-                <div class="lg:hidden p-2 border-white hover:border-white cursor-pointer btn btn-circle btn-outline"
-                    @click="toggleSidebar">
-                    <svg class="swap-on fill-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                        viewBox="0 0 512 512">
-                        <polygon
-                            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                <button class="lg:hidden btn btn-circle btn-outline" @click="toggleSidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-
-                </div>
+                </button>
             </div>
             <div class="mb-3 lg:mt-12">
-                <h2 class="text-2xl font-semibold">Menu</h2>
+                <h2 class="tex-2xl font-semibold">Menu</h2>
             </div>
             <ul>
                 <li class="mb-2">
@@ -87,7 +89,7 @@ export default {
             </ul>
             <hr class="my-4 border-t border-gray-700 me-20">
             <div class="mb-3">
-                <h2 class="text-2xl font-semibold">Settings</h2>
+                <h2 class="tex-2xl font-semibold">Settings</h2>
             </div>
             <ul>
                 <li class="mb-2">
@@ -97,17 +99,18 @@ export default {
                 </li>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile-privacy" class="block hover:text-blue-300">
-                        <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
+                    <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="#" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile-appereance"
+                        class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-palette"></i>Appearance
                     </RouterLink>
                 </li>
             </ul>
             <hr class="my-4 border-t border-gray-700 me-20">
-        <ul>
+            <ul>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-house"></i>Home
@@ -125,7 +128,7 @@ export default {
         <!-- Template User -->
         <main class="margin-custom flex-1" :class="{ 'visible-sidebar': !sidebarOpen, 'hidden-sidebar': sidebarOpen }">
             <!-- Navbar -->
-            <nav class="navbar bg-white sticky z-999 top-0 drop-shadow">
+            <nav class="navbar sticky z-10 top-0 border-b">
                 <div class="lg:hidden p-2 cursor-pointer" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="inline-block w-5 h-5 stroke-current">
@@ -137,8 +140,7 @@ export default {
                     <form action="" method="POST">
                         <div class="relative">
                             <button class="absolute top-1/2 left-0 -translate-y-1/2">
-                                <svg class=" fill-slate-800 hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
-                                    width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                <svg class="fill-primary" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
@@ -149,30 +151,29 @@ export default {
                                 </svg>
                             </button>
 
-                            <input type="text" placeholder="Type to search..."
+                            <input type="tex" placeholder="Type to search..."
                                 class="w-full xl:w-125 bg-transparent pr-4 pl-9 focus:outline-none">
                         </div>
                     </form>
                 </div>
                 <div class="flex-none gap-2">
-                    <ul class="menu items-center menu-horizontal bg-inherit rounded-box">
+                    <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                <li class="px-1">Item 2</li> -->
-                        <li class="px-1 hidden text-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
+                                                    <li class="px-1">Item 2</li> -->
+                        <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
-                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                        <label tabindex="0" class="z-20 btn btn-ghost btn-circle avatar">
                             <div class="w-10 rounded-full">
                                 <img alt="Tailwind CSS Navbar component" :src="getImageSource()" />
                             </div>
                         </label>
-                        <ul tabindex="0"
-                            class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded w-52 drop-shadow">
+                        <ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content rounded w-52 drop-shadow">
                             <li>
                                 <a class="justify-between">
                                     Profile
-                                    <span class="bg-white badge">New</span>
+                                    <span class="badge">New</span>
                                 </a>
                             </li>
                             <li><a>Settings</a></li>
@@ -187,13 +188,14 @@ export default {
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
-                <UpdateEmailPasswordView :user="state.user" v-if="showResetPassword" />
+                <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
+                <AppereanceView v-if="showAppereance" />
             </div>
         </main>
     </div>
 </template>
 
-<style scoped>
+<style>
 @media (max-width: 1023px) {
 
     .hidden-sidebar {
@@ -220,4 +222,5 @@ export default {
     .margin-custom {
         margin-left: 20%;
     }
-}</style>
+}
+</style>

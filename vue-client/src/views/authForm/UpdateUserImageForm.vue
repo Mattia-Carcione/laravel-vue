@@ -68,9 +68,9 @@ export default {
             </span>
         </div>
 
-        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
-                <h3 class="font-medium text-black">
+        <div class="rounded-sm border border-stroke shadow-default">
+            <div class="border-b border-stroke py-4 px-7">
+                <h3 class="font-medium">
                     Your Photo
                 </h3>
             </div>
@@ -85,7 +85,7 @@ export default {
 
                         <!-- Edit -->
                         <div>
-                            <span class="mb-1.5 font-medium text-black">Edit your photo</span>
+                            <span class="mb-1.5 font-medium">Edit your photo</span>
                             <span class="flex gap-2.5">
                                 <div onclick="my_modal_5.showModal()"
                                     class="text-sm font-medium hover:text-error cursor-pointer">
@@ -122,7 +122,7 @@ export default {
                     </div>
 
                     <div id="FileUpload"
-                        class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
+                        class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary py-4 px-4 sm:py-7.5">
                         <input @change="getUserImage" name="path_image" type="file"
                             class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                             accept=".jpg, .jpeg, .png">
@@ -158,11 +158,11 @@ export default {
                     <!-- Save button -->
                     <div class="flex justify-end gap-4.5 mt-2">
                         <div @click="clearImage"
-                            class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
+                        class="flex justify-center btn-outline rounded border border-stroke py-2 px-6 font-medium  hover:shadow-1  cursor-pointer">
                             Clear
                         </div>
                         <button
-                            class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
+                            class="flex ml-2 justify-center rounded shadow-sm bg-primary py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:bg-opacity-90"
                             type="submit">
                             Save
                         </button>

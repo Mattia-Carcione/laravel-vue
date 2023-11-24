@@ -20,15 +20,15 @@ export default {
 <template>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <div class="mx-auto max-w-242.5">
-                <h2 class="mb-6 text-title-md2 text-lg  font-bold text-black">
+                <h2 class="mb-6 text-title-md2 text-lg font-bold">
                     Profile
                 </h2>
 
             <!-- Profile section -->
-            <section class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <section class="rounded-sm border border-stroke shadow-default">
                 <div class="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
                     <!-- Profile img -->
-                    <div class="mx-auto h-32 w-48 mb-10 bg-white/20 p-1 backdrop-blur flex items-center justify-center">
+                    <div class="mx-auto h-32 w-48 mb-10 p-1 backdrop-blur flex items-center justify-center">
                         <div class="drop-shadow-2">
                             <img class="img-profile rounded-full ring ring-primary ring-offset-base-100 ring-offset-2" :src="getImageSource()" alt="profile">
                         </div>
@@ -36,7 +36,7 @@ export default {
 
                     <!-- User info -->
                     <div class="mt-4">
-                        <h3 class="mb-1.5 text-2xl font-medium text-black ">
+                        <h3 class="mb-1.5 text-2xl font-medium">
                             {{ user.name }} {{ user.surname }} <span>
                                 <RouterLink :to="{ name: 'profile-edit' }"><i class="fa-regular fa-pen-to-square"></i>
                                 </RouterLink>
@@ -48,7 +48,7 @@ export default {
 
                         <!-- User description -->
                         <div class="mx-auto mt-10 max-w-180">
-                            <h4 class="font-medium text-black">
+                            <h4 class="font-medium">
                                 About Me
                             </h4>
                             <p class="mt-3 md:mx-20 lg:mx-36 text-sm font-medium">

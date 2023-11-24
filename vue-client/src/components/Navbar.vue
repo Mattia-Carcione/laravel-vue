@@ -31,7 +31,7 @@ export default {
 <template>
     <div v-if="ShowNavbar">
         <!-- Top navigation -->
-        <nav class="navbar bg-base-100 hidden lg:flex z-40">
+        <nav class="navbar hidden lg:flex z-40">
             <div class="navbar-start">
                 <!-- Dropdwown hover -->
                 <div class="dropdown dropdown-hover">
@@ -44,7 +44,7 @@ export default {
                     </label>
 
                     <!-- Dropdown list -->
-                    <ul class="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul class="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-box w-52">
                         <li>
                             <RouterLink to="/">Home</RouterLink>
                         </li>
@@ -95,7 +95,7 @@ export default {
                     </label>
 
                     <!-- Dropdown list -->
-                    <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box">
+                    <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow rounded-box">
                         <li>
                             <RouterLink to="/profile">Profile</RouterLink>
                         </li>

@@ -38,7 +38,7 @@ export default {
 
 <template>
     <div class="mb-6 mx-5 mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="text-title-md2 text-lg  font-bold text-black">
+        <h2 class="text-title-md2 text-lg font-bold">
             Privacy Policy
         </h2>
     </div>
@@ -49,7 +49,7 @@ export default {
         {{ form.success }}
     </div>
 
-    <div class="md:mx-20 mt-10 border border-stroke bg-white shadow-default">
+    <div class="md:mx-20 mt-10 border border-stroke shadow-default">
 
         <!-- Update TwoFactorl -->
         <div class="accordion">
@@ -89,8 +89,7 @@ export default {
   
 <style scoped>
 .accordion {
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid;
     overflow: hidden;
 }
 
@@ -99,8 +98,7 @@ export default {
     justify-content: space-between;
     padding: 1rem;
     cursor: pointer;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid;
 }
 
 .accordion-title {
@@ -117,7 +115,7 @@ export default {
 
 .accordion-content {
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid;
 }
 </style>
   

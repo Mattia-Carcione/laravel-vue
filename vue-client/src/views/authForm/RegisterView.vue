@@ -49,7 +49,7 @@ export default {
 
 <template>
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">Create an Account
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">Create an Account
         </h2>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -64,11 +64,11 @@ export default {
 
             <!-- Name input -->
             <div>
-                <label for="name" class="block text-sm font-medium leading-6 text-white-900">Your Name</label>
+                <label for="name" class="block text-sm font-medium leading-6">Your Name</label>
                 <div class="mt-2">
                     <input :class="{ 'border-red-700': form.error.name, 'border-2': form.error.name }" v-model="form.name"
                         id="name" name="name" type="text" placeholder="First Name Last Name" required
-                        class="block w-full rounded-md border-0 px-3 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        class="block w-full rounded-md border-0 px-3 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
 
@@ -80,7 +80,7 @@ export default {
 
             <!-- Email input -->
             <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-white-900">Email</label>
+                <label for="email" class="block text-sm font-medium leading-6">Email</label>
                 <div class="mt-2">
                     <input :class="{ 'border-red-700': form.error.email, 'border-2': form.error.email }"
                         v-model="form.email" id="email" name="email" type="email" required placeholder="Enter your email"
@@ -97,7 +97,7 @@ export default {
             <!-- Password input -->
             <div>
                 <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-medium leading-6 text-white-900">Choose Password</label>
+                    <label for="password" class="block text-sm font-medium leading-6">Choose Password</label>
                 </div>
                 <div class="mt-2 relative rounded-md shadow-sm">
                     <input :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
@@ -118,7 +118,7 @@ export default {
             <!-- Input Conferma Password -->
             <div class="mt-4">
                 <div class="flex items-center justify-between">
-                    <label for="password-confirm" class="block text-sm font-medium leading-6 text-white-900">Confirm
+                    <label for="password-confirm" class="block text-sm font-medium leading-6">Confirm
                         Password</label>
                 </div>
                 <div class="mt-2 relative rounded-md shadow-sm">

@@ -37,9 +37,9 @@ export default {
 <template>
     <!-- Personal Information -->
     <div class="md:col-span-6 col-span-10">
-        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
-                <h3 class="font-medium text-black">
+        <div class="rounded-sm border border-stroke shadow-default">
+            <div class="border-b border-stroke py-4 px-7">
+                <h3 class="font-medium">
                     Personal Information
                 </h3>
             </div>
@@ -67,7 +67,7 @@ export default {
                     <div class="mb-5.5 flex mb-3 flex-col gap-5.5 sm:flex-row">
                         <!-- Name -->
                         <div class="w-full sm:w-1/2 mr-1">
-                            <label class="mb-3 block text-sm font-medium text-black" for="name">
+                            <label class="mb-3 block text-sm font-medium " for="name">
                                 Name
                             </label>
                             <div class="relative">
@@ -143,7 +143,7 @@ export default {
 
                     <!-- About Job -->
                     <div class="my-5">
-                        <label class="mb-3 block text-sm font-medium text-black" for="about">About Job</label>
+                        <label class="mb-3 block text-sm font-medium" for="about">About Job</label>
                         <div class="relative">
                             <span class="absolute pl-3 left-4.5 top-3.5">
                                 <i class="fa-solid fa-briefcase text-black"></i>
@@ -200,11 +200,11 @@ export default {
                     <!-- Save button -->
                     <div class="flex justify-end gap-4.5">
                         <div @click="clearInfo"
-                            class="flex justify-center btn-base-300 btn-outline rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 hover:bg-black hover:text-white dark:border-strokedark cursor-pointer">
+                            class="flex justify-center btn-outline rounded border border-stroke py-2 px-6 font-medium  hover:shadow-1  cursor-pointer">
                             Clear
                         </div>
                         <button
-                            class="flex ml-2 justify-center rounded shadow-sm bg-indigo-600 py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:bg-opacity-90"
+                            class="flex ml-2 justify-center rounded shadow-sm bg-primary py-2 px-6 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:bg-opacity-90"
                             type="submit">
                             Save
                         </button>
