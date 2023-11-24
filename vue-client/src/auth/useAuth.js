@@ -12,6 +12,10 @@ function getToken() {
     return decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"));
 }
 
+async function getCSRFToken() {
+    return await axios.get('/sanctum/csrf-cookie');
+}
+
 // login and authentication methods
 export default function useAuth() {
     const getAuthenticated = computed(() => state.authenticated);
@@ -49,8 +53,7 @@ export default function useAuth() {
     }
 
     const login = async (credentials) => {
-        console.log(credentials);
-        await axios.get('/sanctum/csrf-cookie')
+        await getCSRFToken();
         try {
             await axios.post('/login', credentials, {
                 headers: {
@@ -67,6 +70,7 @@ export default function useAuth() {
 
     const logout = async () => {
         try {
+            await getCSRFToken();
             await axios.post('/logout', {}, {
                 headers: {
                     'X-XSRF-TOKEN': getToken()
@@ -81,8 +85,8 @@ export default function useAuth() {
 
     const registerUser = async (credentials) => {
         try {
-            await axios.get("/sanctum/csrf-cookie");
-            const response = await axios.post("/register", credentials, {
+            await getCSRFToken();
+            await axios.post("/register", credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
                 },
@@ -99,7 +103,7 @@ export default function useAuth() {
     const updateUser = async (credentials) => {
         const user = state.user.id;
         try {
-            await axios.get("/sanctum/csrf-cookie");
+            await getCSRFToken();
             const respone = await axios.put(`/api/user-update/${user}`, credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
@@ -120,7 +124,7 @@ export default function useAuth() {
         console.log(credentials);
         const user = state.user.id;
         try {
-            await axios.get("/sanctum/csrf-cookie");
+            await getCSRFToken();
             const respone = await axios.post(`/api/user-update-image/${user}`, credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
@@ -141,7 +145,7 @@ export default function useAuth() {
     const deleteImage = async () => {
         const user = state.user.id;
         try {
-            await axios.get("/sanctum/csrf-cookie");
+            await getCSRFToken();
             const respone = await axios.delete(`/api/user-delete-image/${user}`, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
@@ -161,7 +165,7 @@ export default function useAuth() {
     const updatePassword = async (credentials) => {
         console.log(credentials);
         try {
-            await axios.get("/sanctum/csrf-cookie");
+            await getCSRFToken();
             const response = await axios.put("/user/password", credentials, {
                 headers: {
                     "X-XSRF-TOKEN": getToken(),
