@@ -2,13 +2,13 @@ import { reactive, computed } from 'vue';
 import axios from 'axios';
 
 const announcements = reactive({
-    data: [],
+    data: {},
     error: null,
     success: null
 })
 
 const categories = reactive({
-    data: [],
+    data: {},
     error: null,
 })
 
@@ -38,20 +38,22 @@ export default function useAnnouncement() {
         announcements.success = success;
     }
 
-    const setCategories = async (categories) => {
-        categories.data = categories;
+    const setCategories = async (response) => {
+        categories.data = response;
     }
 
-    const setCategoryError = (error) => {
-        categories.error = error;
+    const setCategoryError = (response) => {
+        categories.error = response;
     }
 
     const fetchCategories = async () => {
         try {
             const response = await axios.get('/api/announcement-categories');
             setCategories(response.data.data);
+            setCategoryError('');
         } catch (error) {
             setCategoryError(error.response.data);
+            setCategories([]);
         }
     }
     const store = async (data) => {

@@ -20,7 +20,7 @@ export default {
             success: useAuth().getMessage
         });
         const data = reactive({
-            categories: [],
+            categories: '',
             error: '',
         });
         return {
@@ -28,7 +28,7 @@ export default {
             data,
             state,
             showHello: false,
-            categories: useAnnouncement()
+            fetch: useAnnouncement()
         }
     },
     computed: {
@@ -67,17 +67,10 @@ export default {
             useAuth().logout();
             this.$router.push({ name: 'home' })
         },
-        async fethCategories() {
-            await this.categories.fetchCategories();
-            if (this.categories.getCategoryError) {
-                this.data.categories = [];
-                this.data.error = this.categories.getCategoryError;
-            } else {
-                this.data.categories = this.categories.getCategories;
-                this.data.error = '';
-            }
-            console.log(this.data.categories)
-        }
+        async fetchCategories() {
+            await this.fetch.fetchCategories();
+            this.data.categories = this.fetch.getCategories
+        },
     },
     components: {
         AccountView,
@@ -87,7 +80,7 @@ export default {
         AppereanceView
     },
     mounted() {
-        this.fethCategories();
+        this.fetchCategories();
     }
 }
 </script>
@@ -106,13 +99,13 @@ export default {
                 </button>
             </div>
             <div class="mb-3 lg:mt-12">
-            <h2 class="tex-2xl font-semibold">Menu</h2>
+                <h2 class="tex-2xl font-semibold">Menu</h2>
             </div>
             <ul>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile" class="block hover:text-blue-300">
                         <i class="pe-1 fa-regular fa-user"></i>Profile
-                    </RouterLink>
+                </RouterLink>
                 </li>
                 <li class="mb-2">
                     <div @click="toggleDashboard" class="hover:text-blue-300 cursor-pointer">
@@ -198,7 +191,7 @@ export default {
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                                                                            <li class="px-1">Item 2</li> -->
+                                                                                                    <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">

@@ -25,13 +25,16 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // User update Routes
+    // API User CRUD Routes
     Route::put('/user-update/{user}', [UpdateUserController::class, 'update']);
     Route::post('/user-update-image/{user}', [UpdateUserController::class, 'updateImage']);
     Route::delete('/user-delete-image/{user}', [UpdateUserController::class, 'destroyImage']);
 
-    // Announcement CRUD Routes
+    // API Announcement CRUD Routes
     Route::post('/announcement-create', [AnnouncementController::class, 'store']);
-    Route::put('/announcement-create', [AnnouncementController::class, 'update']);
-    Route::delete('/announcement-create', [AnnouncementController::class, 'destroy']);
+    Route::put('/announcement-update', [AnnouncementController::class, 'update']);
+    Route::delete('/announcement-delete', [AnnouncementController::class, 'destroy']);
 });
+
+// API Fetch Categories
+Route::get('/announcement-categories', [AnnouncementController::class, 'getAnnouncementCategories']);
