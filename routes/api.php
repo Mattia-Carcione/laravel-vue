@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UpdateUserController;
+use App\Http\Controllers\AnnouncementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user-update/{user}', [UpdateUserController::class, 'update']);
     Route::post('/user-update-image/{user}', [UpdateUserController::class, 'updateImage']);
     Route::delete('/user-delete-image/{user}', [UpdateUserController::class, 'destroyImage']);
+
+    // Announcement CRUD Routes
+    Route::post('/announcement-create', [AnnouncementController::class, 'store']);
+    Route::put('/announcement-create', [AnnouncementController::class, 'update']);
+    Route::delete('/announcement-create', [AnnouncementController::class, 'destroy']);
 });
