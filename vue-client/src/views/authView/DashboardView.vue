@@ -1,6 +1,6 @@
 <script>
 import { reactive } from 'vue';
-import AnnouncementForm from '../authForm/AnnouncementForm.vue';
+import AnnouncementForm from '../announceForm/AnnouncementForm.vue';
 
 export default {
     props: {

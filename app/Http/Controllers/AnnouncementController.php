@@ -20,7 +20,8 @@ class AnnouncementController extends Controller
         Announcement::create([
             'title' => $request->title,
             'body' => $request->body,
-            'price' => $request->price
+            'price' => $request->price,
+            'category_id' => $request->category_id
         ]);
 
         return response()->json([

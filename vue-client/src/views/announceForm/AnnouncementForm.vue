@@ -110,17 +110,17 @@ export default {
 
                 <!-- Validation category error -->
                 <div v-if="error.errors.category_id"
-                    class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                    class="hidden lg:flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ error.errors.category_id[0] }}
                     </span>
                 </div>
 
-                <div class="mb-5.5 flex items-center mb-3 flex-col  sm:flex-row ">
+                <div class="mb-5.5 flex items-center mb-3 flex-col lg:flex-row ">
 
                     <!-- Price -->
-                    <div class="mb-5.5 mt-5 w-full md:w-1/2  mr-1">
+                    <div class="mb-5.5 mt-5 w-full lg:w-1/2  mr-1">
                         <label class="mb-3 block text-sm font-medium" for="price">
                             Price
                         </label>
@@ -135,20 +135,30 @@ export default {
                         </div>
                     </div>
 
+                    <!-- Validation category error -->
+                    <div v-if="error.errors.category_id"
+                        class="flex w-full mt-5 lg:hidden bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                        role="alert">
+                        <span class="font-bold block sm:inline">
+                            {{ error.errors.category_id[0] }}
+                        </span>
+                    </div>
+
                     <!-- Category -->
-                    <div class="form-control w-full md:w-1/2 mb-5.5 mt-5">
+                    <div class="form-control w-full lg:w-1/2 mb-5.5 mt-5">
                         <label class="mb-3 block text-sm font-medium">
                             <span>Category</span>
                         </label>
                         <select v-model="form.category_id"
                             :class="{ 'border-red-700': error.errors.price, 'border-green-700': message.success, }"
                             class="select w-full select-bordered font-medium text-black focus:border-primary focus-visible:outline-none border-2 rounded bg-slate-200">
-                            <option disabled selected>{{ form.category_id }}</option>
-                            <option v-for="category in categories.categories" :key="category.id">{{ category.name }}
+                            <option disabled selected>--Choose a category</option>
+                            <option :value="category.id" v-for="category in categories.categories" :key="category.id">{{
+                                category.name }}
                             </option>
                         </select>
                     </div>
-                    
+
                 </div>
 
                 <!-- Validation body error -->
@@ -172,7 +182,7 @@ export default {
                             :class="{ 'border-red-700': error.errors.body, 'border-green-700': message.success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             name="body" id="body" rows="6" placeholder="Write a description here">
-                                                                                                                                            </textarea>
+                                                                                                                                                    </textarea>
                     </div>
                 </div>
 
