@@ -31,7 +31,7 @@ export default {
 <template>
     <div v-if="ShowNavbar">
         <!-- Top navigation -->
-        <nav class="navbar hidden lg:flex z-40">
+        <nav class="navbar fixed hidden lg:flex z-40">
             <div class="navbar-start">
                 <!-- Dropdwown hover -->
                 <div class="dropdown dropdown-hover">

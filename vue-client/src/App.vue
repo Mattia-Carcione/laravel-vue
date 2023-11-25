@@ -22,14 +22,16 @@ export default {
   },
   methods: {
     async fetchAnnouncements() {
-      await this.fetch.fetchAnnouncements();
-      if (!this.fetch.getError) {
+      try {
+        await this.fetch.fetchAnnouncements();
         this.data = this.fetch.getData
+      } catch (error) {
+        this.data = null
       }
     }
   },
-  mounted() {
-    this.fetchAnnouncements();
+  async created() {
+    await this.fetchAnnouncements();
     const savedTheme = localStorage.getItem('theme');
 
     if (savedTheme) {
