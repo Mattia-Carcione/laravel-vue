@@ -41,9 +41,11 @@ export default function useAnnouncement() {
                 }
             });
             setData(response.data.data);
-            setSuccess(response.data.success);
+            setSuccess(response.data.message);
+            setError('');
         } catch (error) {
-            setError(error.response.data.message);
+            setError(error.response.data);
+            setSuccess('');
         }
     }
 

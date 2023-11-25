@@ -1,12 +1,27 @@
 <script>
+import { reactive } from 'vue';
 import AnnouncementForm from '../authForm/AnnouncementForm.vue';
 
 export default {
     props: {
         state: Object
     },
+    data() {
+        const message = reactive({
+            success: ''
+        })
+        return {
+            message
+        }
+    },
     components: {
         AnnouncementForm
+    },
+    methods: {
+        handleUpdateMessage(newMessage) {
+            this.message.success = newMessage;
+            console.log(this.message);
+        }
     }
 }
 </script>
@@ -18,7 +33,13 @@ export default {
         </h2>
     </div>
 
+    <!-- Message Success -->
+    <div v-if="message.success"
+        class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
+        {{ message.success }}
+    </div>
+
     <div class="p-4">
-        <AnnouncementForm :state="state"/>
+        <AnnouncementForm :state="state" @update-message="handleUpdateMessage"/>
     </div>
 </template>
