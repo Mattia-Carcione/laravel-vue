@@ -25,6 +25,7 @@ export default {
                 title: '',
                 body: '',
                 price: '',
+                category_id: '--Choose a category',
             },
             error,
             message
@@ -32,6 +33,7 @@ export default {
     },
     methods: {
         async createAnnouncement() {
+            console.log(this.form);
             await this.announce.store(this.form);
             this.setREsponse();
             this.$emit('update-message', this.message.success);
@@ -39,6 +41,8 @@ export default {
         setREsponse() {
             if (this.announce.getError) {
                 this.error = this.announce.getError;
+                console.log(this.error);
+
                 this.message.success = '';
             } else {
                 this.message.success = this.announce.getSuccess;
@@ -52,6 +56,7 @@ export default {
             this.form.title = '';
             this.form.body = '';
             this.form.price = '';
+            this.form.category_id = '--Choose a category';
         }
     }
 }
@@ -94,6 +99,58 @@ export default {
                     </div>
                 </div>
 
+                <!-- Validation price error -->
+                <div v-if="error.errors.price"
+                    class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                    role="alert">
+                    <span class="font-bold block sm:inline">
+                        {{ error.errors.price[0] }}
+                    </span>
+                </div>
+
+                <!-- Validation category error -->
+                <div v-if="error.errors.category_id"
+                    class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                    role="alert">
+                    <span class="font-bold block sm:inline">
+                        {{ error.errors.category_id[0] }}
+                    </span>
+                </div>
+
+                <div class="mb-5.5 flex items-center mb-3 flex-col  sm:flex-row ">
+
+                    <!-- Price -->
+                    <div class="mb-5.5 mt-5 w-full md:w-1/2  mr-1">
+                        <label class="mb-3 block text-sm font-medium" for="price">
+                            Price
+                        </label>
+                        <div class="relative">
+                            <span class="absolute pl-3 left-4.5 top-3.5">
+                                <i class="fa-solid fa-money-bill-wave text-black"></i>
+                            </span>
+                            <input v-model="form.price"
+                                :class="{ 'border-red-700': error.errors.price, 'border-green-700': message.success, }"
+                                class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                                placeholder="$12.34" type="text" name="price" id="price">
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-control w-full md:w-1/2 mb-5.5 mt-5">
+                        <label class="mb-3 block text-sm font-medium">
+                            <span>Category</span>
+                        </label>
+                        <select v-model="form.category_id"
+                            :class="{ 'border-red-700': error.errors.price, 'border-green-700': message.success, }"
+                            class="select w-full select-bordered font-medium text-black focus:border-primary focus-visible:outline-none border-2 rounded bg-slate-200">
+                            <option disabled selected>{{ form.category_id }}</option>
+                            <option v-for="category in categories.categories" :key="category.id">{{ category.name }}
+                            </option>
+                        </select>
+                    </div>
+                    
+                </div>
+
                 <!-- Validation body error -->
                 <div v-if="error.errors.body"
                     class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
@@ -115,32 +172,7 @@ export default {
                             :class="{ 'border-red-700': error.errors.body, 'border-green-700': message.success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             name="body" id="body" rows="6" placeholder="Write a description here">
-                                                                                                                </textarea>
-                    </div>
-                </div>
-
-                <!-- Validation price error -->
-                <div v-if="error.errors.price"
-                    class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
-                    role="alert">
-                    <span class="font-bold block sm:inline">
-                        {{ error.errors.price[0] }}
-                    </span>
-                </div>
-
-                <!-- Price -->
-                <div class="mb-5.5">
-                    <label class="mb-3 block text-sm font-medium" for="price">
-                        price
-                    </label>
-                    <div class="relative">
-                        <span class="absolute pl-3 left-4.5 top-3.5">
-                            <i class="fa-solid fa-money-bill-wave text-black"></i>
-                        </span>
-                        <input v-model="form.price"
-                            :class="{ 'border-red-700': error.errors.price, 'border-green-700': message.success, }"
-                            class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
-                            placeholder="$123" type="text" name="price" id="price">
+                                                                                                                                            </textarea>
                     </div>
                 </div>
 
@@ -158,4 +190,5 @@ export default {
                 </div>
             </form>
         </div>
-</div></template>
+    </div>
+</template>

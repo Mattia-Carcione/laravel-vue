@@ -70,6 +70,7 @@ export default {
         async fetchCategories() {
             await this.fetch.fetchCategories();
             this.data.categories = this.fetch.getCategories
+            this.data.error = this.fetch.getErrors
         },
     },
     components: {
