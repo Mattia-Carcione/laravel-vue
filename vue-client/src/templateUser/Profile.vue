@@ -12,6 +12,9 @@ import useAuth from '../auth/useAuth';
 import useAnnouncement from '../announcement/useAnnouncement';
 
 export default {
+    props: {
+        data: Object
+    },
     data() {
         const state = reactive({
             user: useAuth().getUser,
@@ -19,13 +22,10 @@ export default {
             authenticated: useAuth().getAuthenticated,
             success: useAuth().getMessage
         });
-        const data = reactive({
-            categories: '',
-            error: '',
-        });
+        const categories = reactive({});
         return {
             sidebarOpen: false,
-            data,
+            categories,
             state,
             showHello: false,
             fetch: useAnnouncement()
@@ -69,9 +69,16 @@ export default {
         },
         async fetchCategories() {
             await this.fetch.fetchCategories();
-            this.data.categories = this.fetch.getCategories
-            this.data.error = this.fetch.getErrors
-        },
+            if (!this.fetch.getError) {
+                console.log(this.fetch.getCategories)
+                this.categories = this.fetch.getCategories
+            } else {
+                this.categories = null
+            }
+        }
+    },
+    mounted() {
+        this.fetchCategories();
     },
     components: {
         AccountView,
@@ -80,9 +87,6 @@ export default {
         UpdateEmailPasswordView,
         AppereanceView
     },
-    mounted() {
-        this.fetchCategories();
-    }
 }
 </script>
 
@@ -102,11 +106,11 @@ export default {
             <div class="mb-3 lg:mt-12">
                 <h2 class="tex-2xl font-semibold">Menu</h2>
             </div>
-            <ul>
+        <ul>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile" class="block hover:text-blue-300">
                         <i class="pe-1 fa-regular fa-user"></i>Profile
-                </RouterLink>
+                    </RouterLink>
                 </li>
                 <li class="mb-2">
                     <div @click="toggleDashboard" class="hover:text-blue-300 cursor-pointer">
@@ -192,7 +196,7 @@ export default {
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                                                                                    <li class="px-1">Item 2</li> -->
+                                                                                                        <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
@@ -219,7 +223,7 @@ export default {
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
-                <DashboardView :user="state.user" v-if="showDashboard" :categories="data" />
+                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

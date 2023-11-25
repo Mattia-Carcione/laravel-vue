@@ -56,6 +56,18 @@ export default function useAnnouncement() {
             setCategories([]);
         }
     }
+
+    const fetchAnnouncements = async () => {
+        try {
+            const response = await axios.get('/api/announcements');
+            setData(response.data.data);
+            setError('');
+        } catch (error) {
+            setError(error.response.data);
+            setData([]);
+        }
+    }
+    
     const store = async (data) => {
         try {
             await getCSRFToken();
@@ -78,6 +90,7 @@ export default function useAnnouncement() {
         getData,
         getError,
         getSuccess,
+        fetchAnnouncements,
         fetchCategories,
         getCategories,
         getCategoryError,

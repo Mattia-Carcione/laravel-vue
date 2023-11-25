@@ -153,7 +153,7 @@ export default {
                             :class="{ 'border-red-700': error.errors.price, 'border-green-700': message.success, }"
                             class="select w-full select-bordered font-medium text-black focus:border-primary focus-visible:outline-none border-2 rounded bg-slate-200">
                             <option disabled selected>--Choose a category</option>
-                            <option :value="category.id" v-for="category in categories.categories" :key="category.id">{{
+                            <option :value="category.id" v-for="category in categories" :key="category.id">{{
                                 category.name }}
                             </option>
                         </select>

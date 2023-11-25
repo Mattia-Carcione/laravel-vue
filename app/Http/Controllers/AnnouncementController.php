@@ -9,14 +9,16 @@ use App\Models\Category;
 
 class AnnouncementController extends Controller
 {
-    public function getAnnouncementCategories(){
+    public function getAnnouncementCategories()
+    {
         return response()->json([
             'data' => Category::all(),
             'status' => 'success'
         ]);
     }
 
-    public function store (StoreAnnouncementRequest $request){
+    public function store(StoreAnnouncementRequest $request)
+    {
         Announcement::create([
             'title' => $request->title,
             'body' => $request->body,
@@ -28,7 +30,21 @@ class AnnouncementController extends Controller
         return response()->json([
             'message' => 'Announcement created successfully',
             'status' => 'success',
-            'data' => Announcement::all()
+        ]);
+    }
+
+    public function getAnnouncements()
+    {
+        $announcements = Announcement::with(['user', 'category'])
+            ->orderByDesc('created_at')
+            ->get();
+            // ->reject(function ($announcement) {
+            //     // Filtra via gli annunci con dati vuoti o nulli
+            //     return empty($announcement->user) || empty($announcement->category);
+            // });
+        return response()->json([
+            'data' => $announcements,
+            'status' => 'success'
         ]);
     }
 }
