@@ -23,7 +23,7 @@ class StoreAnnouncementRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|min:10|max:255',
+            'body' => 'required|string|min:10|max:255',
             'price' => 'required|decimal:0,2',
         ];
     }

@@ -14,5 +14,11 @@ class AnnouncementController extends Controller
             'body' => $request->body,
             'price' => $request->price
         ]);
+
+        return response()->json([
+            'message' => 'Announcement created successfully',
+            'status' => 'success',
+            'data' => Announcement::all()
+        ]);
     }
 }
