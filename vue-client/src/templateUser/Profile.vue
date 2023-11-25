@@ -9,6 +9,7 @@ import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 import AppereanceView from '../views/authView/AppereanceView.vue';
 
 import useAuth from '../auth/useAuth';
+import useAnnouncement from '../announcement/useAnnouncement';
 
 export default {
     data() {
@@ -17,11 +18,17 @@ export default {
             errors: useAuth().getErrors,
             authenticated: useAuth().getAuthenticated,
             success: useAuth().getMessage
-        })
+        });
+        const data = reactive({
+            categories: [],
+            error: '',
+        });
         return {
             sidebarOpen: false,
+            data,
             state,
             showHello: false,
+            categories: useAnnouncement()
         }
     },
     computed: {
@@ -47,7 +54,6 @@ export default {
     methods: {
         toggleDashboard() {
             this.showHello = !this.showHello;
-            console.log(this.showHello)
         },
         getImageSource() {
             const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
@@ -60,6 +66,17 @@ export default {
         logout() {
             useAuth().logout();
             this.$router.push({ name: 'home' })
+        },
+        async fethCategories() {
+            await this.categories.fetchCategories();
+            if (this.categories.getCategoryError) {
+                this.data.categories = [];
+                this.data.error = this.categories.getCategoryError;
+            } else {
+                this.data.categories = this.categories.getCategories;
+                this.data.error = '';
+            }
+            console.log(this.data.categories)
         }
     },
     components: {
@@ -68,6 +85,9 @@ export default {
         UpdateUserView,
         UpdateEmailPasswordView,
         AppereanceView
+    },
+    mounted() {
+        this.fethCategories();
     }
 }
 </script>
@@ -86,7 +106,7 @@ export default {
                 </button>
             </div>
             <div class="mb-3 lg:mt-12">
-                <h2 class="tex-2xl font-semibold">Menu</h2>
+            <h2 class="tex-2xl font-semibold">Menu</h2>
             </div>
             <ul>
                 <li class="mb-2">
@@ -99,12 +119,12 @@ export default {
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
                         <i class="fa-solid fa-chevron-down pl-5"></i>
                     </div>
-                    <RouterLink @click="() => {sidebarOpen = false, showHello = false}" to="/profile-dashboard">
+                    <RouterLink @click="() => { sidebarOpen = false, showHello = false }" to="/profile-dashboard">
                         <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i
                                 class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
                     </RouterLink>
                 </li>
-        </ul>
+            </ul>
             <hr class="my-4 border-t border-gray-700 me-20">
             <div class="mb-3">
                 <h2 class="tex-2xl font-semibold">Settings</h2>
@@ -178,7 +198,7 @@ export default {
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                                                                        <li class="px-1">Item 2</li> -->
+                                                                                            <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
@@ -205,7 +225,7 @@ export default {
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
-                <DashboardView :state="state" v-if="showDashboard" />
+                <DashboardView :user="state.user" v-if="showDashboard" :categories="data" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

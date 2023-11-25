@@ -5,7 +5,8 @@ import { reactive } from 'vue';
 export default {
     emits: ['update-message'],
     props: {
-        state: Object
+        categories: Object,
+        user: Object
     },
     data() {
         const error = reactive({

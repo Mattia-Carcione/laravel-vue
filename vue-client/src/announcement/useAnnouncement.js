@@ -1,10 +1,15 @@
 import { reactive, computed } from 'vue';
 import axios from 'axios';
 
-const response = reactive({
+const announcements = reactive({
     data: [],
     error: null,
     success: null
+})
+
+const categories = reactive({
+    data: [],
+    error: null,
 })
 
 function getToken() {
@@ -16,22 +21,39 @@ async function getCSRFToken() {
 }
 
 export default function useAnnouncement() {
-    const getData = computed(() => response.data);
-    const getError = computed(() => response.error);
-    const getSuccess = computed(() => response.success);
-
+    const getData = computed(() => announcements.data);
+    const getError = computed(() => announcements.error);
+    const getSuccess = computed(() => announcements.success);
+    const getCategories = computed(() => categories.data);
+    const getCategoryError = computed(() => categories.error);
     const setData = (data) => {
-        response.data = data;
+        announcements.data = data;
     }
 
     const setError = (error) => {
-        response.error = error;
+        announcements.error = error;
     }
 
     const setSuccess = (success) => {
-        response.success = success;
+        announcements.success = success;
     }
 
+    const setCategories = async (categories) => {
+        categories.data = categories;
+    }
+
+    const setCategoryError = (error) => {
+        categories.error = error;
+    }
+
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get('/api/announcement-categories');
+            setCategories(response.data.data);
+        } catch (error) {
+            setCategoryError(error.response.data);
+        }
+    }
     const store = async (data) => {
         try {
             await getCSRFToken();
@@ -53,6 +75,9 @@ export default function useAnnouncement() {
         store,
         getData,
         getError,
-        getSuccess
+        getSuccess,
+        fetchCategories,
+        getCategories,
+        getCategoryError,
     }
 }

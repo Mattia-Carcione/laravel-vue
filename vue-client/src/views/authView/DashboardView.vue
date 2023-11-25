@@ -4,7 +4,8 @@ import AnnouncementForm from '../authForm/AnnouncementForm.vue';
 
 export default {
     props: {
-        state: Object
+        user: Object,
+        categories: Object
     },
     data() {
         const message = reactive({
@@ -40,6 +41,6 @@ export default {
     </div>
 
     <div class="p-4">
-        <AnnouncementForm :state="state" @update-message="handleUpdateMessage"/>
+        <AnnouncementForm :user="user" :categories="categories" @update-message="handleUpdateMessage"/>
     </div>
 </template>
