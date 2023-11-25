@@ -99,11 +99,12 @@ export default {
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
                         <i class="fa-solid fa-chevron-down pl-5"></i>
                     </div>
-                    <RouterLink @click="toggleDashboard" to="/profile-dashboard">
-                        <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
+                    <RouterLink @click="() => {sidebarOpen = false, showHello = false}" to="/profile-dashboard">
+                        <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i
+                                class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
                     </RouterLink>
                 </li>
-            </ul>
+        </ul>
             <hr class="my-4 border-t border-gray-700 me-20">
             <div class="mb-3">
                 <h2 class="tex-2xl font-semibold">Settings</h2>
@@ -112,7 +113,7 @@ export default {
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile-edit" class="block hover:text-blue-300">
                         <i class="pe-1 fa-solid fa-user-pen"></i>Account
-                </RouterLink>
+                    </RouterLink>
                 </li>
                 <li class="mb-2">
                     <RouterLink @click="() => sidebarOpen = false" to="/profile-privacy" class="block hover:text-blue-300">
@@ -177,7 +178,7 @@ export default {
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
                         <!-- Aggiungere poi gli item -->
                         <!-- <li class="px-1">Item 1li>
-                                                                                    <li class="px-1">Item 2</li> -->
+                                                                                        <li class="px-1">Item 2</li> -->
                         <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">

@@ -100,7 +100,7 @@ export default {
                             <RouterLink to="/profile">Profile</RouterLink>
                         </li>
                         <li>
-                            <RouterLink to="#">Dashboard</RouterLink>
+                            <RouterLink to="/profile-dashboard">Dashboard</RouterLink>
                         </li>
                     </ul>
 

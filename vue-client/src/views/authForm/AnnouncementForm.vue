@@ -19,29 +19,30 @@ export default {
             </h3>
         </div>
         <div class="p-7">
-            <!-- Form Edit -->
+            <!-- Announcement Form -->
             <form @submit.prevent="" method="POST">
+                
                 <!-- Validation name error -->
-                <div v-if="state.errors.name"
+                <!-- <div v-if="state.errors.name"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ state.errors.name[0] }}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- Validation surname error -->
-                <div v-if="state.errors.surname"
+                <!-- <div v-if="state.errors.surname"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ state.errors.surname[0] }}
                     </span>
-                </div>
+                </div> -->
 
-                <div class="mb-5.5 flex mb-3 flex-col gap-5.5 sm:flex-row">
+                <!-- <div class="mb-5.5 flex mb-3 flex-col gap-5.5 sm:flex-row"> -->
                     <!-- Name -->
-                    <div class="w-full sm:w-1/2 mr-1">
+                    <!-- <div class="w-full sm:w-1/2 mr-1">
                         <label class="mb-3 block text-sm font-medium " for="name">
                             Name
                         </label>
@@ -65,10 +66,10 @@ export default {
                                 class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 placeholder="Your Name" type="text" name="name" id="name">
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Surname -->
-                    <div class="w-full sm:w-1/2">
+                    <!-- <div class="w-full sm:w-1/2">
                         <label class="mb-3 block text-sm font-medium" for="surname">
                             Surname
                         </label>
@@ -77,20 +78,20 @@ export default {
                             class="w-full rounded border-2 border-stroke bg-slate-200 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Your Surname" type="text" name="surname" id="surname">
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- Validation error -->
-                <div v-if="state.errors.phone"
+                <!-- <div v-if="state.errors.phone"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ state.errors.phone[0] }}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- Phone -->
-                <div class="mb-5.5">
+                <!-- <div class="mb-5.5">
                     <label class="mb-3 block text-sm font-medium" for="phone">
                         Phone
                     </label>
@@ -103,19 +104,19 @@ export default {
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Phone" type="text" name="phone" id="phone">
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Validation about error -->
-                <div v-if="state.errors.about"
+                <!-- <div v-if="state.errors.about"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ state.errors.about[0] }}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- About Job -->
-                <div class="my-5">
+                <!-- <div class="my-5">
                     <label class="mb-3 block text-sm font-medium" for="about">About Job</label>
                     <div class="relative">
                         <span class="absolute pl-3 left-4.5 top-3.5">
@@ -126,19 +127,19 @@ export default {
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Enter about job" type="text" name="about" id="about">
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Validation bio error -->
-                <div v-if="state.errors.bio"
+                <!-- <div v-if="state.errors.bio"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
                         {{ state.errors.bio[0] }}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- Bio -->
-                <div class="mb-5.5">
+                <!-- <div class="mb-5.5">
                     <label class="my-3 block text-sm font-medium" for="bio">BIO</label>
                     <div class="relative">
                         <span class="absolute left-4.5 top-4 pl-3">
@@ -165,7 +166,7 @@ export default {
                             name="bio" id="bio" rows="6" placeholder="Write your bio here">
                                                                                             </textarea>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Save button -->
                 <div class="flex justify-end gap-4.5">
