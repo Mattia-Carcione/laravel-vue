@@ -14,4 +14,8 @@ class Announcement extends Model
         'body',
         'price',
     ];
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }
