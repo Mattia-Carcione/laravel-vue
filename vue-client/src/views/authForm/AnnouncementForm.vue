@@ -145,7 +145,7 @@ export default {
 
                 <!-- Save button -->
                 <div class="flex justify-end gap-4.5 mt-5">
-                    <div @click="clearInfo"
+                    <div @click="clearForm"
                         class="flex justify-center btn-outline rounded border border-stroke py-2 px-6 font-medium  hover:shadow-1  cursor-pointer">
                         Clear
                     </div>
