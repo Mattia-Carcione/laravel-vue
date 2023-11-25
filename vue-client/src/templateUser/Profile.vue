@@ -70,7 +70,6 @@ export default {
         async fetchCategories() {
             await this.fetch.fetchCategories();
             if (!this.fetch.getError) {
-                console.log(this.fetch.getCategories)
                 this.categories = this.fetch.getCategories
             } else {
                 this.categories = null

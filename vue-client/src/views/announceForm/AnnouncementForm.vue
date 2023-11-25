@@ -41,8 +41,6 @@ export default {
         setREsponse() {
             if (this.announce.getError) {
                 this.error = this.announce.getError;
-                console.log(this.error);
-
                 this.message.success = '';
             } else {
                 this.message.success = this.announce.getSuccess;
