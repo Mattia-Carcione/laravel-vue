@@ -26,6 +26,7 @@ export default {
                 body: '',
                 price: '',
                 category_id: '--Choose a category',
+                user_id: this.user.id
             },
             error,
             message
@@ -33,7 +34,6 @@ export default {
     },
     methods: {
         async createAnnouncement() {
-            console.log(this.form);
             await this.announce.store(this.form);
             this.setREsponse();
             this.$emit('update-message', this.message.success);
