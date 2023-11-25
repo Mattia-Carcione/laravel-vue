@@ -28,7 +28,6 @@ class User extends Authenticatable
         'about',
         'bio',
         'path_image',
-        'user_id'
     ];
 
     /**
@@ -73,5 +72,9 @@ class User extends Authenticatable
             }
             $this->update(['path_image' => null]);
         }
+    }
+
+    public function announcements() {
+        return $this->hasMany(Announcement::class);
     }
 }
