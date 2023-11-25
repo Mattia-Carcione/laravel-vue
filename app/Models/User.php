@@ -28,6 +28,7 @@ class User extends Authenticatable
         'about',
         'bio',
         'path_image',
+        'user_id'
     ];
 
     /**

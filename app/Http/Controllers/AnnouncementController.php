@@ -21,7 +21,8 @@ class AnnouncementController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'price' => $request->price,
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
+            'user_id' => $request->user_id
         ]);
 
         return response()->json([

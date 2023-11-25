@@ -26,6 +26,7 @@ class StoreAnnouncementRequest extends FormRequest
             'body' => 'required|string|min:10|max:255',
             'price' => 'required|decimal:0,2',
             'category_id' => 'required|exists:categories,id',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }
