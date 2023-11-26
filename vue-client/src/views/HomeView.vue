@@ -4,18 +4,16 @@ import useAnnouncement from '../announcement/useAnnouncement';
 export default {
   data() {
     return {
-      announcements: []
+      fetch: useAnnouncement(),
+      announcements: {}
     }
   },
   methods: {
     async fetchData() {
       try {
-        await useAnnouncement().fetchAnnouncements()
-          .then(() => {
-            const response = useAnnouncement().getData;
-            this.announcements = response.value.slice(0, 6);
-            console.log(this.announcements);
-          })
+        await this.fetch.fetchAnnouncements()
+        const response = this.fetch.getData;
+        this.announcements = response.data.slice(0, 6);
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +42,7 @@ export default {
     </div>
   </header>
 
-  <main  class="bg-orange-100">
+  <main class="bg-orange-100">
     <section class="pt-10">
       <div class="grid grid-cols-1 gap-10 pb-20 md:pb-24 lg:grid-cols-2 lg:pb-32">
         <div class="mx-auto px-10 text-center lg:mx-0 lg:text-left">
@@ -184,7 +182,7 @@ export default {
       <div class="m-10 text-center font-semibold text-4xl text-secondary">
         <h1>Announcements</h1>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 p-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 m-5 md:p-20">
         <div :key="announcement.id" v-for="announcement in announcements"
           class="card bg-base-100 shadow-xl image-full hover:scale-105">
 

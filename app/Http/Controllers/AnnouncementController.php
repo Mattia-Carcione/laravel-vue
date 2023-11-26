@@ -36,12 +36,9 @@ class AnnouncementController extends Controller
     public function getAnnouncements()
     {
         $announcements = Announcement::with(['user', 'category'])
-            ->orderByDesc('created_at')
-            ->get();
-            // ->reject(function ($announcement) {
-            //     // Filtra via gli annunci con dati vuoti o nulli
-            //     return empty($announcement->user) || empty($announcement->category);
-            // });
+        ->orderByDesc('created_at')
+        ->paginate(12);
+
         return response()->json([
             'data' => $announcements,
             'status' => 'success'
