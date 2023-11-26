@@ -21,12 +21,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/authForm/LoginView.vue')
+      component: () => import('../components/authForm/LoginView.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/authForm/RegisterView.vue')
+      component: () => import('../components/authForm/RegisterView.vue')
     },
     {
       path: '/profile',
@@ -41,8 +41,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile-dashboard',
-      name: 'profile-dashboard',
+      path: '/profile/dashboard',
+      name: 'profile/dashboard',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {
@@ -53,8 +53,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile-edit',
-      name: 'profile-edit',
+      path: '/profile/edit',
+      name: 'profile/edit',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {
@@ -65,8 +65,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile-privacy',
-      name: 'profile-privacy',
+      path: '/profile/privacy',
+      name: 'profile/privacy',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {
@@ -77,8 +77,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile-appereance',
-      name: 'profile-appereance',
+      path: '/profile/appereance',
+      name: 'profile/appereance',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
         if (useAuth().getAuthenticated.value) {
@@ -87,6 +87,11 @@ const router = createRouter({
           next('/login')
         }
       }
+    },
+    {
+      path: '/category/:name',
+      name: 'category',
+      component: () => import('../category/CategoryView.vue'),
     }
   ]
 })

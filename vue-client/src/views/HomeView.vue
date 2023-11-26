@@ -44,8 +44,8 @@ export default {
     </div>
   </header>
 
-  <main>
-    <section class="m-5">
+  <main  class="bg-orange-100">
+    <section class="pt-10">
       <div class="grid grid-cols-1 gap-10 pb-20 md:pb-24 lg:grid-cols-2 lg:pb-32">
         <div class="mx-auto px-10 text-center lg:mx-0 lg:text-left">
           <div class="pb-4 md:pb-10 lg:w-3/4 lg:pt-10 xl:w-2/3">
@@ -129,7 +129,7 @@ export default {
       </div>
     </section>
 
-    <section class="bg-orange-100">
+    <section class="bg-white">
       <div class="flex flex-col py-20 md:flex-row md:py-24">
 
         <div
@@ -184,7 +184,7 @@ export default {
       <div class="m-10 text-center font-semibold text-4xl text-secondary">
         <h1>Announcements</h1>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 m-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 p-20">
         <div :key="announcement.id" v-for="announcement in announcements"
           class="card bg-base-100 shadow-xl image-full hover:scale-105">
 

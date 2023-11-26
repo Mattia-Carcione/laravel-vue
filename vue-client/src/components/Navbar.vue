@@ -3,6 +3,9 @@ import useAuth from '../auth/useAuth'
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 export default {
+    props: {
+        categories: Array
+    },
     data() {
         const state = reactive({
             authenticated: useAuth().getAuthenticated,
@@ -23,6 +26,12 @@ export default {
         async logout() {
             await useAuth().logout();
             this.$router.push({ name: 'home' })
+        },
+        closeMenu() {
+            const details = this.$el.querySelector('details');
+            if (details) {
+                details.removeAttribute('open');
+            }
         }
     }
 }
@@ -31,7 +40,7 @@ export default {
 <template>
     <div v-if="ShowNavbar">
         <!-- Top navigation -->
-        <nav class="navbar fixed hidden lg:flex z-40">
+        <nav class="navbar fixed top-0 hidden lg:flex z-40">
             <div class="navbar-start">
                 <!-- Dropdwown hover -->
                 <div class="dropdown dropdown-hover">
@@ -53,6 +62,22 @@ export default {
                         </li>
                     </ul>
                 </div>
+
+                <!-- category dropdown -->
+                <ul class="menu menu-horizontal">
+                    <li>
+                        <details>
+                            <summary>Category</summary>
+                            <ul class="rounded-none category-grid">
+                                <li v-for="category in categories" :key="category.id">
+                                    <RouterLink @click="closeMenu" :to="`/category/${category.name}`">
+                                        {{ category.name }}
+                                    </RouterLink>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
             </div>
 
             <!-- logo -->
@@ -100,7 +125,7 @@ export default {
                             <RouterLink to="/profile">Profile</RouterLink>
                         </li>
                         <li>
-                            <RouterLink to="/profile-dashboard">Dashboard</RouterLink>
+                            <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
                         </li>
                     </ul>
 
@@ -147,7 +172,7 @@ export default {
                         <RouterLink to="/about">About</RouterLink>
                     </li>
                     <li>
-                        <RouterLink v-if="state.authenticated" to="/profile">Profile</RouterLink>
+                        <RouterLink v-if="state.authenticated" :to="{ name: 'profile' }">Profile</RouterLink>
                     </li>
                     <li>
                         <RouterLink v-if="!state.authenticated" to="/login">Sign in</RouterLink>
@@ -158,3 +183,19 @@ export default {
         </div>
     </div>
 </template>
+
+<style scoped>
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Tre colonne con larghezza flessibile */
+    gap: 8px;
+    /* Spaziatura tra le categorie */
+}
+
+.category-grid li {
+    list-style-type: none;
+    /* Rimuovi i bullet points */
+    padding: 8px;
+}
+</style>

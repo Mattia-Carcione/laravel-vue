@@ -13,7 +13,7 @@ import useAnnouncement from '../announcement/useAnnouncement';
 
 export default {
     props: {
-        data: Object
+        categories: Array
     },
     data() {
         const state = reactive({
@@ -22,10 +22,8 @@ export default {
             authenticated: useAuth().getAuthenticated,
             success: useAuth().getMessage
         });
-        const categories = reactive({});
         return {
             sidebarOpen: false,
-            categories,
             state,
             showHello: false,
             fetch: useAnnouncement()
@@ -36,19 +34,19 @@ export default {
             return useRoute().path;
         },
         showProfile() {
-            return !this.path.includes('/profile-');
+            return !this.path.includes('/profile/');
         },
         showDashboard() {
-            return this.path.includes('/profile-dashboard');
+            return this.path.includes('/profile/dashboard');
         },
         showEdit() {
-            return this.path.includes('/profile-edit');
+            return this.path.includes('/profile/edit');
         },
         showUpdatePassword() {
-            return this.path.includes('/profile-privacy');
+            return this.path.includes('/profile/privacy');
         },
         showAppereance() {
-            return this.path.includes('/profile-appereance');
+            return this.path.includes('/profile/appereance');
         }
     },
     methods: {
@@ -66,18 +64,7 @@ export default {
         logout() {
             useAuth().logout();
             this.$router.push({ name: 'home' })
-        },
-        async fetchCategories() {
-            await this.fetch.fetchCategories();
-            if (!this.fetch.getError) {
-                this.categories = this.fetch.getCategories
-            } else {
-                this.categories = null
-            }
         }
-    },
-    mounted() {
-        this.fetchCategories();
     },
     components: {
         AccountView,
@@ -94,6 +81,7 @@ export default {
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
             class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-screen">
+
             <div class="flex justify-end">
                 <button class="lg:hidden btn btn-circle btn-outline" @click="toggleSidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -102,57 +90,69 @@ export default {
                     </svg>
                 </button>
             </div>
-            <div class="mb-3 lg:mt-12">
+
+            <div class="mb-3">
                 <h2 class="tex-2xl font-semibold">Menu</h2>
             </div>
-        <ul>
+
+            <ul class="menu">
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/profile" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile" class="block">
                         <i class="pe-1 fa-regular fa-user"></i>Profile
                     </RouterLink>
                 </li>
-                <li class="mb-2">
-                    <div @click="toggleDashboard" class="hover:text-blue-300 cursor-pointer">
+
+                <li class="mb-2 dr">
+                    <div @click="toggleDashboard" class="cursor-pointer">
                         <i class="pe-1 fas fa-th-large"></i>Dashboard
-                        <i class="fa-solid fa-chevron-down pl-5"></i>
+                        <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <RouterLink @click="() => { sidebarOpen = false, showHello = false }" to="/profile-dashboard">
-                        <div class=" py-3 ml-3 hover:text-blue-300" v-if="showHello"><i
-                                class="pe-1 fa-solid fa-circle-plus"></i>Announcements</div>
+
+                </li>
+
+                <li v-if="showHello">
+                    <RouterLink @click="() => { sidebarOpen = false, showHello = false }" to="/profile/dashboard">
+                        <div class="ml-3">
+                            <i class="pe-1 fa-solid fa-circle-plus"></i>Announcements
+                        </div>
                     </RouterLink>
                 </li>
             </ul>
+
             <hr class="my-4 border-t border-gray-700 me-20">
+
             <div class="mb-3">
                 <h2 class="tex-2xl font-semibold">Settings</h2>
             </div>
-            <ul>
+
+            <ul class="menu">
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/profile-edit" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile/edit" class="block">
                         <i class="pe-1 fa-solid fa-user-pen"></i>Account
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/profile-privacy" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile/privacy" class="block">
                         <i class="pe-1 fa-solid fa-shield-halved"></i>Privacy and Security
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/profile-appereance"
-                        class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/profile/appereance" class="block">
                         <i class="pe-1 fa-solid fa-palette"></i>Appearance
                     </RouterLink>
                 </li>
             </ul>
+
             <hr class="my-4 border-t border-gray-700 me-20">
-            <ul>
+
+            <ul class="menu">
                 <li class="mb-2">
-                    <RouterLink @click="() => sidebarOpen = false" to="/" class="block hover:text-blue-300">
+                    <RouterLink @click="() => sidebarOpen = false" to="/" class="block">
                         <i class="pe-1 fa-solid fa-house"></i>Home
                     </RouterLink>
                 </li>
                 <li class="mb-2">
-                    <button class="block hover:text-blue-300" @click="logout">
+                    <button class="block" @click="logout">
                         <i class="fa-solid pe-1 fa-arrow-right-from-bracket"></i>
                         Logout
                     </button>
@@ -193,10 +193,9 @@ export default {
                 </div>
                 <div class="flex-none gap-2">
                     <ul class="menu items-center menu-horizontal -inherit rounded-box">
-                        <!-- Aggiungere poi gli item -->
-                        <!-- <li class="px-1">Item 1li>
-                                                                                                        <li class="px-1">Item 2</li> -->
-                        <li class="px-1 hidden tex-end md:block">{{ state.user.name }} <br> {{ state.user.email }}</li>
+                        <li class="px-1 hidden tex-end md:block">
+                            {{ state.user.name }} <br> {{ state.user.email }}
+                        </li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
                         <label tabindex="0" class="z-20 btn btn-ghost btn-circle avatar">
@@ -206,13 +205,13 @@ export default {
                         </label>
                         <ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content rounded w-52 drop-shadow">
                             <li>
-                                <a class="justify-between">
+                                <RouterLink to="/profile" class="justify-between">
                                     Profile
                                     <span class="badge">New</span>
-                                </a>
+                                </RouterLink>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><RouterLink to="/profile/edit">Settings</RouterLink  ></li>
+                            <li><div type="button" @click="logout">Logout</div></li>
                         </ul>
                     </div>
                 </div>

@@ -2,8 +2,8 @@
 import { reactive } from 'vue';
 
 import useAuth from '../../auth/useAuth';
-import UpdateUserInfoForm from '../authForm/UpdateUserInfoForm.vue';
-import UpdateUserImageForm from '../authForm/UpdateUserImageForm.vue';
+import UpdateUserInfoForm from '../../components/authForm/UpdateUserInfoForm.vue';
+import UpdateUserImageForm from '../../components/authForm/UpdateUserImageForm.vue';
 
 export default {
     props: {
