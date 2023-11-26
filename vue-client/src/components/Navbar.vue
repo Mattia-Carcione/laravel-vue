@@ -57,7 +57,7 @@ export default {
 
             <!-- logo -->
             <div class="navbar-center hidden md:block">
-                <RouterLink to="/" class="btn btn-ghost text-xl">FindEasy</RouterLink>
+                <RouterLink to="/" class="btn btn-ghost text-xl">SnapList</RouterLink>
             </div>
 
             <!-- nav end -->

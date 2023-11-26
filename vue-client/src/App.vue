@@ -1,37 +1,16 @@
 <script>
 import { RouterView } from 'vue-router'
 import { themeChange } from 'theme-change';
-import { reactive } from 'vue';
 
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
-
-import useAnnouncement from './announcement/useAnnouncement';
 
 export default {
   components: {
     Navbar,
     Footer
   },
-  data() {
-    const data = reactive({});
-    return {
-      data,
-      fetch: useAnnouncement(),
-    }
-  },
-  methods: {
-    async fetchAnnouncements() {
-      try {
-        await this.fetch.fetchAnnouncements();
-        this.data = this.fetch.getData
-      } catch (error) {
-        this.data = null
-      }
-    }
-  },
-  async created() {
-    await this.fetchAnnouncements();
+  beforeCreate() {
     const savedTheme = localStorage.getItem('theme');
 
     if (savedTheme) {
@@ -39,7 +18,7 @@ export default {
     } else {
       themeChange(false);
     }
-  },
+  }
 }
 </script>
 
@@ -47,7 +26,7 @@ export default {
   <Navbar />
 
   <main class="md:min-h-screen lg:min-h-min">
-    <RouterView :data="data" />
+    <RouterView />
   </main>
 
   <Footer />
