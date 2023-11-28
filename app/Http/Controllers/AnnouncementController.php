@@ -59,4 +59,11 @@ class AnnouncementController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function show(Announcement $announcement){
+        return response()->json([
+            'data' => $announcement::with(['user', 'category']),
+            'status' => 'success'
+        ]);
+    }
 }
