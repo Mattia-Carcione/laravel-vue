@@ -77,7 +77,7 @@ export default {
             <h3 class="font-hk text-xl font-semibold text-pink-100 sm:text-2xl md:text-3xl">
               Clothing your way! For everyone
             </h3>
-            <a href="/categoryClothing" class="group flex items-center pt-5">
+            <a href="/category/Clothing" class="group flex items-center pt-5">
               <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white p-2">
                 <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
@@ -94,7 +94,7 @@ export default {
             <h3 class="font-hk text-xl font-semibold text-orange-400 sm:text-2xl md:text-3xl">
               Do you want reading <br> a book?
             </h3>
-            <a href="/category/books" class="group flex items-center pt-5">
+            <a href="/category/Books" class="group flex items-center pt-5">
               <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white p-2">
                 <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
