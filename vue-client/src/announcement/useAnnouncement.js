@@ -48,7 +48,7 @@ export default function useAnnouncement() {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('/api/announcement-categories');
+            const response = await axios.get('/api/announcement/categories');
             setCategories(response.data.data);
             setCategoryError('');
         } catch (error) {
@@ -96,8 +96,20 @@ export default function useAnnouncement() {
         }
     }
 
+    const show = async (slug) => {
+        try {
+            const response = await axios.get(`/api/announcement/${slug}`);
+            setData(response.data.data);
+            setError('');
+        } catch (error) {
+            setError(error.response.data);
+            setData([]);
+        }
+    }
+
     return {
         store,
+        show,
         getData,
         getError,
         getSuccess,

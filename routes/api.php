@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UpdateUserController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,8 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // API Fetch Categories
-Route::get('/announcement-categories', [AnnouncementController::class, 'getAnnouncementCategories']);
+Route::get('/announcement/categories', [CategoryController::class, 'index']);
+Route::get('/announcements/{categoryName}', [CategoryController::class, 'getAnnouncementByCategory']);
 
 // API Fetch Announcements
-Route::get('/announcements', [AnnouncementController::class, 'getAnnouncements']);
-Route::get('/announcements/{categoryName}', [AnnouncementController::class, 'getAnnouncementByCategory']);
+Route::get('/announcements', [AnnouncementController::class, 'index']);
+Route::get('/announcements/{announcement}', [AnnouncementController::class, 'show']);

@@ -9,14 +9,6 @@ use App\Models\Category;
 
 class AnnouncementController extends Controller
 {
-    public function getAnnouncementCategories()
-    {
-        return response()->json([
-            'data' => Category::all(),
-            'status' => 'success'
-        ]);
-    }
-
     public function store(StoreAnnouncementRequest $request)
     {
         Announcement::create([
@@ -33,24 +25,9 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function getAnnouncements()
+    public function index()
     {
         $announcements = Announcement::with(['user', 'category'])
-            ->orderByDesc('created_at')
-            ->paginate(12);
-
-        return response()->json([
-            'data' => $announcements,
-            'status' => 'success'
-        ]);
-    }
-
-    public function getAnnouncementByCategory($categoryName)
-    {
-        $category = Category::where('name', $categoryName)->value('id');
-
-        $announcements = Announcement::with(['user', 'category'])
-            ->where('category_id', $category)
             ->orderByDesc('created_at')
             ->paginate(12);
 
