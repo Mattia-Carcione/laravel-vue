@@ -57,15 +57,15 @@ export default {
           <div class="relative h-56 bg-cover bg-left bg-no-repeat px-10 sm:h-80 sm:bg-center"
             style="background-image:url(https://wips.plug.it/cips/italiaonline.it/blog/cms/2021/05/e-commerce.jpg)">
             <div class="absolute inset-0 w-2/3 px-6 py-14 md:px-10">
-              <h3 class="font-hk text-xl text-green-50 font-semibold sm:text-2xl md:text-3xl">
+              <h3 class="font-hk text-xl text-yellow-200 font-semibold sm:text-2xl md:text-3xl">
                 Cell Phones <br> Collection
               </h3>
               <a href="/category/Cell%20Phones" class="group flex items-center pt-5">
                 <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white">
-                  <i class="bx bx-chevron-right text-xl transition-colors group-hover:text-v-red"></i>
+                  <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
                 </div>
                 <span
-                  class="-mt-1 pl-3 font-hk font-semibold leading-none text-orange-500 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
+                  class="-mt-1 pl-3 font-hk font-semibold leading-none text-yellow-600 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
                   Get it now</span>
               </a>
             </div>
@@ -74,49 +74,49 @@ export default {
         <div class="relative h-56 bg-cover bg-left bg-no-repeat sm:h-80 sm:bg-center lg:h-68"
           style="background-image:url(https://joburg.co.za/wp-content/uploads/2020/08/641.jpg)">
           <div class="absolute inset-0 px-6 py-14 md:w-2/3 md:px-10">
-            <h3 class="font-hk text-xl font-semibold text-green-200 sm:text-2xl md:text-3xl">
+            <h3 class="font-hk text-xl font-semibold text-pink-100 sm:text-2xl md:text-3xl">
               Clothing your way! For everyone
             </h3>
             <a href="/categoryClothing" class="group flex items-center pt-5">
               <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white p-2">
-                <i class="bx bx-chevron-right text-xl text-green-50 transition-colors group-hover:text-v-red"></i>
+                <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
               <p
-                class="-mt-1 pl-3 font-hk font-semibold leading-none text-orange-200 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
+                class="-mt-1 pl-3 font-hk font-semibold leading-none text-sky-200 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
                 Get it now
               </p>
             </a>
           </div>
         </div>
         <div class="relative h-56 bg-cover bg-left bg-no-repeat px-10 sm:h-80 sm:bg-center lg:row-span-2 lg:h-auto"
-          style="background-image:url(https://professionalessayhelp.com/wp-content/uploads/2022/10/43.jpg)">
+          style="background-image:url(https://c8.alamy.com/comp/2FK8DHE/grey-computer-monitor-with-stack-of-colorful-books-isolated-on-powder-blue-background-flat-vector-simple-icon-internet-knowledge-symbol-good-for-w-2FK8DHE.jpg)">
           <div class="absolute inset-0 w-2/3 px-6 py-14 sm:py-16 md:px-10">
-            <h3 class="font-hk text-xl font-semibold text-orange-100 sm:text-2xl md:text-3xl">
+            <h3 class="font-hk text-xl font-semibold text-orange-400 sm:text-2xl md:text-3xl">
               Do you want reading <br> a book?
             </h3>
             <a href="/category/books" class="group flex items-center pt-5">
               <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white p-2">
-                <i class="bx bx-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
+                <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
               <p
-                class="-mt-1 pl-3 font-hk font-semibold leading-none text-green-200 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
+                class="-mt-1 pl-3 font-hk font-semibold leading-none text-red-600 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
                 Get it now
               </p>
             </a>
           </div>
         </div>
         <div class="relative h-56 bg-cover bg-left bg-no-repeat sm:h-80 sm:bg-center lg:h-68"
-          style="background-image:url(https://www.searchenginejournal.com/wp-content/uploads/2022/08/google-shopping-ads-6304dccb7a49e-sej-1280x720.png)">
+          style="background-image:url(https://media.istockphoto.com/id/1072285398/vector/woman-freelancer-copy.jpg?s=612x612&w=0&k=20&c=THjqpCDieMSjNbgE5iFIpAU07PA-uHDzA6utZ5vgozE=)">
           <div class="absolute inset-0 w-2/3 px-6 py-14 md:px-10">
             <h3 class="font-hk text-xl font-semibold text-cyan-500 sm:text-2xl md:text-3xl">
               Check Furniture in SnapList
             </h3>
             <a href="/category/Furniture" class="group flex items-center pt-5">
               <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white p-2">
-                <i class="bx bx-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
+                <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
               <p
-                class="-mt-1 pl-3 font-hk font-semibold leading-none text-violet-500 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
+                class="-mt-1 pl-3 font-hk font-semibold leading-none text-emerald-700 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
                 Get it now
               </p>
             </a>
