@@ -1,7 +1,10 @@
 <script>
 import useAnnouncement from '../announcement/useAnnouncement';
-
+import Card from '../components/Card.vue';
 export default {
+  components: {
+    Card
+  },
   data() {
     return {
       fetch: useAnnouncement(),
@@ -14,7 +17,7 @@ export default {
       try {
         await this.fetch.fetchAnnouncements()
         const response = this.fetch.getData;
-        this.announcements = response.data.slice(0, 6);
+        this.announcements = response.data.slice(0, 8);
       } catch (error) {
         console.log(error);
       }
@@ -28,19 +31,22 @@ export default {
 
 <template>
   <header>
-    <div class="hero min-h-screen bg-fixed" style="background-image: url(https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg);">
+    <div class="hero min-h-screen bg-fixed"
+      style="background-image: url(https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg);">
       <div class="hero-overlay bg-opacity-60"></div>
       <div class="hero-content text-center text-neutral-content">
         <div class="max-w-md">
           <h1 class="mb-5 text-3xl font-bold">New arrivals are here</h1>
-          <p class="mb-5">The new arrivals have, well, newly arrived. Check out the latest options from our summer small-batch release while they're still in stock.</p>
-          <RouterLink to="/announcements" class="btn btn-outline text-white border-white rounded-none">Get Started</RouterLink>
+          <p class="mb-5">The new arrivals have, well, newly arrived. Check out the latest options from our summer
+            small-batch release while they're still in stock.</p>
+          <RouterLink to="/announcements" class="btn btn-outline text-white border-white rounded-none">Get Started
+          </RouterLink>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="bg-orange-100">
+  <main class="bg-gray-100">
     <section class="pt-10">
       <div class="grid grid-cols-1 gap-10 pb-20 md:pb-24 lg:grid-cols-2 lg:pb-32">
         <div class="mx-auto px-10 text-center lg:mx-0 lg:text-left">
@@ -130,13 +136,13 @@ export default {
         <div
           class="mx-auto flex w-4/5 items-start justify-start pb-3 last:border-r-0 sm:w-1/2 md:w-2/5 md:flex-col md:items-center md:justify-center md:border-r-2 md:border-primary-lighter md:pb-0 md:text-center lg:mx-0 lg:w-1/3 lg:flex-row lg:text-left">
           <div>
-            <i class="h-12 w-12 text-secondary object-contain object-center fa-solid fa-box-open"></i>
+            <i class="h-12 w-12 text-slate-500 object-contain object-center fa-solid fa-box-open"></i>
           </div>
           <div class="ml-6 md:mt-3 lg:mt-0">
             <h3 class="font-hk text-xl font-semibold tracking-wide text-primary">
               Free shipping
             </h3>
-            <p class="font-hk text-base tracking-wide text-secondary">
+            <p class="font-hk text-base tracking-wide text-slate-500">
               On all orders over $30
             </p>
           </div>
@@ -145,13 +151,13 @@ export default {
         <div
           class="mx-auto flex w-4/5 items-start justify-start pb-3 last:border-r-0 sm:w-1/2 md:w-2/5 md:flex-col md:items-center md:justify-center md:border-r-2 md:border-primary-lighter md:pb-0 md:text-center lg:mx-0 lg:w-1/3 lg:flex-row lg:text-left">
           <div>
-            <i class="h-12 w-12 text-secondary object-contain object-center fa-solid fa-phone-volume"></i>
+            <i class="h-12 w-12 text-slate-500 object-contain object-center fa-solid fa-phone-volume"></i>
           </div>
           <div class="ml-6 md:mt-3 lg:mt-0">
             <h3 class="font-hk text-xl font-semibold tracking-wide text-primary">
               Always available
             </h3>
-            <p class="font-hk text-base tracking-wide text-secondary">
+            <p class="font-hk text-base tracking-wide text-slate-500">
               24/7 call center available
             </p>
           </div>
@@ -160,13 +166,13 @@ export default {
         <div
           class="mx-auto flex w-4/5 items-start justify-start pb-3 last:border-r-0 sm:w-1/2 md:w-2/5 md:flex-col md:items-center md:justify-center md:border-r-2 md:border-primary-lighter md:pb-0 md:text-center lg:mx-0 lg:w-1/3 lg:flex-row lg:text-left">
           <div>
-            <i class="h-12 w-12 text-secondary object-contain object-center fa-solid fa-truck-fast"></i>
+            <i class="h-12 w-12 text-slate-500 object-contain object-center fa-solid fa-truck-fast"></i>
           </div>
           <div class="ml-6 md:mt-3 lg:mt-0">
             <h3 class="font-hk text-xl font-semibold tracking-wide text-primary">
               Free returns
             </h3>
-            <p class="font-hk text-base tracking-wide text-secondary">
+            <p class="font-hk text-base tracking-wide text-slate-500">
               30 days free return policy
             </p>
           </div>
@@ -176,41 +182,14 @@ export default {
     </section>
 
     <section>
-      <div class="m-10 text-center font-semibold text-4xl text-secondary">
+      <div class="m-10 text-center font-semibold text-4xl text-slate-400">
         <h1>Announcements</h1>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-8 p-5 md:p-20">
-        <div :key="announcement.id" v-for="announcement in announcements"
-          class="card bg-base-100 shadow-xl image-full hover:scale-105">
-
-          <figure>
-            <img src="http://localhost:8000/storage/default-image.jpeg" alt="Shoes" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">{{ announcement.title }}</h2>
-
-            <p>{{ announcement.body }}</p>
-
-            <div class="flex justify-start items-start">
-              <span>{{ announcement.price }}</span>
-              <span>€</span>
-            </div>
-
-            <!-- <img class="rounded-full" style="width: 50px; height: 50px" :src="`http://localhost:8000/storage/avatars/${announcement.user.path_image}`" alt=""> -->
-
-            <div class="card-actions justify-between">
-              <div>
-                {{ announcement.user.name }} <br>
-                {{ announcement.category.name }}
-              </div>
-
-              <button class="btn btn-info">Buy Now</button>
-            </div>
-          </div>
-
+      <div class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
+        <div v-for="announcement in announcements" :key="announcement.id"
+          class="group relative w-full lg:last:hidden xl:last:block">
+          <Card :announcement="announcement" />
         </div>
-
       </div>
     </section>
-  </main>
-</template>
+  </main></template>

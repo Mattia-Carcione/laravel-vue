@@ -67,6 +67,17 @@ export default function useAnnouncement() {
             setData([]);
         }
     }
+
+    const fetchAnnouncementsByCategory = async (category) => {
+        try {
+            const response = await axios.get(`/api/announcements/${category}`);
+            setData(response.data.data);
+            setError('');
+        } catch (error) {
+            setError(error.response.data);
+            setData([]);
+        }
+    }
     
     const store = async (data) => {
         try {
@@ -91,6 +102,7 @@ export default function useAnnouncement() {
         getError,
         getSuccess,
         fetchAnnouncements,
+        fetchAnnouncementsByCategory,
         fetchCategories,
         getCategories,
         getCategoryError,

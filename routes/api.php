@@ -41,3 +41,4 @@ Route::get('/announcement-categories', [AnnouncementController::class, 'getAnnou
 
 // API Fetch Announcements
 Route::get('/announcements', [AnnouncementController::class, 'getAnnouncements']);
+Route::get('/announcements/{categoryName}', [AnnouncementController::class, 'getAnnouncementByCategory']);

@@ -19,7 +19,6 @@ export default {
             try {
                 await this.fetch.fetchAnnouncements();
                 this.announcements = this.fetch.getData.data;
-                console.log(this.announcements);
             } catch (error) {
                 console.log(error);
             }
@@ -75,8 +74,11 @@ export default {
     </div>
 
     <section>
-        <div class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
-
+        <div class="text-center flex flex-col items-center bg-white" v-if="announcements.length === 0">
+            <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
+            <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
+        </div>
+        <div v-else class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
             <div v-for="announcement in announcements" :key="announcement.id"
                 class="group relative w-full lg:last:hidden xl:last:block">
                 <Card :announcement="announcement" />
