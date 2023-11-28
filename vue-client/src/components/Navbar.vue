@@ -14,6 +14,7 @@ export default {
         });
         return {
             state,
+            dropdownVisible: false,
         }
     },
     computed: {
@@ -32,6 +33,9 @@ export default {
             if (details) {
                 details.removeAttribute('open');
             }
+        },
+        toggleDropdown() {
+            this.dropdownVisible = !this.dropdownVisible;
         }
     }
 }
@@ -42,30 +46,17 @@ export default {
         <!-- Top navigation -->
         <nav class="navbar fixed top-0 hidden lg:flex z-40">
             <div class="navbar-start">
-                <!-- Dropdwown hover -->
-                <div class="dropdown dropdown-hover">
-                    <label class="btn btn-ghost btn-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h7" />
-                        </svg>
-                    </label>
 
-                    <!-- Dropdown list -->
-                    <ul class="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-box w-52">
-                        <li>
-                            <RouterLink to="/">Home</RouterLink>
-                        </li>
-                        <li>
-                            <RouterLink to="/about">About</RouterLink>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- category dropdown -->
+                <!-- Nav start -->
                 <ul class="menu menu-horizontal">
+                    <li :class="$route.path === '/' ? 'disabled' : ''">
+                        <RouterLink to="/">Home</RouterLink>
+                    </li>
+                    <li :class="$route.path === '/announcements' ? 'disabled' : ''">
+                        <RouterLink to="/announcements">Announcements</RouterLink>
+                    </li>
                     <li>
+                        <!-- Category -->
                         <details>
                             <summary>Category</summary>
                             <ul class="rounded-none category-grid">
@@ -85,7 +76,7 @@ export default {
                 <RouterLink to="/" class="btn btn-ghost text-xl">SnapList</RouterLink>
             </div>
 
-            <!-- nav end -->
+            <!-- Nav end -->
             <div class="navbar-end">
                 <!-- Search -->
                 <button class="btn btn-ghost btn-circle">
@@ -113,19 +104,19 @@ export default {
                         <button class="btn btn-ghost" @click="logout">
                             <div class="indicator">
                                 <span class="text-lg">{{ state.user.name }}
-                                    <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
-                                </span>
-                            </div>
-                        </button>
-                    </label>
+                                <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
+                            </span>
+                        </div>
+                    </button>
+                </label>
 
-                    <!-- Dropdown list -->
-                    <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow rounded-box">
-                        <li>
-                            <RouterLink to="/profile">Profile</RouterLink>
-                        </li>
-                        <li>
-                            <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
+                <!-- Dropdown list -->
+                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow rounded-none">
+                    <li>
+                        <RouterLink to="/profile">Profile</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
                         </li>
                     </ul>
 
@@ -135,6 +126,7 @@ export default {
 
         <!-- Bottom navigation for mobile -->
         <div class="btm-nav btm-nav-sm lg:hidden z-40">
+            <!-- Home -->
             <RouterLink to="/">
                 <button>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -156,27 +148,27 @@ export default {
 
             <!-- Dropdown top menu -->
             <div class="dropdown dropdown-top">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
+                <label tabindex="0" class="btn btn-ghost btn-circle" @click="toggleDropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
                 </label>
 
+
                 <!-- Dropdown list -->
-                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box">
+                <ul v-if="dropdownVisible" tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-none"
+                    @click="toggleDropdown">
                     <li>
-                        <RouterLink to="/">Homepage</RouterLink>
+                        <RouterLink to="/announcements">Announcements</RouterLink>
                     </li>
-                    <li>
-                        <RouterLink to="/about">About</RouterLink>
-                    </li>
-                    <li>
-                        <RouterLink v-if="state.authenticated" :to="{ name: 'profile' }">Profile</RouterLink>
+                    <li v-if="state.authenticated">
+                        <RouterLink :to="{ name: 'profile' }">Profile</RouterLink>
                     </li>
                     <li>
                         <RouterLink v-if="!state.authenticated" to="/login">Sign in</RouterLink>
-                        <a v-if="state.authenticated" @click="logout">Logout</a>
+                        <div v-if="state.authenticated" @click="logout">Logout</div>
                     </li>
                 </ul>
             </div>

@@ -104,7 +104,7 @@ export default {
 
                 <li class="mb-2 dr">
                     <div @click="toggleDashboard" class="cursor-pointer">
-                        <i class="pe-1 fas fa-th-large"></i>Dashboard
+                        <i class="fas fa-pie-chart"></i>Dashboard
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
 
