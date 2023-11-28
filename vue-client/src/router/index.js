@@ -89,6 +89,11 @@ const router = createRouter({
       }
     },
     {
+      path: '/announcements',
+      name: 'poannouncements',
+      component: () => import('../views/announceView/Index.vue'),
+    },
+    {
       path: '/category/:name',
       name: 'category',
       component: () => import('../views/CategoryView.vue'),
