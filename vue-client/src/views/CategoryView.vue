@@ -19,7 +19,7 @@ export default {
             if (findCategory) {
                 this.category = name;
             } else {
-                this.$router.push({ name: 'home' });
+                this.$router.push({ name: 'not-found' });
             }
         },
         // Metodi per la gestione della data
