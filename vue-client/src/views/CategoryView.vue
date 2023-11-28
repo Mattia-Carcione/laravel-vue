@@ -11,8 +11,16 @@ export default {
         }
     },
     methods: {
-        updateData() {
-            this.category = this.$route.params.name;
+        checkCategory(name = null) {
+            if (!name){
+                name = this.$route.params.name
+            }
+            const findCategory = this.categories.find(category => category.name === name);
+            if (findCategory) {
+                this.category = name;
+            } else {
+                this.$router.push({ name: 'home' });
+            }
         },
         // Metodi per la gestione della data
 
@@ -40,10 +48,11 @@ export default {
         // }
     },
     created() {
-        this.updateData();
+        this.checkCategory();
     },
     beforeRouteUpdate(to, from, next) {
         this.category = to.params.name;
+        this.checkCategory(this.category);
         next();
     }
 }
