@@ -89,7 +89,7 @@ export default {
           </div>
         </div>
         <div class="relative h-56 bg-cover bg-left bg-no-repeat px-10 sm:h-80 sm:bg-center lg:row-span-2 lg:h-auto"
-          style="background-image:url(https://c8.alamy.com/comp/2FK8DHE/grey-computer-monitor-with-stack-of-colorful-books-isolated-on-powder-blue-background-flat-vector-simple-icon-internet-knowledge-symbol-good-for-w-2FK8DHE.jpg)">
+          style="background-image:url(https://img.freepik.com/premium-photo/high-angle-books-with-pink-background_23-2148898316.jpg?w=2000)">
           <div class="absolute inset-0 w-2/3 px-6 py-14 sm:py-16 md:px-10">
             <h3 class="font-hk text-xl font-semibold text-orange-400 sm:text-2xl md:text-3xl">
               Do you want reading <br> a book?
@@ -106,9 +106,9 @@ export default {
           </div>
         </div>
         <div class="relative h-56 bg-cover bg-left bg-no-repeat sm:h-80 sm:bg-center lg:h-68"
-          style="background-image:url(https://media.istockphoto.com/id/1072285398/vector/woman-freelancer-copy.jpg?s=612x612&w=0&k=20&c=THjqpCDieMSjNbgE5iFIpAU07PA-uHDzA6utZ5vgozE=)">
+          style="background-image:url(https://img.freepik.com/premium-photo/online-shopping-concept-furniture-surrounded-by-sofas-armchairs-fabric-chairs-promotion-sales-furniture-with-shopping-bag-shipping-box-pastel-background-3d-rendering_156429-5080.jpg)">
           <div class="absolute inset-0 w-2/3 px-6 py-14 md:px-10">
-            <h3 class="font-hk text-xl font-semibold text-cyan-500 sm:text-2xl md:text-3xl">
+            <h3 class="font-hk text-xl font-semibold text-gray-400 sm:text-2xl md:text-3xl">
               Check Furniture in SnapList
             </h3>
             <a href="/category/Furniture" class="group flex items-center pt-5">
@@ -116,7 +116,7 @@ export default {
                 <i class="fa fa-chevron-right text-xl text-primary transition-colors group-hover:text-v-red"></i>
               </div>
               <p
-                class="-mt-1 pl-3 font-hk font-semibold leading-none text-emerald-700 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
+                class="-mt-1 pl-3 font-hk font-semibold leading-none text-teal-500 transition-colors group-hover:text-v-red sm:pl-5 sm:text-lg">
                 Get it now
               </p>
             </a>
