@@ -39,8 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // API Fetch Categories
 Route::get('/announcement/categories', [CategoryController::class, 'index']);
-Route::get('/announcements/{categoryName}', [CategoryController::class, 'getAnnouncementByCategory']);
+Route::get('/category/{slug}', [CategoryController::class, 'getAnnouncementByCategory']);
 
 // API Fetch Announcements
 Route::get('/announcements', [AnnouncementController::class, 'index']);
-Route::get('/announcements/{announcement}', [AnnouncementController::class, 'show']);
+Route::get('/announcements/{slug}', [AnnouncementController::class, 'show']);

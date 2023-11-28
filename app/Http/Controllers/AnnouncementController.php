@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAnnouncementRequest;
 use Illuminate\Http\Request;
 use App\Models\Announcement;
-use App\Models\Category;
+use Illuminate\Support\Str;
 
 class AnnouncementController extends Controller
 {
@@ -16,7 +16,8 @@ class AnnouncementController extends Controller
             'body' => $request->body,
             'price' => $request->price,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'slug' => Str::slug($request->title, '-'),
         ]);
 
         return response()->json([
@@ -37,9 +38,13 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function show(Announcement $announcement){
+    public function show($slug){
+        $announcement = Announcement::with(['user', 'category'])
+        ->where('slug', $slug)
+        ->firstOrFail();
+
         return response()->json([
-            'data' => $announcement::with(['user', 'category']),
+            'data' => $announcement,
             'status' => 'success'
         ]);
     }

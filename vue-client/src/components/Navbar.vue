@@ -61,7 +61,7 @@ export default {
                             <summary>Category</summary>
                             <ul class="rounded-none category-grid">
                                 <li v-for="category in categories" :key="category.id">
-                                    <RouterLink @click="closeMenu" :to="`/category/${category.name}`">
+                                    <RouterLink @click="closeMenu" :to="`/category/${category.slug}`">
                                         {{ category.name }}
                                     </RouterLink>
                                 </li>

@@ -68,10 +68,11 @@ export default function useAnnouncement() {
         }
     }
 
-    const fetchAnnouncementsByCategory = async (category) => {
+    const fetchAnnouncementsByCategory = async (slug) => {
         try {
-            const response = await axios.get(`/api/announcements/${category}`);
+            const response = await axios.get(`/api/category/${slug}`);
             setData(response.data.data);
+            console.log(response.data.data);
             setError('');
         } catch (error) {
             setError(error.response.data);

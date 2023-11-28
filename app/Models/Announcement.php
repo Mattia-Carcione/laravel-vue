@@ -15,6 +15,7 @@ class Announcement extends Model
         'price',
         'category_id',
         'user_id',
+        'slug'
     ];
 
     public function category() {

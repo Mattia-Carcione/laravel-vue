@@ -21,7 +21,7 @@ export default {
             if (!name) {
                 name = this.$route.params.name
             }
-            const findCategory = this.categories.find(category => category.name === name);
+            const findCategory = this.categories.find(category => category.slug === name);
             if (findCategory) {
                 this.category = name;
                 await this.fetchData();

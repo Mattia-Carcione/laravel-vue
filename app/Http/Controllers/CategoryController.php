@@ -16,9 +16,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function getAnnouncementByCategory($categoryName)
+    public function getAnnouncementByCategory($slug)
     {
-        $category = Category::where('name', $categoryName)->value('id');
+        $category = Category::where('slug', $slug)->value('id');
 
         $announcements = Announcement::with(['user', 'category'])
             ->where('category_id', $category)
