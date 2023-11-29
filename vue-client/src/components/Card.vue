@@ -28,7 +28,7 @@ export default {
 
         <div
             class="group absolute inset-0 flex items-center justify-center bg-slate-500 bg-opacity-85 py-20 opacity-0 transition-opacity group-hover:opacity-75">
-            <RouterLink :to="`/announcements/${announcement.title}`"
+            <RouterLink :to="`/announcements/${announcement.slug}`"
                 class="mr-3 flex items-center rounded-full bg-white p-4 transition-all hover:bg-primary-light">
                 <i class="fa-solid fa-magnifying-glass text-black"></i>
             </RouterLink>

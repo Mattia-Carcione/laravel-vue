@@ -99,7 +99,7 @@ export default function useAnnouncement() {
 
     const show = async (slug) => {
         try {
-            const response = await axios.get(`/api/announcement/${slug}`);
+            const response = await axios.get(`/api/announcements/${slug}`);
             setData(response.data.data);
             setError('');
         } catch (error) {

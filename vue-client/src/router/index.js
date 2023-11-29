@@ -90,8 +90,13 @@ const router = createRouter({
     },
     {
       path: '/announcements',
-      name: 'poannouncements',
+      name: 'announcements',
       component: () => import('../views/announceView/Index.vue'),
+    },
+    {
+      path: '/announcements/:name',
+      name: 'announcement/show',
+      component: () => import('../views/announceView/Show.vue'),
     },
     {
       path: '/category/:name',
