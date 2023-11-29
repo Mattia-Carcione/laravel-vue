@@ -1,12 +1,14 @@
 <script>
 import useAnnouncement from '../announcement/useAnnouncement';
 import Card from '../components/Card.vue';
+import ButtonCategory from '../components/ButtonCategory.vue';
 export default {
     props: {
         categories: Array
     },
     components: {
-        Card
+        Card,
+        ButtonCategory
     },
     data() {
         return {
@@ -71,27 +73,6 @@ export default {
 </script>
 
 <template>
-    <header class="lg:mt-14 bg-white">
-        <div class="relative flex">
-            <div class="mx-10 mt-10 h-56 w-full bg-cover bg-center bg-no-repeat lg:h-72"
-                style="background-image:url(https://iamcheated.indianmoney.com/uploads/ArticleImages/disadvantages-of-online-shopping-10292018192422.png)">
-            </div>
-            <div class="c-hero-gradient-bg absolute top-0 left-0 h-56 w-full bg-cover bg-no-repeat lg:h-68">
-                <div class="hidden sm:block py-20 px-6 sm:px-12 lg:px-20">
-                    <h1 class="font-butler text-2xl text-black sm:text-3xl md:text-4.5xl lg:text-5xl">
-                        {{ category }}
-                    </h1>
-                    <div class="flex pt-2">
-                        <RouterLink to="/" class="font-hk text-base link transition-colors hover:text-primary">Home
-                        </RouterLink>
-                        <span class="px-2 font-hk text-base text-black">.</span>
-                        <span class="font-hk text-base text-black">{{ category }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <div class="bg-white z-[1] flex justify-center py-5 items-baseline sticky lg:pt-20 top-0">
         <div class="text-sm breadcrumbs">
             <ul>
@@ -116,4 +97,6 @@ export default {
             </div>
         </div>
     </section>
+
+    <ButtonCategory :categories="categories" />
 </template>

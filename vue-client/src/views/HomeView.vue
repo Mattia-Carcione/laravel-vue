@@ -51,7 +51,7 @@ export default {
       <div class="grid grid-cols-1 gap-10 pb-20 md:pb-24 lg:grid-cols-2 lg:pb-32">
         <div class="mx-auto px-10 text-center lg:mx-0 lg:text-left">
           <div class="pb-4 md:pb-10 lg:w-3/4 lg:pt-10 xl:w-2/3">
-            <h1 class="font-butler text-3xl text-secondary md:text-4xl lg:text-4.5xl">
+            <h1 class="font-butler text-3xl text-blue-600 md:text-4xl lg:text-4.5xl">
               SnapList
             </h1>
             <p class="pt-4 font-hk text-lg text-secondary-lighter">
@@ -181,9 +181,13 @@ export default {
       </div>
     </section>
 
-    <section>
-      <div class="m-10 text-center font-semibold text-4xl text-slate-400">
-        <h1>Announcements</h1>
+    <section class="bg-zinc-50">
+      <div class="p-10 text-center font-semibold text-4xl">
+        <h1 class="font-hk font-semibold text-slate-700">Newest Announcements</h1>
+        <p class="font-hk text-lg pt-5 lg:px-44 text-slate-500">
+          There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some
+          form.
+        </p>
       </div>
       <div class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
         <div v-for="announcement in announcements" :key="announcement.id"
@@ -192,4 +196,5 @@ export default {
         </div>
       </div>
     </section>
-  </main></template>
+  </main>
+</template>

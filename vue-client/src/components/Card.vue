@@ -37,6 +37,7 @@ export default {
     <div class="flex items-center justify-between pt-6">
         <div>
             <h3 class="font-hk text-base text-gray-700">{{ announcement.title }}</h3>
+            <p class="text-sm text-gray-500">{{ announcement.category.name }}</p>
             <div class="flex items-center">
                 <div class="flex items-center">
                     <div class="rating rating-lg rating-half w-20">
