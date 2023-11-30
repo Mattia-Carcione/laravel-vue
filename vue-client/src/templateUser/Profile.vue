@@ -17,11 +17,12 @@ export default {
         categories: Array
     },
     data() {
+        const auth = useAuth();
         const state = reactive({
-            user: useAuth().getUser,
-            errors: useAuth().getErrors,
-            authenticated: useAuth().getAuthenticated,
-            success: useAuth().getMessage
+            user: auth.getUser,
+            errors: auth.getErrors,
+            authenticated: auth.getAuthenticated,
+            success: auth.getMessage
         });
         return {
             sidebarOpen: false,

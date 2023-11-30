@@ -3,6 +3,7 @@
 use App\Http\Controllers\UpdateUserController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RevisorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,3 +45,6 @@ Route::get('/category/{slug}', [CategoryController::class, 'getAnnouncementByCat
 // API Fetch Announcements
 Route::get('/announcements', [AnnouncementController::class, 'index']);
 Route::get('/announcements/{slug}', [AnnouncementController::class, 'show']);
+
+// API Fetch Announcements to be revised
+Route::get('/announcements-to-be-revisioned', [RevisorController::class, 'toBeRevisioned']);

@@ -7,10 +7,11 @@ export default {
         categories: Array
     },
     data() {
+        const auth = useAuth();
         const state = reactive({
-            authenticated: useAuth().getAuthenticated,
-            user: useAuth().getUser,
-            errors: useAuth().getErrors,
+            authenticated: auth.getAuthenticated,
+            user: auth.getUser,
+            errors: auth.getErrors,
         });
         return {
             state,
