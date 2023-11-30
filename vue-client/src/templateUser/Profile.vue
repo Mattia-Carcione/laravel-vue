@@ -4,13 +4,14 @@ import { reactive } from 'vue';
 
 import AccountView from '../views/authView/AccountView.vue';
 import DashboardView from '../views/authView/DashboardView.vue';
-import RevisorView from '../views/revisoreView/RevisorView.vue';
+import RevisorView from '../views/revisorView/RevisorView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 import AppereanceView from '../views/authView/AppereanceView.vue';
 
 import useAuth from '../auth/useAuth';
 import useAnnouncement from '../announcement/useAnnouncement';
+import useRevisor from '../revisor/useRevisor';
 
 export default {
     props: {
@@ -29,7 +30,9 @@ export default {
             state,
             showMenu: false,
             showMenuRevisor: false,
-            fetch: useAnnouncement()
+            fetch: useAnnouncement(),
+            fetchRevisor: useRevisor(),
+            toBeRevisioned: []
         }
     },
     computed: {
@@ -56,6 +59,13 @@ export default {
         }
     },
     methods: {
+        async fetchDataFromRevisor() {
+            await this.fetchRevisor.fetchAnnouncements();
+            this.toBeRevisioned = this.fetchRevisor.getAnnouncements;
+        },
+        checkTobeRevisioned() {
+            return this.toBeRevisioned.some(element => element.is_accepted === null);
+        },
         toggleDashboard() {
             this.showMenu = !this.showMenu;
         },
@@ -83,6 +93,9 @@ export default {
         UpdateEmailPasswordView,
         AppereanceView
     },
+    created() {
+        this.fetchDataFromRevisor();
+    }
 }
 </script>
 
@@ -227,7 +240,7 @@ export default {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                     </svg>
-                                    <span class="badge badge-xs badge-primary indicator-item"></span>
+                                    <span v-if="checkTobeRevisioned()" class="badge badge-xs badge-primary indicator-item"></span>
                                 </div>
                             </RouterLink>
                         </li>
@@ -264,7 +277,7 @@ export default {
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
                 <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" />
-                <RevisorView :user="state.user" v-if="showRevisor" />
+                <RevisorView :announcements="toBeRevisioned" :user="state.user" v-if="showRevisor" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />
