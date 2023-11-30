@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 
 import AccountView from '../views/authView/AccountView.vue';
 import DashboardView from '../views/authView/DashboardView.vue';
+import RevisorView from '../views/revisoreView/RevisorView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 import AppereanceView from '../views/authView/AppereanceView.vue';
@@ -25,7 +26,8 @@ export default {
         return {
             sidebarOpen: false,
             state,
-            showHello: false,
+            showMenu: false,
+            showMenuRevisor: false,
             fetch: useAnnouncement()
         }
     },
@@ -39,6 +41,9 @@ export default {
         showDashboard() {
             return this.path.includes('/profile/dashboard');
         },
+        showRevisor() {
+            return this.path.includes('/profile/revisor');
+        },
         showEdit() {
             return this.path.includes('/profile/edit');
         },
@@ -51,7 +56,10 @@ export default {
     },
     methods: {
         toggleDashboard() {
-            this.showHello = !this.showHello;
+            this.showMenu = !this.showMenu;
+        },
+        toggleRevisor() {
+            this.showMenuRevisor = !this.showMenuRevisor;
         },
         getImageSource() {
             const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
@@ -69,6 +77,7 @@ export default {
     components: {
         AccountView,
         DashboardView,
+        RevisorView,
         UpdateUserView,
         UpdateEmailPasswordView,
         AppereanceView
@@ -110,10 +119,26 @@ export default {
 
                 </li>
 
-                <li v-if="showHello">
-                    <RouterLink @click="() => { sidebarOpen = false, showHello = false }" to="/profile/dashboard">
+                <li v-if="showMenu">
+                    <RouterLink @click="() => { sidebarOpen = false, showMenu = false }" to="/profile/dashboard">
                         <div class="ml-3">
-                            <i class="pe-1 fa-solid fa-circle-plus"></i>Announcements
+                            <i class="pe-1 fa-solid fa-circle-plus"></i>Create Announcements
+                        </div>
+                    </RouterLink>
+                </li>
+
+                <li v-if="state.user.is_revisor" class="mb-2 dr">
+                    <div @click="toggleRevisor" class="cursor-pointer">
+                        <i class="fas fa-eye"></i>Revisor
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+
+                </li>
+
+                <li v-if="showMenuRevisor">
+                    <RouterLink @click="() => { sidebarOpen = false, showMenuRevisor = false }" to="/profile/revisor">
+                        <div class="ml-3">
+                            <i class="pe-1 fa-solid fa-square-check"></i>Review Announcements
                         </div>
                     </RouterLink>
                 </li>
@@ -222,6 +247,7 @@ export default {
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
                 <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" />
+                <RevisorView :user="state.user" v-if="showRevisor" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

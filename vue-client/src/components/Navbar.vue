@@ -87,6 +87,22 @@ export default {
                     </svg>
                 </button>
 
+                <!-- Revisor indicator -->
+                <div v-if="state.user.is_revisor" :class="{ 'tooltip tooltip-bottom': !state.user.is_revisor }"
+                    data-tip="New announcement">
+                    <RouterLink to="/profile/revisor" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <!-- Da modificare: mostrare solo se ci sono nuovi annunci da revisionare -->
+                            <span v-if="!state.user.is_revisor" class="badge badge-xs badge-primary indicator-item"></span>
+                        </div>
+                    </RouterLink>
+                </div>
+
                 <span class="border-l-2 mx-1 border-current h-5"></span>
 
                 <!-- Sign in -->
@@ -104,19 +120,19 @@ export default {
                         <button class="btn btn-ghost" @click="logout">
                             <div class="indicator">
                                 <span class="text-lg">{{ state.user.name }}
-                                <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
-                            </span>
-                        </div>
-                    </button>
-                </label>
+                                    <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
+                                </span>
+                            </div>
+                        </button>
+                    </label>
 
-                <!-- Dropdown list -->
-                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow rounded-none">
-                    <li>
-                        <RouterLink to="/profile">Profile</RouterLink>
-                    </li>
-                    <li>
-                        <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
+                    <!-- Dropdown list -->
+                    <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow rounded-none">
+                        <li>
+                            <RouterLink to="/profile">Profile</RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
                         </li>
                     </ul>
 
@@ -146,8 +162,21 @@ export default {
                 </svg>
             </button>
 
+            <!-- Revisor indicator -->
+            <RouterLink to="/profile/revisor" v-if="state.user.is_revisor" class="active">
+                <div class="indicator">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <!-- Da modificare: mostrare solo se ci sono nuovi annunci da revisionare -->
+                    <span v-if="!state.user.is_revisor" class="badge badge-xs badge-primary indicator-item"></span>
+                </div>
+            </RouterLink>
+
             <!-- Dropdown top menu -->
-            <div class="dropdown dropdown-top">
+            <div class="dropdown dropdown-top dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle" @click="toggleDropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -158,8 +187,7 @@ export default {
 
                 <!-- Dropdown list -->
                 <ul v-if="dropdownVisible" tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-none"
-                    @click="toggleDropdown">
+                    class="menu menu-sm dropdown-content p-2 z-[1] shadow bg-base-100 rounded-none" @click="toggleDropdown">
                     <li>
                         <RouterLink to="/announcements">Announcements</RouterLink>
                     </li>
