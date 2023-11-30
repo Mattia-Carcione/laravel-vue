@@ -4,7 +4,6 @@ import { reactive } from 'vue';
 
 import AccountView from '../views/authView/AccountView.vue';
 import DashboardView from '../views/authView/DashboardView.vue';
-import RevisorView from '../views/revisorView/RevisorView.vue';
 import ShowPreviewView from '../views/revisorView/ShowPreviewView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
@@ -33,7 +32,7 @@ export default {
             showMenuRevisor: false,
             fetch: useAnnouncement(),
             fetchRevisor: useRevisor(),
-            toBeRevisioned: []
+            showBadge: false
         }
     },
     computed: {
@@ -46,11 +45,8 @@ export default {
         showDashboard() {
             return this.path.includes('/profile/dashboard');
         },
-        showRevisor() {
-            return this.path === '/profile/revisor';
-        },
         showPreview() {
-            return this.path.includes('/profile/revisor/');
+            return this.path.includes('/profile/revisor');
         },
         showEdit() {
             return this.path.includes('/profile/edit');
@@ -63,12 +59,20 @@ export default {
         }
     },
     methods: {
-        async fetchDataFromRevisor() {
-            await this.fetchRevisor.fetchAnnouncements();
-            this.toBeRevisioned = this.fetchRevisor.getAnnouncements;
-        },
-        checkTobeRevisioned() {
-            return this.toBeRevisioned.some(element => element.is_accepted === null);
+        async isDataToBeRevisioned() {
+            await this.fetchRevisor.fetchAnnouncements()
+                .then(() => {
+                    if (this.fetchRevisor.getAnnouncements) {
+                        console.log(this.fetchRevisor.getAnnouncements);
+                        this.showBadge = true;
+                    }
+                    else {
+                        this.showBadge = false;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         },
         toggleDashboard() {
             this.showMenu = !this.showMenu;
@@ -92,19 +96,13 @@ export default {
     components: {
         AccountView,
         DashboardView,
-        RevisorView,
         ShowPreviewView,
         UpdateUserView,
         UpdateEmailPasswordView,
         AppereanceView
     },
     created() {
-        this.fetchDataFromRevisor();
-    },
-    watch: {
-        $route() {
-            this.fetchDataFromRevisor();
-        }
+        this.isDataToBeRevisioned();
     }
 }
 </script>
@@ -113,7 +111,7 @@ export default {
     <div class="font-sans h-full flex overflow-hidden">
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
-            class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-screen">
+            class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-min overflow-y-auto max-h-screen">
 
             <div class="flex justify-end">
                 <button class="lg:hidden btn btn-circle btn-outline" @click="toggleSidebar">
@@ -250,7 +248,7 @@ export default {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                     </svg>
-                                    <span v-if="checkTobeRevisioned()" class="badge badge-xs badge-primary indicator-item"></span>
+                                    <span v-if="showBadge" class="badge badge-xs badge-primary indicator-item"></span>
                                 </div>
                             </RouterLink>
                         </li>
@@ -286,9 +284,8 @@ export default {
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
-                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" />
-                <RevisorView :announcements="toBeRevisioned" :user="state.user" v-if="showRevisor" />
-                <ShowPreviewView v-if="showPreview" />
+                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" @fetchData="isDataToBeRevisioned" />
+                <ShowPreviewView v-if="showPreview" @fetchData="isDataToBeRevisioned" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

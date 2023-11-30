@@ -17,7 +17,7 @@ class AnnouncementController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'slug' => Str::slug($request->title, '-'),
+            'slug' => mb_strtoupper(Str::slug($request->title . '-' . Str::random(7))),
         ]);
 
         return response()->json([
@@ -29,6 +29,7 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements = Announcement::with(['user', 'category'])
+            ->where('is_accepted', true)
             ->orderByDesc('created_at')
             ->paginate(12);
 
@@ -41,6 +42,7 @@ class AnnouncementController extends Controller
     public function show($slug){
         $announcement = Announcement::where('slug', $slug)
         ->with(['user', 'category'])
+        ->where('is_accepted', true)
         ->firstOrFail();
 
         return response()->json([

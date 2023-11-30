@@ -22,6 +22,7 @@ class CategoryController extends Controller
 
         $announcements = Announcement::with(['user', 'category'])
             ->where('category_id', $category)
+            ->where('is_accepted', true)
             ->orderByDesc('created_at')
             ->paginate(12);
 

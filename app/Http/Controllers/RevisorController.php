@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class RevisorController extends Controller
 {
     public function toBeRevisioned() {
-        $toBeRevsioned = Announcement::with('user', 'category')->where('is_accepted', null)->get();
+        $toBeRevsioned = Announcement::with('user', 'category')->where('is_accepted', null)->first();
 
         return response()->json([
             'data' => $toBeRevsioned,

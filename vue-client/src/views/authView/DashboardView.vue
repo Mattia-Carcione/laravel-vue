@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import AnnouncementForm from '../../components/announceForm/AnnouncementForm.vue';
 
 export default {
+    emits: ['fetchData'],
     props: {
         user: Object,
         categories: Object
@@ -20,8 +21,8 @@ export default {
     },
     methods: {
         handleUpdateMessage(newMessage) {
+            this.$emit('fetchData');
             this.message.success = newMessage;
-            console.log(this.message);
         }
     }
 }

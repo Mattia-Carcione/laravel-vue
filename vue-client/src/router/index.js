@@ -68,21 +68,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/profile/revisor/:name',
-      name: 'revisor/announcement',
-      component: () => import('../templateUser/Profile.vue'),
-      beforeEnter: (to, from, next) => {
-        const auth = useAuth()
-        if (auth.getAuthenticated.value) {
-          if (auth.getUser.value.is_revisor) {
-            next()
-          } else {
-            next({ name: 'home' })
-          }
-        } 
-      }
-    },
-    {
       path: '/profile/edit',
       name: 'profile/edit',
       component: () => import('../templateUser/Profile.vue'),

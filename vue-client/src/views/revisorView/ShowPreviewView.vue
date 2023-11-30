@@ -1,20 +1,14 @@
 <script>
-import useAnnouncement from '../../announcement/useAnnouncement';
 import useRevisor from '../../revisor/useRevisor';
 
 export default {
+    emits: ['fetchData'],
     data() {
         return {
-            fetch: useAnnouncement(),
             fetchRevisor: useRevisor(),
             announcement: {
-                user: {
-                    name: '',
-                    surname: '',
-                },
-                category: {
-                    name: '',
-                }
+                user: '',
+                category: '',
             },
             date: '',
             selectedImage: "http://localhost:8000/storage/default-image.jpeg",
@@ -22,13 +16,16 @@ export default {
     },
     methods: {
         async fetchData() {
-            await this.fetch.show(this.$route.params.name);
-            if (!this.fetch.getError) {
-                this.announcement = this.fetch.getData;
-                this.formatDate();
-            } else {
-                this.$router.push({ name: 'not-found' });
-            }
+            await this.fetchRevisor.fetchAnnouncements()
+                .then(async () => {
+                    this.announcement = this.fetchRevisor.getAnnouncements;
+                    console.log(this.announcement);
+                    this.formatDate();
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.announcement = null;
+                })
         },
         formatDate() {
             const createdDate = new Date(this.announcement.created_at);
@@ -40,17 +37,26 @@ export default {
             });
             this.date = formattedDate;
         },
-        acceptAnnouncement(id) {
-            this.fetchRevisor.acceptAnnouncement(id);
-            if (!this.fetch.getError) {
-                this.$router.push({ name: 'revisor' });
-            }
+        async acceptAnnouncement(id) {
+            await this.fetchRevisor.acceptAnnouncement(id)
+                .then(async () => {
+                    await this.fetchData();
+                    this.$emit('fetchData');
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.announcement = null;
+                })
         },
-        rejectAnnouncement(id) {
-            this.fetchRevisor.rejectAnnouncement(id);
-            if (!this.fetch.getError) {
-                this.$router.push({ name: 'revisor' });
-            }
+        async rejectAnnouncement(id) {
+            this.fetchRevisor.rejectAnnouncement(id)
+                .then(async () => {
+                    await this.fetchData();
+                    this.$emit('fetchData');
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
     },
     mounted() {
@@ -60,7 +66,19 @@ export default {
 </script>
 
 <template>
-    <div class="px-5 flex flex-col justify-between pt-20 pb-24 lg:flex-row">
+    <div class="mb-6 mx-5 mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-title-md2 text-lg font-bold">
+            Review Announcements
+        </h2>
+    </div>
+
+
+    <div class="text-center flex flex-col items-center" v-if="!announcement">
+        <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
+        <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
+    </div>
+
+    <div v-if="announcement" class="px-5 flex flex-col justify-between pt-20 pb-24 lg:flex-row">
         <div class="flex flex-col-reverse justify-between px-5 sm:flex-row-reverse lg:w-1/2 lg:flex-row"
             x-data="{ selectedImage: 'http://localhost:8000/storage/default-image.jpeg' }">
             <div class="flex flex-row sm:flex-col sm:pl-5 md:pl-4 lg:pl-0 lg:pr-2 xl:pr-3">
@@ -128,8 +146,15 @@ export default {
             <p class="font-hk">
                 <span class="font-semibold pr-2">Categories:</span>{{ announcement.category.name }}
             </p>
+            <div class="flex pt-5">
+                <p class="font-hk text-secondary">SKU:</p>
+                <p class="font-hkbold pl-3 text-secondary">
+                    {{ announcement.slug ? announcement.slug.slice(-7) : '' }}
+                </p>
+            </div>
             <div class="group flex pt-8">
-                <button @click="acceptAnnouncement(announcement.id)" type="submit" class="btn btn-success mr-4 md:mr-6">Accept</button>
+                <button @click="acceptAnnouncement(announcement.id)" type="submit"
+                    class="btn btn-success mr-4 md:mr-6">Accept</button>
                 <button onclick="my_modal_5.showModal()" class="btn btn-outline btn-error">reject</button>
             </div>
 
@@ -145,7 +170,8 @@ export default {
                                 <button class="btn btn-outline">
                                     Cancel
                                 </button>
-                                <button @click="rejectAnnouncement(announcement.id)" class="btn btn-outline btn-error cursor-pointer ml-2">
+                                <button @click="rejectAnnouncement(announcement.id)"
+                                    class="btn btn-outline btn-error cursor-pointer ml-2">
                                     reject
                                 </button>
                             </div>

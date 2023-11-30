@@ -2,23 +2,35 @@
 import useAnnouncement from '../../announcement/useAnnouncement';
 
 export default {
+    props: {
+        categories: Array
+    },
     data() {
         return {
             fetch: useAnnouncement(),
-            announcement: "",
+            announcement: {
+                user: '',
+                category: '',
+            },
             date: '',
             selectedImage: "http://localhost:8000/storage/default-image.jpeg",
         };
     },
     methods: {
         async fetchData() {
-            await this.fetch.show(this.$route.params.name);
-            if (!this.fetch.getError) {
-                this.announcement = this.fetch.getData;
-                this.formatDate();
-            } else {
-                this.$router.push({ name: 'not-found' });
-            }
+            await this.fetch.show(this.$route.params.name).
+                then(() => {
+                    if (!this.fetch.getError) {
+                        this.announcement = this.fetch.getData;
+                        console.log(this.announcement);
+                        this.formatDate();
+                    } else {
+                        this.$router.push({ name: 'not-found' });
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         },
         formatDate() {
             const createdDate = new Date(this.announcement.created_at);
@@ -35,7 +47,6 @@ export default {
             const currentDate = new Date();
             const timeDifference = currentDate - createdDate;
             const hoursDifference = timeDifference / (1000 * 60 * 60);
-            console.log(hoursDifference < 24);
             return (hoursDifference < 24)
         }
     }, created() {
@@ -153,7 +164,7 @@ export default {
             <div class="flex pb-2">
                 <p class="font-hk text-secondary">SKU:</p>
                 <p class="font-hkbold pl-3 text-secondary">
-                    KH12345
+                    {{ announcement.slug.slice(-7) }}
                 </p>
             </div>
             <p class="font-hk text-slate-800">
