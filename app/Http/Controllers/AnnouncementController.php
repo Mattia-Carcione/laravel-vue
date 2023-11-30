@@ -39,8 +39,8 @@ class AnnouncementController extends Controller
     }
 
     public function show($slug){
-        $announcement = Announcement::with(['user', 'category'])
-        ->where('slug', $slug)
+        $announcement = Announcement::where('slug', $slug)
+        ->with(['user', 'category'])
         ->firstOrFail();
 
         return response()->json([

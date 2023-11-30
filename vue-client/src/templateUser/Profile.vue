@@ -5,6 +5,7 @@ import { reactive } from 'vue';
 import AccountView from '../views/authView/AccountView.vue';
 import DashboardView from '../views/authView/DashboardView.vue';
 import RevisorView from '../views/revisorView/RevisorView.vue';
+import ShowPreviewView from '../views/revisorView/ShowPreviewView.vue';
 import UpdateUserView from '../views/authView/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
 import AppereanceView from '../views/authView/AppereanceView.vue';
@@ -46,7 +47,10 @@ export default {
             return this.path.includes('/profile/dashboard');
         },
         showRevisor() {
-            return this.path.includes('/profile/revisor');
+            return this.path === '/profile/revisor';
+        },
+        showPreview() {
+            return this.path.includes('/profile/revisor/');
         },
         showEdit() {
             return this.path.includes('/profile/edit');
@@ -89,6 +93,7 @@ export default {
         AccountView,
         DashboardView,
         RevisorView,
+        ShowPreviewView,
         UpdateUserView,
         UpdateEmailPasswordView,
         AppereanceView
@@ -278,6 +283,7 @@ export default {
                 <AccountView :user="state.user" v-if="showProfile" />
                 <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" />
                 <RevisorView :announcements="toBeRevisioned" :user="state.user" v-if="showRevisor" />
+                <ShowPreviewView v-if="showPreview" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />

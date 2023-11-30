@@ -56,7 +56,7 @@ export default {
         <div class="flex flex-wrap items-center justify-between pt-1">
             <p class="text-sm py-1">{{ announcement.category.name }}</p>
             <!-- link provvisorio -->
-            <RouterLink to="/profile/dashboard" class="text-sm border p-1 bg-white text-black">See more</RouterLink>
+            <RouterLink :to="`/profile/revisor/${ announcement.slug }`" class="text-sm border p-1 bg-white text-black">See more</RouterLink>
         </div>
     </div>
 </template>
