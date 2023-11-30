@@ -36,6 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/announcement-create', [AnnouncementController::class, 'store']);
     Route::put('/announcement-update', [AnnouncementController::class, 'update']);
     Route::delete('/announcement-delete', [AnnouncementController::class, 'destroy']);
+
+    // API Revisor Accept/Reject Routes
+    Route::patch('/announcement-accept/{announcement}', [RevisorController::class, 'accept']);
+    Route::patch('/announcement-reject/{announcement}', [RevisorController::class, 'reject']);
 });
 
 // API Fetch Categories
@@ -46,5 +50,5 @@ Route::get('/category/{slug}', [CategoryController::class, 'getAnnouncementByCat
 Route::get('/announcements', [AnnouncementController::class, 'index']);
 Route::get('/announcements/{slug}', [AnnouncementController::class, 'show']);
 
-// API Fetch Announcements to be revised
+// API Announcements to be revisioned
 Route::get('/announcements-to-be-revisioned', [RevisorController::class, 'toBeRevisioned']);

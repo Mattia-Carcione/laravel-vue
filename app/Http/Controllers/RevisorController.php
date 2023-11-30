@@ -15,4 +15,22 @@ class RevisorController extends Controller
             'status' => 200
         ]);
     }
+
+    public function accept(Announcement $announcement) {
+        $announcement->setAccepted(true);
+
+        return response()->json([
+            'message' => 'Announcement accepted',
+            'status' => 200
+        ]);
+    }
+
+    public function reject(Announcement $announcement) {
+        $announcement->setAccepted(false);
+
+        return response()->json([
+            'message' => 'Announcement rejected',
+            'status' => 200
+        ]);
+    }
 }

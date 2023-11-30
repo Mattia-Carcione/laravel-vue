@@ -100,6 +100,11 @@ export default {
     },
     created() {
         this.fetchDataFromRevisor();
+    },
+    watch: {
+        $route() {
+            this.fetchDataFromRevisor();
+        }
     }
 }
 </script>

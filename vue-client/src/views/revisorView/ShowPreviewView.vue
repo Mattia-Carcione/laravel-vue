@@ -1,10 +1,12 @@
 <script>
 import useAnnouncement from '../../announcement/useAnnouncement';
+import useRevisor from '../../revisor/useRevisor';
 
 export default {
     data() {
         return {
             fetch: useAnnouncement(),
+            fetchRevisor: useRevisor(),
             announcement: {
                 user: {
                     name: '',
@@ -39,10 +41,16 @@ export default {
             this.date = formattedDate;
         },
         acceptAnnouncement(id) {
-            console.log(id);
+            this.fetchRevisor.acceptAnnouncement(id);
+            if (!this.fetch.getError) {
+                this.$router.push({ name: 'revisor' });
+            }
         },
-        refuseAnnouncement(id) {
-            console.log(id);
+        rejectAnnouncement(id) {
+            this.fetchRevisor.rejectAnnouncement(id);
+            if (!this.fetch.getError) {
+                this.$router.push({ name: 'revisor' });
+            }
         }
     },
     mounted() {
@@ -122,23 +130,23 @@ export default {
             </p>
             <div class="group flex pt-8">
                 <button @click="acceptAnnouncement(announcement.id)" type="submit" class="btn btn-success mr-4 md:mr-6">Accept</button>
-                <button onclick="my_modal_5.showModal()" class="btn btn-outline btn-error">Refuse</button>
+                <button onclick="my_modal_5.showModal()" class="btn btn-outline btn-error">reject</button>
             </div>
 
 
             <!-- Modal -->
             <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box">
-                    <h3 class="font-bold text-lg">Are you sure you want to refuse the announcements?</h3>
-                    <p class="py-4">This will <span class="text-error">refuse</span> your photo.</p>
+                    <h3 class="font-bold text-lg">Are you sure you want to reject the announcements?</h3>
+                    <p class="py-4">This will <span class="text-error">reject</span> your photo.</p>
                     <div class="modal-action">
                         <form method="dialog">
                             <div class="flex justify-between">
                                 <button class="btn btn-outline">
                                     Cancel
                                 </button>
-                                <button @click="refuseAnnouncement(announcement.id)" class="btn btn-outline btn-error cursor-pointer ml-2">
-                                    refuse
+                                <button @click="rejectAnnouncement(announcement.id)" class="btn btn-outline btn-error cursor-pointer ml-2">
+                                    reject
                                 </button>
                             </div>
                         </form>

@@ -1,5 +1,6 @@
 <script>
 import CardReview from '../../components/CardReview.vue';
+import useRevisor from '../../revisor/useRevisor';
 export default {
     components: {
         CardReview
@@ -7,6 +8,23 @@ export default {
     props: {
         user: Object,
         announcements: Array
+    },
+    data() {
+        return {
+            message: '',
+            fetch: useRevisor(),
+        }
+    },
+    methods: {
+        stateSuccess() {
+            this.message = this.fetch.getMessage;
+        },
+        async fetchAnnouncemntsToBeRevisioned() {
+            await this.fetch.fetchAnnouncements();
+        }
+    },
+    beforeMount() {
+        this.fetchAnnouncemntsToBeRevisioned();
     }
 }
 </script>
@@ -16,6 +34,12 @@ export default {
         <h2 class="text-title-md2 text-lg font-bold">
             Review Announcements
         </h2>
+    </div>
+
+    <!-- Message Success -->
+    <div v-if="message"
+        class="mb-3 bg-green-200 border-green-700 border-4 flex flex-row justify-content-center alert alert-success text-green-700 font-bold">
+        {{ message }}
     </div>
 
     <section>
