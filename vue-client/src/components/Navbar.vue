@@ -87,22 +87,6 @@ export default {
                     </svg>
                 </button>
 
-                <!-- Revisor indicator -->
-                <div v-if="state.user.is_revisor" :class="{ 'tooltip tooltip-bottom': !state.user.is_revisor }"
-                    data-tip="New announcement">
-                    <RouterLink to="/profile/revisor" class="btn btn-ghost btn-circle">
-                        <div class="indicator">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
-                            <!-- Da modificare: mostrare solo se ci sono nuovi annunci da revisionare -->
-                            <span v-if="!state.user.is_revisor" class="badge badge-xs badge-primary indicator-item"></span>
-                        </div>
-                    </RouterLink>
-                </div>
-
                 <span class="border-l-2 mx-1 border-current h-5"></span>
 
                 <!-- Sign in -->
@@ -134,6 +118,9 @@ export default {
                         <li>
                             <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
                         </li>
+                        <li v-if="state.user.is_revisor">
+                            <RouterLink to="/profile/revisor">Revisor</RouterLink>
+                        </li>
                     </ul>
 
                 </div>
@@ -162,19 +149,6 @@ export default {
                 </svg>
             </button>
 
-            <!-- Revisor indicator -->
-            <RouterLink to="/profile/revisor" v-if="state.user.is_revisor" class="active">
-                <div class="indicator">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
-                    <!-- Da modificare: mostrare solo se ci sono nuovi annunci da revisionare -->
-                    <span v-if="!state.user.is_revisor" class="badge badge-xs badge-primary indicator-item"></span>
-                </div>
-            </RouterLink>
-
             <!-- Dropdown top menu -->
             <div class="dropdown dropdown-top dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle" @click="toggleDropdown">
@@ -193,6 +167,9 @@ export default {
                     </li>
                     <li v-if="state.authenticated">
                         <RouterLink :to="{ name: 'profile' }">Profile</RouterLink>
+                    </li>
+                    <li v-if="state.user.is_revisor">
+                        <RouterLink to="/profile/revisor">Revisor</RouterLink>
                     </li>
                     <li>
                         <RouterLink v-if="!state.authenticated" to="/login">Sign in</RouterLink>
