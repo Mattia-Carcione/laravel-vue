@@ -11,6 +11,7 @@ class Announcement extends Model
 
     protected $fillable = [
         'title',
+        'about',
         'body',
         'price',
         'category_id',

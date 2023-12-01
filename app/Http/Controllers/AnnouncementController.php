@@ -13,6 +13,7 @@ class AnnouncementController extends Controller
     {
         Announcement::create([
             'title' => $request->title,
+            'about' => $request->about,
             'body' => $request->body,
             'price' => $request->price,
             'category_id' => $request->category_id,
