@@ -2,64 +2,52 @@
 import useAnnouncement from '../announcement/useAnnouncement';
 import Card from '../components/Card.vue';
 import ButtonCategory from '../components/ButtonCategory.vue';
+import ButtonPagination from '../components/ButtonPagination.vue';
 export default {
     props: {
         categories: Array
     },
     components: {
         Card,
-        ButtonCategory
+        ButtonCategory,
+        ButtonPagination
     },
     data() {
         return {
             category: [],
             announcements: [],
-            lessThan24Hours: false,
             fetch: useAnnouncement(),
+            currentPage: 1,
+            totalPages: 1,
         }
     },
     methods: {
-        async checkCategory(name = null) {
+        async checkCategory(name = null, page) {
             if (!name) {
                 name = this.$route.params.name
             }
             const findCategory = this.categories.find(category => category.slug === name);
             if (findCategory) {
                 this.category = name;
-                await this.fetchData();
-                console.log(this.announcements);
+                await this.fetchData(page);
             } else {
                 this.$router.push({ name: 'not-found' });
             }
         },
-        async fetchData() {
-            await this.fetch.fetchAnnouncementsByCategory(this.category);
-            this.announcements = this.fetch.getData.data;
+        async fetchData(page = 1) {
+            await this.fetch.fetchAnnouncementsByCategory(this.category, page)
+                .then(() => {
+                    this.announcements = this.fetch.getData.data;
+                    this.currentPage = this.fetch.getData.current_page;
+                    this.totalPages = this.fetch.getData.last_page;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        goToPage(pageNumber) {
+            this.checkCategory(this.$route.params.name, pageNumber);
         }
-        // Metodi per la gestione della data
-
-        // formatDate() {
-        //     this.ANNUNCI.forEach(element => {
-        //         const createdDate = new Date(element['created_at']);
-        //         const formattedDate = createdDate.toLocaleDateString('en-US', {
-        //             year: 'numeric',
-        //             month: 'long',
-        //             day: 'numeric',
-        //             hour12: true
-        //         });
-        //         this.date = formattedDate;
-        //     })
-        // },
-
-        // lessThan24Hours() {
-        //     this.ANNUNCI.forEach(element => {
-        //         const createdDate = new Date(element['created_at']);
-        //         const currentDate = new Date();
-        //         const timeDifference = currentDate - createdDate;
-        //         const hoursDifference = timeDifference / (1000 * 60 * 60);
-        //         this.lessThan24Hours = hoursDifference < 24
-        //     })
-        // }
     },
     created() {
         this.checkCategory();
@@ -85,6 +73,8 @@ export default {
         </div>
     </div>
 
+    <ButtonCategory class="pb-5" :categories="categories" />
+
     <section>
         <div class="text-center flex flex-col items-center bg-white" v-if="announcements.length === 0">
             <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
@@ -96,7 +86,6 @@ export default {
                 <Card :announcement="announcement" />
             </div>
         </div>
+        <ButtonPagination :currentPage="currentPage" :totalPages="totalPages" @goToPage="goToPage" />
     </section>
-
-    <ButtonCategory :categories="categories" />
 </template>

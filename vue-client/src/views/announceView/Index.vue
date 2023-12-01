@@ -2,6 +2,7 @@
 import useAnnouncement from '../../announcement/useAnnouncement';
 import Card from '../../components/Card.vue';
 import ButtonCategory from '../../components/ButtonCategory.vue';
+import ButtonPagination from '../../components/ButtonPagination.vue';
 
 export default {
     props: {
@@ -9,22 +10,32 @@ export default {
     },
     components: {
         Card,
-        ButtonCategory
+        ButtonCategory,
+        ButtonPagination
     },
     data() {
         return {
             fetch: useAnnouncement(),
             announcements: [],
+            currentPage: 1,
+            totalPages: 1,
         }
     },
     methods: {
-        async fetchData() {
+        async fetchData(page = 1) {
             try {
-                await this.fetch.fetchAnnouncements();
-                this.announcements = this.fetch.getData.data;
+                await this.fetch.fetchAnnouncements(page)
+                .then(() => {
+                    this.announcements = this.fetch.getData.data;
+                    this.currentPage = this.fetch.getData.current_page;
+                    this.totalPages = this.fetch.getData.last_page;
+                })
             } catch (error) {
                 console.log(error);
             }
+        },
+        goToPage(pageNumber) {
+            this.fetchData(pageNumber);
         }
     },
     created() {
@@ -46,12 +57,14 @@ export default {
                 <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
             </div>
 
-            <div v-else class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
+            <div v-else class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4 bg-zinc-50">
                 <div v-for="announcement in announcements" :key="announcement.id"
                     class="group relative w-full lg:last:hidden xl:last:block">
                     <Card :announcement="announcement" />
                 </div>
             </div>
+
+            <ButtonPagination :currentPage="currentPage" :totalPages="totalPages" @goToPage="goToPage" />
         </section>
 
         <section class="bg-white pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -123,10 +136,8 @@ export default {
                 </div>
 
                 <ButtonCategory :categories="categories" />
-                
+
             </div>
         </section>
     </div>
 </template>
-
-<style></style>

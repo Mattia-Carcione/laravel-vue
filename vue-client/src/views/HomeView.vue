@@ -181,7 +181,7 @@ export default {
       </div>
     </section>
 
-    <section class="bg-zinc-50">
+    <section v-if="announcements" class="bg-zinc-50">
       <div class="p-10 text-center font-semibold text-4xl">
         <h1 class="font-hk font-semibold text-slate-700">Newest Announcements</h1>
         <p class="font-hk text-lg pt-5 lg:px-44 text-slate-500">
@@ -194,6 +194,13 @@ export default {
           class="group relative w-full lg:last:hidden xl:last:block">
           <Card :announcement="announcement" />
         </div>
+      </div>
+    </section>
+
+    <section v-else>
+      <div class="text-center flex flex-col items-center bg-white">
+        <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
+        <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
       </div>
     </section>
   </main>

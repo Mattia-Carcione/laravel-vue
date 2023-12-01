@@ -57,9 +57,9 @@ export default function useAnnouncement() {
         }
     }
 
-    const fetchAnnouncements = async () => {
+    const fetchAnnouncements = async (page) => {
         try {
-            const response = await axios.get('/api/announcements');
+            const response = await axios.get(`/api/announcements?page=${page}`);
             setData(response.data.data);
             setError('');
         } catch (error) {
@@ -68,11 +68,10 @@ export default function useAnnouncement() {
         }
     }
 
-    const fetchAnnouncementsByCategory = async (slug) => {
+    const fetchAnnouncementsByCategory = async (slug, page) => {
         try {
-            const response = await axios.get(`/api/category/${slug}`);
+            const response = await axios.get(`/api/category/${slug}?page=${page}`);
             setData(response.data.data);
-            console.log(response.data.data);
             setError('');
         } catch (error) {
             setError(error.response.data);
