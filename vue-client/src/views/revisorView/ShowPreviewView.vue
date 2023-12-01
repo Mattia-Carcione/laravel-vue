@@ -141,6 +141,11 @@ export default {
             <p class="font-hk font-bold pb-3">About:</p>
 
             <p class="pb-5 font-hk">
+                {{ announcement.about }}
+            </p>
+            <p class="font-hk font-bold pb-3">Description:</p>
+
+            <p class="pb-5 font-hk">
                 {{ announcement.body }}
             </p>
             <p class="font-hk">

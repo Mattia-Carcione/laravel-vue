@@ -23,6 +23,7 @@ export default {
             announce: useAnnouncement(),
             form: {
                 title: '',
+                about: '',
                 body: '',
                 price: '',
                 category_id: '--Choose a category',
@@ -45,6 +46,8 @@ export default {
             } else {
                 this.message.success = this.announce.getSuccess;
                 this.error.errors.title = false
+                this.error.errors.about = false
+                this.error.errors.category_id = false
                 this.error.errors.body = false
                 this.error.errors.price = false
                 this.clearForm();
@@ -52,6 +55,7 @@ export default {
         },
         clearForm() {
             this.form.title = '';
+            this.form.about = '';
             this.form.body = '';
             this.form.price = '';
             this.form.category_id = '--Choose a category';
@@ -89,11 +93,37 @@ export default {
                         <span class="absolute pl-3 left-4.5 top-3.5">
                             <i class="fa-solid fa-tag text-black"></i>
                         </span>
-                        <!-- :class="{ 'border-red-700': state.errors.phone, 'border-green-700': message }" -->
+
                         <input v-model="form.title"
                             :class="{ 'border-red-700': error.errors.title, 'border-green-700': message.success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Title" type="text" name="title" id="title">
+                    </div>
+                </div>
+
+                <!-- Validation title error -->
+                <div v-if="error.errors.about"
+                    class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                    role="alert">
+                    <span class="font-bold block sm:inline">
+                        {{ error.errors.about[0] }}
+                    </span>
+                </div>
+
+                <!-- About -->
+                <div class="mb-5.5 mt-5">
+                    <label class="mb-3 block text-sm font-medium" for="about">
+                        Short description (max 50)
+                    </label>
+                    <div class="relative">
+                        <span class="absolute pl-3 left-4.5 top-3.5">
+                            <i class="fa-solid fa-circle-info text-black"></i>
+                        </span>
+
+                        <input v-model="form.about"
+                            :class="{ 'border-red-700': error.errors.about, 'border-green-700': message.success, }"
+                            class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                            placeholder="Short description" type="text" name="about" id="about">
                     </div>
                 </div>
 

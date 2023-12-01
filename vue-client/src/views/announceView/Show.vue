@@ -155,7 +155,7 @@ export default {
             <p class="font-hk font-bold pb-3 text-slate-800">About:</p>
 
             <p class="pb-5 font-hk text-slate-800">
-                {{ announcement.body }}
+                {{ announcement.about }}
             </p>
             <div class="group flex pb-8">
                 <a href="#" class="btn btn-outline mr-4 md:mr-6">Add to cart</a>
