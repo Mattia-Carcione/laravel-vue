@@ -63,7 +63,6 @@ export default {
             await this.fetchRevisor.fetchAnnouncements()
                 .then(() => {
                     if (this.fetchRevisor.getAnnouncements) {
-                        console.log(this.fetchRevisor.getAnnouncements);
                         this.showBadge = true;
                     }
                     else {
@@ -138,11 +137,18 @@ export default {
                         <i class="fas fa-pie-chart"></i>Dashboard
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-
                 </li>
 
                 <li v-if="showMenu">
                     <RouterLink @click="() => { sidebarOpen = false, showMenu = false }" to="/profile/dashboard">
+                        <div class="ml-3">
+                            <i class="pe-1 fa-solid fa-bars"></i>Announcements
+                        </div>
+                    </RouterLink>
+                </li>
+
+                <li v-if="showMenu">
+                    <RouterLink @click="() => { sidebarOpen = false, showMenu = false }" to="/profile/dashboard/create">
                         <div class="ml-3">
                             <i class="pe-1 fa-solid fa-circle-plus"></i>Create Announcements
                         </div>
@@ -284,7 +290,8 @@ export default {
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
                 <AccountView :user="state.user" v-if="showProfile" />
-                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories" @fetchData="isDataToBeRevisioned" />
+                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories"
+                    @fetchData="isDataToBeRevisioned" />
                 <ShowPreviewView v-if="showPreview" @fetchData="isDataToBeRevisioned" />
                 <UpdateUserView :user="state.user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />

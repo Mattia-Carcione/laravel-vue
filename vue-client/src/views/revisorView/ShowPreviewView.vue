@@ -19,7 +19,6 @@ export default {
             await this.fetchRevisor.fetchAnnouncements()
                 .then(async () => {
                     this.announcement = this.fetchRevisor.getAnnouncements;
-                    console.log(this.announcement);
                     this.formatDate();
                 })
                 .catch(error => {

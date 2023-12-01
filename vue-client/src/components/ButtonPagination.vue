@@ -1,4 +1,6 @@
 <script>
+import { useRoute } from 'vue-router';
+
 export default {
     emits: ['goToPage'],
     props: {
@@ -9,29 +11,39 @@ export default {
         goToPage(pageNumber) {
             this.$emit('goToPage', pageNumber);
         }
+    },
+    computed: {
+        path() {
+            return useRoute();
+        },
+        bgCurrent() {
+            return this.$route.path.includes('/dashboard');
+        }
     }
 }
 </script>
 
 <template>
-    <div class="flex p-10 bg-zinc-50">
+    <div :class="{ 'bg-zinc-50': !bgCurrent }" class="flex p-10">
         <div class="join grid grid-cols-2">
-            <button :disabled="currentPage === 1" @click="goToPage(currentPage - 1)"
-                class="join-item btn bg-white hover:bg-black hover:text-white border-black text-black">Previous
+            <button
+            :disabled="currentPage === 1" @click="goToPage(currentPage - 1)" 
+                class="btn join-item bg-white hover:bg-blue-700 btn-custom">Previous
                 page</button>
-            <button :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)"
-                class="join-item btn bg-white hover:bg-black hover:text-white btn-outline border-black text-black">Next</button>
+            <button
+            :disabled="currentPage === totalPages"
+                @click="goToPage(currentPage + 1)" class="btn join-item hover:bg-blue-700 bg-white btn-custom">Next</button>
         </div>
     </div>
 </template>
 
 <style scoped>
-.join-item {
+.btn-custom {
     color: black;
     border-color: black;
 }
 
-.join-item:hover {
+.btn-custom:hover {
     color: white;
     border-color: black;
 }

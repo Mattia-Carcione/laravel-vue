@@ -57,9 +57,9 @@ export default function useAnnouncement() {
         }
     }
 
-    const fetchAnnouncements = async (page) => {
+    const fetchAnnouncements = async (page, userId = '') => {
         try {
-            const response = await axios.get(`/api/announcements?page=${page}`);
+            const response = await axios.get(`/api/announcements/${userId}?page=${page}` );
             setData(response.data.data);
             setError('');
         } catch (error) {

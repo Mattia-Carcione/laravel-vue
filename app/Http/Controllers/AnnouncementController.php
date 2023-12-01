@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAnnouncementRequest;
 use Illuminate\Http\Request;
 use App\Models\Announcement;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class AnnouncementController extends Controller
@@ -27,12 +28,19 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(User $user = null)
     {
-        $announcements = Announcement::with(['user', 'category'])
-            ->where('is_accepted', true)
-            ->orderByDesc('created_at')
-            ->paginate(12);
+        if ($user) {
+            $announcements = Announcement::where('user_id', $user->id)
+                ->with(['user', 'category'])
+                ->orderByDesc('created_at')
+                ->paginate(12);
+        } else {
+            $announcements = Announcement::with(['user', 'category'])
+                ->where('is_accepted', true)
+                ->orderByDesc('created_at')
+                ->paginate(12);
+        }
 
         return response()->json([
             'data' => $announcements,

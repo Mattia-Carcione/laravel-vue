@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import useAuth from '../auth/useAuth'
 
+const auth = useAuth()
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -33,7 +35,7 @@ const router = createRouter({
       name: 'profile',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        if (useAuth().getAuthenticated.value) {
+        if (auth.getAuthenticated.value) {
           next()
         } else {
           next('/login')
@@ -45,7 +47,19 @@ const router = createRouter({
       name: 'profile/dashboard',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        if (useAuth().getAuthenticated.value) {
+        if (auth.getAuthenticated.value) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/profile/dashboard/create',
+      name: 'profile/table',
+      component: () => import('../templateUser/Profile.vue'),
+      beforeEnter: (to, from, next) => {
+        if (auth.getAuthenticated.value) {
           next()
         } else {
           next('/login')
@@ -57,7 +71,6 @@ const router = createRouter({
       name: 'revisor',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        const auth = useAuth()
         if (auth.getAuthenticated.value) {
           if (auth.getUser.value.is_revisor) {
             next()
@@ -72,7 +85,7 @@ const router = createRouter({
       name: 'profile/edit',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        if (useAuth().getAuthenticated.value) {
+        if (auth.getAuthenticated.value) {
           next()
         } else {
           next('/login')
@@ -84,7 +97,7 @@ const router = createRouter({
       name: 'profile/privacy',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        if (useAuth().getAuthenticated.value) {
+        if (auth.getAuthenticated.value) {
           next()
         } else {
           next('/login')
@@ -96,7 +109,7 @@ const router = createRouter({
       name: 'profile/appereance',
       component: () => import('../templateUser/Profile.vue'),
       beforeEnter: (to, from, next) => {
-        if (useAuth().getAuthenticated.value) {
+        if (auth.getAuthenticated.value) {
           next()
         } else {
           next('/login')
