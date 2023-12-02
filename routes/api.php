@@ -48,7 +48,7 @@ Route::get('/category/{slug}', [CategoryController::class, 'getAnnouncementByCat
 
 // API Fetch Announcements
 Route::get('/announcements/{user?}', [AnnouncementController::class, 'index']);
-Route::get('/announcements/{slug}', [AnnouncementController::class, 'show']);
+Route::get('/announcement/{slug}', [AnnouncementController::class, 'show']);
 
 // API Announcements to be revisioned
 Route::get('/announcements-to-be-revisioned', [RevisorController::class, 'toBeRevisioned']);

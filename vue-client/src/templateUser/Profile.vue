@@ -110,7 +110,7 @@ export default {
     <div class="font-sans h-full flex overflow-hidden">
         <!-- Offcanvas -->
         <aside :class="{ 'visible-sidebar': sidebarOpen, 'hidden-sidebar': !sidebarOpen }"
-            class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-min overflow-y-auto max-h-screen">
+            class="fixed border-r lg:w-1/5 lg:block settings-sidebar hidden w-screen p-4 min-h-screen overflow-y-auto max-h-screen">
 
             <div class="flex justify-end">
                 <button class="lg:hidden btn btn-circle btn-outline" @click="toggleSidebar">

@@ -13,6 +13,7 @@ export default {
                 category: '',
             },
             date: '',
+            slug: '',
             selectedImage: "http://localhost:8000/storage/default-image.jpeg",
         };
     },
@@ -22,9 +23,10 @@ export default {
                 then(() => {
                     if (!this.fetch.getError) {
                         this.announcement = this.fetch.getData;
-                        console.log(this.announcement);
+                        this.slug = this.announcement.slug.slice(-7);
                         this.formatDate();
                     } else {
+                        console.log(this.fetch.getError);
                         this.$router.push({ name: 'not-found' });
                     }
                 })
@@ -164,7 +166,7 @@ export default {
             <div class="flex pb-2">
                 <p class="font-hk text-secondary">SKU:</p>
                 <p class="font-hkbold pl-3 text-secondary">
-                    {{ announcement.slug.slice(-7) }}
+                    {{ slug.toUpperCase() }}
                 </p>
             </div>
             <p class="font-hk text-slate-800">

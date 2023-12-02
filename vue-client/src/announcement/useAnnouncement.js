@@ -98,7 +98,7 @@ export default function useAnnouncement() {
 
     const show = async (slug) => {
         try {
-            const response = await axios.get(`/api/announcements/${slug}`);
+            const response = await axios.get(`/api/announcement/${slug}`);
             setData(response.data.data);
             setError('');
         } catch (error) {
@@ -107,8 +107,27 @@ export default function useAnnouncement() {
         }
     }
 
+    const update = async (data) => {
+        console.log(data);
+        try {
+            await getCSRFToken();
+            const response = await axios.put(`/api/announcement-update/`, data, {
+                headers: {
+                    'X-XSRF-TOKEN': getToken()
+                }
+            });
+            setData(response.data.data);
+            setSuccess(response.data.message);
+            setError('');
+        } catch (error) {
+            setError(error.response.data);
+            setSuccess('');
+        }
+    }
+
     return {
         store,
+        update,
         show,
         getData,
         getError,

@@ -36,6 +36,9 @@ export default {
                 this.tr = Math.max(this.tr - 12, 1);
             }
             this.fetchData(pageNumber);
+        },
+        deleteData() {
+            console.log(this.announcements);
         }
     },
     created() {
@@ -47,8 +50,8 @@ export default {
 <template>
     <section>
 
-        <div class="overflow-x-auto">
-            <table class="table">
+        <div class="overflow-x-auto w-full">
+            <table class="table w-full">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -57,7 +60,7 @@ export default {
                         <th class="display">Description</th>
                         <th>Category</th>
                         <th class="display">Price</th>
-                        <th>Status</th>
+                        <th class="p-0">Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -69,14 +72,17 @@ export default {
                         <td class="display">{{ announcement.body }}</td>
                         <td>{{ announcement.category.name }}</td>
                         <td class="display">{{ announcement.price }}</td>
-                        <td class="w-5">
+                        <td class="p-0">
                             <div :class="{ 'badge-success': announcement.is_accepted === 1, 'badge-error': announcement.is_accepted === 0, 'badge-warning': announcement.is_accepted === null }"
                                 class="badge badge-md"></div>
                         </td>
-                        <td>
-                            <RouterLink :to="'/profile/dashboard/create'">
-                                <i class="fa-regular fa-pen-to-square"></i>
+                        <td class="p-0">
+                            <RouterLink v-if="announcement.is_accepted" :to="`/profile/dashboard/update/${announcement.slug.toLowerCase()}`">
+                                <i class="px-1 fa-regular fa-pen-to-square text-warning"></i>
                             </RouterLink>
+                            <span @click="deleteData">
+                                <i class="px-1 cursor-pointer fa-solid fa-trash-can text-error"></i>
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -88,17 +94,18 @@ export default {
 </template>
 
 <style scoped>
-tr td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 20px;
+@media screen and (min-width: 768px) {
+    tr td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 20px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .display {
         display: none;
     }
-
 }
 </style>

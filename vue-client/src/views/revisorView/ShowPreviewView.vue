@@ -153,7 +153,7 @@ export default {
             <div class="flex pt-5">
                 <p class="font-hk text-secondary">SKU:</p>
                 <p class="font-hkbold pl-3 text-secondary">
-                    {{ announcement.slug ? announcement.slug.slice(-7) : '' }}
+                    {{ announcement.slug ? announcement.slug.slice(-7).toUpperCase() : '' }}
                 </p>
             </div>
             <div class="group flex pt-8">

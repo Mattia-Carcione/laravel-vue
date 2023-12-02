@@ -38,7 +38,7 @@ export default {
                     <div class="mt-4">
                         <h3 class="mb-1.5 text-2xl font-medium">
                             {{ user.name }} {{ user.surname }} <span>
-                                <RouterLink :to="{ name: 'profile/edit' }"><i class="fa-regular fa-pen-to-square"></i>
+                                <RouterLink :to="{ name: 'edit' }"><i class="fa-regular fa-pen-to-square"></i>
                                 </RouterLink>
                             </span>
                         </h3>

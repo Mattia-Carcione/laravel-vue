@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAnnouncementRequest;
+use App\Http\Requests\UpdateAnnouncementRequest;
 use Illuminate\Http\Request;
 use App\Models\Announcement;
 use App\Models\User;
@@ -19,7 +20,7 @@ class AnnouncementController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'slug' => mb_strtoupper(Str::slug($request->title . '-' . Str::random(7))),
+            'slug' => Str::slug($request->title . '-' . Str::random(7)),
         ]);
 
         return response()->json([
@@ -57,6 +58,28 @@ class AnnouncementController extends Controller
         return response()->json([
             'data' => $announcement,
             'status' => 'success'
+        ]);
+    }
+
+    public function update(UpdateAnnouncementRequest $request) {
+        $announcement = Announcement::where('id', $request->id)->firstOrFail();
+
+
+        $announcement->update([
+            'title' => $request->title,
+            'about' => $request->about,
+            'body' => $request->body,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'slug' => Str::slug($request->title . '-' . Str::random(7)),
+        ]);
+
+        $announcement->setAccepted(null);
+
+        return response()->json([
+            'message' => 'Announcement updated successfully',
+            'status' => 'success',
+            'data' => $announcement::with(['user', 'category']),
         ]);
     }
 }

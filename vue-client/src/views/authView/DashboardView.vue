@@ -2,6 +2,7 @@
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import AnnouncementForm from '../../components/announceForm/AnnouncementForm.vue';
+import UpdateForm from '../../components/announceForm/UpdateForm.vue';
 import DashboardTable from '../../components/DashboardTable.vue';
 
 export default {
@@ -20,6 +21,7 @@ export default {
     },
     components: {
         AnnouncementForm,
+        UpdateForm,
         DashboardTable
     },
     methods: {
@@ -33,7 +35,13 @@ export default {
             return useRoute().path
         },
         showTable() {
+            return !this.path.includes('/profile/dashboard/');
+        },
+        showCreate() {
             return this.path.includes('/profile/dashboard/create');
+        },
+        showUpdate() {
+            return this.path.includes('/profile/dashboard/update');
         }
     },
     mounted() {
@@ -55,9 +63,11 @@ export default {
         {{ message.success }}
     </div>
 
-    <div class="p-4">
-        <AnnouncementForm v-if="showTable" :user="user" :categories="categories" @update-message="handleUpdateMessage" />
+    <div class="md:p-4">
+        <DashboardTable v-if="showTable" :user="user" />
 
-        <DashboardTable v-else :user="user" />
+        <AnnouncementForm v-if="showCreate" :user="user" :categories="categories" @update-message="handleUpdateMessage" />
+
+        <UpdateForm v-if="showUpdate" :user="user" :categories="categories" @update-message="handleUpdateMessage" />
     </div>
 </template>
