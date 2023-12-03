@@ -53,15 +53,25 @@ export default {
     },
     created() {
         this.fetchData();
+        console.log(this.announcements.length === 0);
     }
 }
 </script>
 
 <template>
-    <section>
+    <section class="text-center h-full" v-if="announcements.length === 0">
+        <h2 class="py-5">Get started by creating an announcement</h2>
+        <RouterLink :to="{ name: 'createAnnouncements' }">
+            <button type="button" class="btn btn-custom">Create</button>
+        </RouterLink>
+    </section>
 
+    <section v-else>
         <div class="overflow-x-auto w-full">
+
+            <!-- table -->
             <table class="table w-full">
+                <!-- head -->
                 <thead>
                     <tr>
                         <th>#</th>
@@ -74,6 +84,8 @@ export default {
                         <th></th>
                     </tr>
                 </thead>
+
+                <!-- body -->
                 <tbody>
                     <tr v-for="(announcement, index) in announcements" :key="announcement.id">
                         <th class="w-5">{{ index + tr }}</th>
@@ -100,11 +112,25 @@ export default {
             </table>
         </div>
 
+        <!-- pagination -->
         <ButtonPagination @goToPage="goToPage" :totalPages="totalPages" :currentPage="currentPage" />
     </section>
 </template>
 
 <style scoped>
+.btn-custom {
+    color: white;
+    background: linear-gradient(45deg, rgb(97, 69, 180) 0%, #1e618a 100%);
+    background-size: 300%;
+    border-radius: 15rem;
+    transition: all .5s;
+}
+
+.btn-custom:hover {
+    background-size: 100%;
+    transform: scale(1.05);
+}
+
 @media screen and (min-width: 768px) {
     tr td {
         white-space: nowrap;

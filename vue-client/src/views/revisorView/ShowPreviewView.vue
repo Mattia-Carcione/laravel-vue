@@ -74,7 +74,7 @@ export default {
 
     <div class="text-center flex flex-col items-center" v-if="!announcement">
         <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
-        <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
+        <img class="w-96 h- h-96 rounded-full" src="http://localhost:8000/storage/noFile.jpeg" alt="">
     </div>
 
     <div v-if="announcement" class="px-5 flex flex-col justify-between pt-20 pb-24 lg:flex-row">
@@ -137,7 +137,7 @@ export default {
                     {{ announcement.user.name }} {{ announcement.user.surname }}
                 </p>
             </div>
-            <p class="font-hk font-bold pb-3">About:</p>
+            <p class="font-hk font-bold pb-3">Features:</p>
 
             <p class="pb-5 font-hk">
                 {{ announcement.about }}

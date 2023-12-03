@@ -80,12 +80,15 @@ export default {
             <h2 class="text-3xl font-bold py-5">There aren't any announcements</h2>
             <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
         </div>
-        <div v-else class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
+
+        <div v-else >
+        <div class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4   bg-zinc-50">
             <div v-for="announcement in announcements" :key="announcement.id"
                 class="group relative w-full lg:last:hidden xl:last:block">
                 <Card :announcement="announcement" />
             </div>
         </div>
         <ButtonPagination :currentPage="currentPage" :totalPages="totalPages" @goToPage="goToPage" />
+        </div>
     </section>
 </template>

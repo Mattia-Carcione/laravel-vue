@@ -104,7 +104,7 @@ export default {
                     </div>
                 </div>
 
-                <!-- Validation title error -->
+                <!-- Validation about error -->
                 <div v-if="error.errors.about"
                     class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
@@ -116,7 +116,7 @@ export default {
                 <!-- About -->
                 <div class="mb-5.5 mt-5">
                     <label class="mb-3 block text-sm font-medium" for="about">
-                        Short description (max 50)
+                        Features (max 50)
                     </label>
                     <div class="relative">
                         <span class="absolute pl-3 left-4.5 top-3.5">
@@ -126,7 +126,7 @@ export default {
                         <input v-model="form.about"
                             :class="{ 'border-red-700': error.errors.about, 'border-green-700': message.success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
-                            placeholder="Short description" type="text" name="about" id="about">
+                            placeholder="Features" type="text" name="about" id="about">
                     </div>
                 </div>
 

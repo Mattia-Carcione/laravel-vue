@@ -25,11 +25,11 @@ export default {
         async fetchData(page = 1) {
             try {
                 await this.fetch.fetchAnnouncements(page)
-                .then(() => {
-                    this.announcements = this.fetch.getData.data;
-                    this.currentPage = this.fetch.getData.current_page;
-                    this.totalPages = this.fetch.getData.last_page;
-                })
+                    .then(() => {
+                        this.announcements = this.fetch.getData.data;
+                        this.currentPage = this.fetch.getData.current_page;
+                        this.totalPages = this.fetch.getData.last_page;
+                    })
             } catch (error) {
                 console.log(error);
             }
@@ -57,14 +57,16 @@ export default {
                 <img class="w-96 h- h-96" src="http://localhost:8000/storage/noFile.jpeg" alt="">
             </div>
 
-            <div v-else class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4 bg-zinc-50">
-                <div v-for="announcement in announcements" :key="announcement.id"
-                    class="group relative w-full lg:last:hidden xl:last:block">
-                    <Card :announcement="announcement" />
+            <div v-else>
+                <div class="grid grid-cols-2 p-10 lg:px-20 gap-10 sm:grid-cols-3 md:grid-cols-4 bg-zinc-50">
+                    <div v-for="announcement in announcements" :key="announcement.id"
+                        class="group relative w-full lg:last:hidden xl:last:block">
+                        <Card :announcement="announcement" />
+                    </div>
                 </div>
-            </div>
 
-            <ButtonPagination :currentPage="currentPage" :totalPages="totalPages" @goToPage="goToPage" />
+                <ButtonPagination :currentPage="currentPage" :totalPages="totalPages" @goToPage="goToPage" />
+            </div>
         </section>
 
         <section class="bg-white pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">

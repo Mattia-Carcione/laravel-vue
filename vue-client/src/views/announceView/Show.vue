@@ -154,7 +154,7 @@ export default {
                     {{ announcement.user.name }} {{ announcement.user.surname }}
                 </p>
             </div>
-            <p class="font-hk font-bold pb-3 text-slate-800">About:</p>
+            <p class="font-hk font-bold pb-3 text-slate-800">Features:</p>
 
             <p class="pb-5 font-hk text-slate-800">
                 {{ announcement.about }}
