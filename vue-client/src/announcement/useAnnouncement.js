@@ -125,9 +125,29 @@ export default function useAnnouncement() {
         }
     }
 
+    const destroy = async (data) => {
+        console.log(data);
+        try {
+            const token = await getCSRFToken();
+            console.log(token);
+            const response = await axios.delete(`/api/announcement-delete`, { data,
+                headers: {
+                    'X-XSRF-TOKEN': getToken()
+                }
+            });
+            setData(response.data.data);
+            setSuccess(response.data.message);
+            setError('');
+        } catch (error) {
+            setError(error.response.data);
+            setSuccess('');
+        }
+    }
+
     return {
         store,
         update,
+        destroy,
         show,
         getData,
         getError,

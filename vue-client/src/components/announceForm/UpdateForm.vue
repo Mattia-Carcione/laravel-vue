@@ -1,6 +1,5 @@
 <script>
 import useAnnouncement from '../../announcement/useAnnouncement';
-import { reactive } from 'vue';
 
 export default {
     emits: ['update-message'],
@@ -77,64 +76,21 @@ export default {
     created() {
         this.fetchData();
     }
-    // data() {
-    //     const error = reactive({
-    //         errors: {
-    //             title: '',
-    //             body: '',
-    //             price: '',
-    //         }
-    //     });
-    //     const message = reactive({
-    //         success: ''
-    //     });
-    //     return {
-    //         announce: useAnnouncement(),
-    //         form: {
-    //             title: '',
-    //             about: '',
-    //             body: '',
-    //             price: '',
-    //             category_id: '--Choose a category',
-    //             user_id: this.user.id
-    //         },
-    //         error,
-    //         message
-    //     }
-    // },
-    // methods: {
-    //     async updateAnnouncement() {
-    //         await this.announce.store(this.form);
-    //         this.setResponse();
-    //         this.$emit('update-message', this.message.success);
-    //     },
-    //     setResponse() {
-    //         if (this.announce.getError) {
-    //             this.error = this.announce.getError;
-    //             this.message.success = '';
-    //         } else {
-    //             this.message.success = this.announce.getSuccess;
-    //             this.error = false
-    //             this.clearForm();
-    //         }
-    //     },
-    //     clearForm() {
-    //         this.form.title = '';
-    //         this.form.about = '';
-    //         this.form.body = '';
-    //         this.form.price = '';
-    //         this.form.category_id = '--Choose a category';
-    //     }
-    // }
 }
 </script>
 
 <template>
+    <div class="mb-6 mx-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-title-md2 text-lg font-bold">
+            Update Announcement
+        </h2>
+    </div>
+
     <div class="rounded-sm border border-stroke shadow-default">
-    <div class="border-b border-stroke py-4 px-7">
-        <h3 class="font-medium">
-            Update Announcement Information
-        </h3>
+        <div class="border-b border-stroke py-4 px-7">
+            <h3 class="font-medium">
+                Update Announcement Information
+            </h3>
         </div>
         <div class="p-7">
             <!-- Announcement Form -->
@@ -232,12 +188,12 @@ export default {
 
                     <!-- Validation category error -->
                     <div v-if="error.errors.category_id"
-                                    class="flex w-full mt-5 lg:hidden bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
-                                    role="alert">
-                                    <span class="font-bold block sm:inline">
-                                        {{ error.errors.category_id[0] }}
-                                    </span>
-                                </div>
+                        class="flex w-full mt-5 lg:hidden bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                        role="alert">
+                        <span class="font-bold block sm:inline">
+                            {{ error.errors.category_id[0] }}
+                        </span>
+                    </div>
 
                     <!-- Category -->
                     <div class="form-control w-full lg:w-1/2 mb-5.5 mt-5">
@@ -245,7 +201,8 @@ export default {
                             <span>Category</span>
                         </label>
 
-                        <select v-model="announcement.category_id" :class="{ 'border-red-700': error.errors.category_id, 'border-green-700': success, }" 
+                        <select v-model="announcement.category_id"
+                            :class="{ 'border-red-700': error.errors.category_id, 'border-green-700': success, }"
                             class="select w-full select-bordered font-medium text-black focus:border-primary focus-visible:outline-none border-2 rounded bg-slate-200">
                             <option disabled selected>--Choose a category</option>
                             <option :value="category.id" v-for="category in categories" :key="category.id">{{
@@ -258,12 +215,12 @@ export default {
 
                 <!-- Validation body error -->
                 <div v-if="error.errors.body"
-                                class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
-                                role="alert">
-                                <span class="font-bold block sm:inline">
-                                    {{ error.errors.body[0] }}
-                                </span>
-                            </div>
+                    class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
+                    role="alert">
+                    <span class="font-bold block sm:inline">
+                        {{ error.errors.body[0] }}
+                    </span>
+                </div>
 
                 <!-- Body -->
                 <div class="my-5">
@@ -273,10 +230,11 @@ export default {
                             <i class="fa-solid fa-pen text-black"></i>
                         </span>
 
-                        <textarea v-model="announcement.body" :class="{ 'border-red-700': error.errors.body, 'border-green-700': success, }" 
+                        <textarea v-model="announcement.body"
+                            :class="{ 'border-red-700': error.errors.body, 'border-green-700': success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             name="body" id="body" rows="6" placeholder="Write a description here">
-                        </textarea>
+                                </textarea>
                     </div>
                 </div>
 
@@ -294,4 +252,5 @@ export default {
                 </div>
             </form>
         </div>
-</div></template>
+    </div>
+</template>

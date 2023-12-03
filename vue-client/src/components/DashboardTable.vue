@@ -2,6 +2,7 @@
 import useAnnouncement from '../announcement/useAnnouncement';
 import ButtonPagination from './ButtonPagination.vue';
 export default {
+    emits: ['update-message'],
     props: {
         user: Object,
     },
@@ -14,7 +15,8 @@ export default {
             announcements: [],
             currentPage: 1,
             totalPages: 1,
-            tr: 1
+            tr: 1,
+            success: '',
         }
     },
     methods: {
@@ -30,6 +32,8 @@ export default {
                 })
         },
         goToPage(pageNumber) {
+            this.success = '';
+            this.$emit('update-message', this.success);
             if (pageNumber === this.currentPage + 1) {
                 this.tr += 12;
             } else if (pageNumber === this.currentPage - 1) {
@@ -37,8 +41,13 @@ export default {
             }
             this.fetchData(pageNumber);
         },
-        deleteData() {
-            console.log(this.announcements);
+        async deleteData(announcement) {
+            await this.fetch.destroy(announcement)
+                .then(() => {
+                    this.success = this.fetch.getSuccess;
+                    this.$emit('update-message', this.success);
+                    this.fetchData();
+                })
         }
     },
     created() {
@@ -77,10 +86,11 @@ export default {
                                 class="badge badge-md"></div>
                         </td>
                         <td class="p-0">
-                            <RouterLink v-if="announcement.is_accepted" :to="`/profile/dashboard/update/${announcement.slug.toLowerCase()}`">
+                            <RouterLink v-if="announcement.is_accepted"
+                                :to="`/profile/dashboard/update/${announcement.slug.toLowerCase()}`">
                                 <i class="px-1 fa-regular fa-pen-to-square text-warning"></i>
                             </RouterLink>
-                            <span @click="deleteData">
+                            <span @click="deleteData(announcement)">
                                 <i class="px-1 cursor-pointer fa-solid fa-trash-can text-error"></i>
                             </span>
                         </td>

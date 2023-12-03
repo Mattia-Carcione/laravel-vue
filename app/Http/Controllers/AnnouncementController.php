@@ -82,4 +82,16 @@ class AnnouncementController extends Controller
             'data' => $announcement::with(['user', 'category']),
         ]);
     }
+
+    public function destroy(Request $request) {
+        $announcement = Announcement::where('id', $request->id)->with(['user', 'category'])->firstOrFail();
+        $announcement->category()->dissociate();
+        $announcement->user()->dissociate();
+        $announcement->delete();
+
+        return response()->json([
+            'message' => 'Announcement deleted successfully',
+            'status' => 'success',
+        ]);
+    }
 }

@@ -45,11 +45,7 @@ export default {
                 this.message.success = '';
             } else {
                 this.message.success = this.announce.getSuccess;
-                this.error.errors.title = false
-                this.error.errors.about = false
-                this.error.errors.category_id = false
-                this.error.errors.body = false
-                this.error.errors.price = false
+                this.error.errors = false
                 this.clearForm();
             }
         },
@@ -65,6 +61,13 @@ export default {
 </script>
 
 <template>
+    <div class="mb-6 mx-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-title-md2 text-lg font-bold">
+            Create New Announcement
+        </h2>
+    </div>
+
+
     <div class="rounded-sm border border-stroke shadow-default">
         <div class="border-b border-stroke py-4 px-7">
             <h3 class="font-medium">
@@ -210,7 +213,7 @@ export default {
                             :class="{ 'border-red-700': error.errors.body, 'border-green-700': message.success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             name="body" id="body" rows="6" placeholder="Write a description here">
-                                                                                                                                                    </textarea>
+                                                                                                                                                        </textarea>
                     </div>
                 </div>
 
