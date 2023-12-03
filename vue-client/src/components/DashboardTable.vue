@@ -46,6 +46,7 @@ export default {
                 .then(() => {
                     this.success = this.fetch.getSuccess;
                     this.$emit('update-message', this.success);
+                    this.tr = 1;
                     this.fetchData();
                 })
         }
@@ -64,7 +65,7 @@ export default {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Title</th>
+                        <th class="w-44">Title</th>
                         <th class="display">About</th>
                         <th class="display">Description</th>
                         <th>Category</th>
