@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import useAuth from '../../auth/useAuth'
+import useAuth from '../../auth/useAuth';
 import { RouterLink } from 'vue-router';
 export default {
   data() {
