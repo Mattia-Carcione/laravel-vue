@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const state = reactive({
     authenticated: false,
-    user: Object,
+    user: null,
     message: null,
     errors: null,
 });

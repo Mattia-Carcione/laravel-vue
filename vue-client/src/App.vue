@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import { themeChange } from 'theme-change';
 import useAnnouncement from './announcement/useAnnouncement';
+import useAuth from './auth/useAuth';
 
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
@@ -12,16 +13,18 @@ export default {
     Footer
   },
   data() {
+    const auth = useAuth();
     return {
-      categories: [],
-      fetch: useAnnouncement()
+      user: auth.getUser,
+      categories: null,
     }
   },
   methods: {
     async fetchCategories() {
-      await this.fetch.fetchCategories();
-      if (!this.fetch.getError) {
-        this.categories = this.fetch.getCategories
+      const fetch = useAnnouncement();
+      await fetch.fetchCategories();
+      if (!fetch.getError.value) {
+        this.categories = fetch.getCategories
       } else {
         this.categories = null
       }
@@ -41,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <Navbar :categories="categories" />
+  <Navbar :categories="categories" :user="user" />
 
   <main class="md:min-h-screen lg:min-h-min">
     <RouterView :categories="categories" />

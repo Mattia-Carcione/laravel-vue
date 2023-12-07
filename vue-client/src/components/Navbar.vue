@@ -1,54 +1,9 @@
-<script lang="ts">
-import useAuth from '../auth/useAuth'
-import { reactive } from 'vue';
-import { useRoute } from 'vue-router';
-export default {
-    props: {
-        categories: Array
-    },
-    data() {
-        const auth = useAuth();
-        const state = reactive({
-            authenticated: auth.getAuthenticated,
-            user: auth.getUser,
-            errors: auth.getErrors,
-        });
-        return {
-            state,
-            dropdownVisible: false,
-        }
-    },
-    computed: {
-        ShowNavbar() {
-            const path = useRoute().path;
-            return !path.includes('/profile')
-        }
-    },
-    methods: {
-        async logout() {
-            await useAuth().logout();
-            this.$router.push({ name: 'home' })
-        },
-        closeMenu() {
-            const details = this.$el.querySelector('details');
-            if (details) {
-                details.removeAttribute('open');
-            }
-        },
-        toggleDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
-        }
-    }
-}
-</script>
-
 <template>
     <div v-if="ShowNavbar">
         <!-- Top navigation -->
         <nav class="navbar fixed top-0 hidden lg:flex z-40">
+            <!-- Nav start -->
             <div class="navbar-start">
-
-                <!-- Nav start -->
                 <ul class="menu menu-horizontal">
                     <li :class="$route.path === '/' ? 'disabled' : ''">
                         <RouterLink to="/">Home</RouterLink>
@@ -91,20 +46,20 @@ export default {
                 <span class="border-l-2 mx-1 border-current h-5"></span>
 
                 <!-- Sign in -->
-                <RouterLink class="mx-1" v-if="!state.authenticated" to="/login">
+                <RouterLink class="mx-1" v-if="!user" to="/login">
                     <button class="btn btn-md btn-ghost">
                         <div class="indicator">
-                            <span>Sign in</span>
+                            <span>Sing in</span>
                         </div>
                     </button>
                 </RouterLink>
 
                 <!-- Sign out -->
-                <div v-if="state.authenticated" class="dropdown dropdown-hover">
+                <div v-if="user" class="dropdown dropdown-hover">
                     <label tabindex="0">
                         <button class="btn btn-ghost" @click="logout">
                             <div class="indicator">
-                                <span class="text-lg">{{ state.user.name }}
+                                <span class="text-lg">{{ user.name }}
                                     <i class="fa-solid fa-arrow-right-to-bracket px-1"></i>
                                 </span>
                             </div>
@@ -119,7 +74,7 @@ export default {
                         <li>
                             <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
                         </li>
-                        <li v-if="state.user.is_revisor">
+                        <li v-if="user.is_revisor">
                             <RouterLink to="/profile/revisor">Revisor</RouterLink>
                         </li>
                     </ul>
@@ -159,28 +114,68 @@ export default {
                     </svg>
                 </label>
 
-
                 <!-- Dropdown list -->
                 <ul v-if="dropdownVisible" tabindex="0"
                     class="menu menu-sm dropdown-content p-2 z-[1] shadow bg-base-100 rounded-none" @click="toggleDropdown">
                     <li>
                         <RouterLink to="/announcements">Announcements</RouterLink>
                     </li>
-                    <li v-if="state.authenticated">
+                    <li v-if="user">
                         <RouterLink :to="{ name: 'profile' }">Profile</RouterLink>
                     </li>
-                    <li v-if="state.user.is_revisor">
+                    <li v-if="user">
+                        <RouterLink to="/profile/dashboard">Dashboard</RouterLink>
+                    </li>
+                    <li v-if="user && user.is_revisor">
                         <RouterLink to="/profile/revisor">Revisor</RouterLink>
                     </li>
                     <li>
-                        <RouterLink v-if="!state.authenticated" to="/login">Sign in</RouterLink>
-                        <div v-if="state.authenticated" @click="logout">Logout</div>
+                        <RouterLink v-if="!user" to="/login">Sign in</RouterLink>
+                        <div v-if="user" @click="logout">Logout</div>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import useAuth from '../auth/useAuth'
+import { useRoute } from 'vue-router';
+export default {
+    props: {
+        user: Object,
+        categories: Object
+    },
+    data() {
+        return {
+            dropdownVisible: false,
+        }
+    },
+    computed: {
+        ShowNavbar() {
+            const path = useRoute().path;
+            return !path.includes('/profile')
+        }
+    },
+    methods: {
+        async logout() {
+            const auth = useAuth();
+            await auth.logout();
+            this.$router.push({ name: 'home' })
+        },
+        closeMenu() {
+            const details = this.$el.querySelector('details');
+            if (details) {
+                details.removeAttribute('open');
+            }
+        },
+        toggleDropdown() {
+            this.dropdownVisible = !this.dropdownVisible;
+        }
+    }
+}
+</script>
 
 <style scoped>
 .category-grid {
@@ -190,7 +185,6 @@ export default {
     gap: 8px;
     /* Spaziatura tra le categorie */
 }
-
 .category-grid li {
     list-style-type: none;
     /* Rimuovi i bullet points */
