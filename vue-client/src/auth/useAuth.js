@@ -3,17 +3,13 @@ import axios from 'axios';
 
 const state = reactive({
     authenticated: false,
-    user: {},
-    message: {},
-    errors: {},
+    user: Object,
+    message: null,
+    errors: null,
 });
 
-function getToken() {
-    return decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"));
-}
-
-async function getCSRFToken() {
-    return await axios.get('/sanctum/csrf-cookie');
+const getCSRFToken = async () => {
+    await axios.get('/sanctum/csrf-cookie');
 }
 
 // login and authentication methods
@@ -41,25 +37,21 @@ export default function useAuth() {
             const response = await axios.get('/api/user');
             setAuthenticated(true);
             setUser(response.data);
-            setErrors('');
+            setErrors(null);
             return {
                 response
             }
         } catch (e) {
             setAuthenticated(false);
-            setUser('');
+            setUser(null);
             console.log(e);
         }
     }
 
     const login = async (credentials) => {
-        await getCSRFToken();
         try {
-            await axios.post('/login', credentials, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            await getCSRFToken();
+            await axios.post('/login', credentials);
             await attempt();
         } catch (e) {
             if (e.response.status === 422) {
@@ -71,93 +63,70 @@ export default function useAuth() {
     const logout = async () => {
         try {
             await getCSRFToken();
-            await axios.post('/logout', {}, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            await axios.post('/logout', {});
             setAuthenticated(false);
-            setUser({});
+            setUser(null);
         } catch (e) {
             console.log(e);
         }
     }
 
-    const registerUser = async (credentials) => {
+    const register = async (credentials) => {
         try {
             await getCSRFToken();
-            await axios.post("/register", credentials, {
-                headers: {
-                    "X-XSRF-TOKEN": getToken(),
-                },
-            });
+            await axios.post("/register", credentials);
             await attempt();
         } catch (error) {
             if (error.response.status === 422) {
-                console.log(error.response.data.errors);
                 setErrors(error.response.data.errors);
             }
         }
     }
 
+    const userId = () => {
+        return state.user.id;
+    }
     const updateUser = async (credentials) => {
-        const user = state.user.id;
         try {
             await getCSRFToken();
-            const respone = await axios.put(`/api/user-update/${user}`, credentials, {
-                headers: {
-                    "X-XSRF-TOKEN": getToken(),
-                },
-            });
+            const respone = await axios.put(`/api/user-update/${userId}`, credentials);
             await attempt();
             setMessage(respone.data.message);
+            setErrors(null);
         } catch (error) {
             if (error.response.status === 422) {
-                setMessage('');
+                setMessage(null);
                 setErrors(error.response.data.errors);
-                console.log(error.response.data.errors);
             }
         }
     }
 
     const updateUserImage = async (credentials) => {
-        console.log(credentials);
-        const user = state.user.id;
         try {
             await getCSRFToken();
-            const respone = await axios.post(`/api/user-update-image/${user}`, credentials, {
-                headers: {
-                    "X-XSRF-TOKEN": getToken(),
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            const respone = await axios.post(`/api/user-update-image/${userId}`, credentials);
             await attempt();
             setMessage(respone.data.message);
+            setErrors(null);
         } catch (error) {
             if (error.response.status === 422) {
-                setMessage('');
+                setMessage(null);
                 setErrors(error.response.data.errors);
-                console.log(error.response.data.errors);
             }
         }
     }
 
     const deleteImage = async () => {
-        const user = state.user.id;
         try {
             await getCSRFToken();
-            const respone = await axios.delete(`/api/user-delete-image/${user}`, {
-                headers: {
-                    "X-XSRF-TOKEN": getToken(),
-                },
-            });
+            await axios.delete(`/api/user-delete-image/${userId}`);
             await attempt();
             setMessage(respone.data.message);
+            setErrors(null);
         } catch (error) {
             if (error.response.status === 422) {
-                setMessage('');
+                setMessage(null);
                 setErrors(error.response.data.errors);
-                console.log(error.response.data.errors);
             }
         }
     }
@@ -165,19 +134,16 @@ export default function useAuth() {
     const updatePassword = async (credentials) => {
         try {
             await getCSRFToken();
-            const response = await axios.put("/user/password", credentials, {
-                headers: {
-                    "X-XSRF-TOKEN": getToken(),
-                },
-            });
-            setAuthenticated(true);
-            setMessage('Password updated successfully');
-            setErrors('');
+            await axios.put("/user/password", credentials)
+                .then(() => {
+                    setAuthenticated(true);
+                    setMessage('Password updated successfully');
+                    setErrors(null);
+                })
         } catch (error) {
             if (error.response.status === 422) {
-                setMessage('');
+                setMessage(null);
                 setErrors(error.response.data.errors);
-                console.log(error.response.data.errors);
             }
         }
     }
@@ -186,33 +152,29 @@ export default function useAuth() {
         console.log(user);
         try {
             await getCSRFToken();
-            const response = await axios.get('/api/become-revisor/' + user,
-                {
-                    headers: {
-                        'X-XSRF-TOKEN': getToken()
+            await axios.get('/api/become-revisor/' + user)
+                .then(response => {
+                    setErrors(null);
+                    setMessage(response.data.message);
+                    return {
+                        response
                     }
-                });
-            setErrors('');
-            setMessage(response.data.message);
-            console.log(response.data.message);
-            return {
-                response
-            }
+                })
+
         } catch (e) {
             setErrors(e.response.data.message);
-            console.log('sono qui');
         }
     }
 
     return {
+        attempt,
         login,
         logout,
-        registerUser,
-        updatePassword,
+        register,
         updateUser,
+        updatePassword,
         updateUserImage,
         deleteImage,
-        attempt,
         becomeRevisor,
         getAuthenticated,
         getUser,

@@ -9,6 +9,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
 axios.defaults.baseURL = 'http://localhost:8000';
 
 import '@fortawesome/fontawesome-free/css/all.css'

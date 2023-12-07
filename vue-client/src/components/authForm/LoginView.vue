@@ -1,47 +1,5 @@
-<script lang="ts">
-import useAuth from '../../auth/useAuth'
-import { reactive } from 'vue';
-import { RouterLink } from 'vue-router';
-export default {
-  data() {
-    const state = reactive({
-      authenticated: useAuth().getAuthenticated,
-      user: useAuth().getUser,
-      errors: useAuth().getErrors,
-    });
-    return {
-      state,
-      form: {
-        email: '',
-        password: '',
-        error: '',
-      },
-      auth: useAuth(),
-      showPassword: false,
-    }
-  },
-  methods: {
-    async login(form: Object) {
-      this.showPassword = false;
-      await this.auth.login(form);
-      this.form.error = this.state.errors;
-      this.redirect(this.state.authenticated);
-    },
-    redirect(boolean: boolean) {
-      if (boolean) {
-        this.$router.push({ name: 'profile' })
-      }
-    },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-    }
-  }
-}
-</script>
-
 <template>
   <!-- !!!temporary template login form!!! -->
-
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -55,9 +13,9 @@ export default {
       <form class="space-y-6" action="#" method="POST" @submit.prevent="login(form)">
 
         <!-- validation email error -->
-        <div v-if="form.error.email" class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+        <div v-if="error.email" class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert">
-          <span class="font-bold block sm:inline">{{ state.errors.email[0] }}</span>
+          <span class="font-bold block sm:inline">{{ error.email[0] }}</span>
         </div>
 
         <!-- email input -->
@@ -71,9 +29,9 @@ export default {
         </div>
 
         <!-- validation password error -->
-        <div v-if="form.error.password"
+        <div v-if="error.password"
           class="flex bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <span class="font-bold block sm:inline">{{ state.errors.password[0] }}</span>
+          <span class="font-bold block sm:inline">{{ error.password[0] }}</span>
         </div>
 
         <!-- Password input -->
@@ -87,7 +45,7 @@ export default {
               class="form-input py-2 px-3 block w-full  leading-5 rounded-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600" />
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
               <!-- toggle password -->
-              <button @click="togglePasswordVisibility" type="button"
+              <button @click="toggleShowPassword" type="button"
                 class=" focus:outline-none focus:text-gray-700">
                 <span v-if="showPassword"><i class="t far fa-eye"></i></span>
                 <span v-else><i class=" far fa-eye-slash"></i></span>
@@ -113,4 +71,40 @@ export default {
   </div>
 </template>
 
-<style scoped></style>
+<script>
+import useAuth from '../../auth/useAuth'
+import { RouterLink } from 'vue-router';
+export default {
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      },
+      error: {
+        email: '',
+        password: '',
+      },
+      showPassword: false,
+    }
+  },
+  methods: {
+    async login(form) {
+      this.showPassword = false;
+      const auth = useAuth();
+      await auth.login(form);
+      this.CatchError(auth.getErrors.value);
+    },
+    CatchError(error) {
+      if (error) {
+      this.error = error;
+      } else {
+        this.$router.push({ name: 'profile' })
+      }
+    },
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+    }
+  }
+}
+</script>
