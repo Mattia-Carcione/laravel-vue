@@ -163,7 +163,6 @@ export default function useAuth() {
     }
 
     const updatePassword = async (credentials) => {
-        console.log(credentials);
         try {
             await getCSRFToken();
             const response = await axios.put("/user/password", credentials, {
@@ -183,6 +182,28 @@ export default function useAuth() {
         }
     }
 
+    const becomeRevisor = async (user) => {
+        console.log(user);
+        try {
+            await getCSRFToken();
+            const response = await axios.get('/api/become-revisor/' + user,
+                {
+                    headers: {
+                        'X-XSRF-TOKEN': getToken()
+                    }
+                });
+            setErrors('');
+            setMessage(response.data.message);
+            console.log(response.data.message);
+            return {
+                response
+            }
+        } catch (e) {
+            setErrors(e.response.data.message);
+            console.log('sono qui');
+        }
+    }
+
     return {
         login,
         logout,
@@ -192,6 +213,7 @@ export default function useAuth() {
         updateUserImage,
         deleteImage,
         attempt,
+        becomeRevisor,
         getAuthenticated,
         getUser,
         getMessage,

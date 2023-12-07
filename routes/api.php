@@ -37,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/announcement-update', [AnnouncementController::class, 'update']);
     Route::delete('/announcement-delete', [AnnouncementController::class, 'destroy']);
 
+    // API Become Revisor Routes
+    Route::get('/become-revisor/{id}', [RevisorController::class, 'becomeRevisor']);
+
     // API Revisor Accept/Reject Routes
     Route::patch('/announcement-accept/{announcement}', [RevisorController::class, 'accept']);
     Route::patch('/announcement-reject/{announcement}', [RevisorController::class, 'reject']);
@@ -52,3 +55,5 @@ Route::get('/announcement/{slug}', [AnnouncementController::class, 'show']);
 
 // API Announcements to be revisioned
 Route::get('/announcements-to-be-revisioned', [RevisorController::class, 'toBeRevisioned']);
+
+Route::get('get-message', [RevisorController::class, 'getMessage'])->name('getMessage');

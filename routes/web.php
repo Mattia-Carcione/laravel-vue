@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RevisorController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('emails.become-revisor', ['user' => User::where('email', 'test@example.com')->first()]);
+});
+
+// Make Revisor Routes
+Route::get('make/revisor/{user}', [RevisorController::class, 'makeRevisor'])->name('makeRevisor');

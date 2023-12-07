@@ -1,0 +1,47 @@
+body {
+    margin: 10%;
+}
+
+#header {
+    padding-left: 10px;
+}
+
+span {
+    font-weight: bold;
+}
+
+hr {
+    margin: 20px 0;
+    width: 500px;
+}
+
+#content {
+    padding: 1px 0 20px 10px;
+    background-color: rgba(209, 203, 203, 0.372);
+    border-radius: 1rem;
+}
+
+#message {
+    font-size: large;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 15rem;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, rgb(145, 109, 205), blue);
+    background-size: 500%;
+    transition: all 0.5s;
+}
+
+button:hover {
+    background-size: 100%;
+    transform: scale(1.05);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
