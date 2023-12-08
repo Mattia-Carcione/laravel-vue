@@ -15,23 +15,22 @@ export default {
   data() {
     const auth = useAuth();
     return {
-      user: auth.getUser,
       categories: null,
+      user: auth.getUser,
     }
   },
-  methods: {
-    async fetchCategories() {
+  beforeCreate() {
+    const fetchData = async () => {
       const fetch = useAnnouncement();
-      await fetch.fetchCategories();
-      if (!fetch.getError.value) {
-        this.categories = fetch.getCategories
-      } else {
-        this.categories = null
+      try {
+        await fetch.fetchCategories();
+        this.categories = fetch.getCategories;
+      } catch (error) {
+        console.error(error);
       }
-    }
-  },
-  beforeMount() {
-    this.fetchCategories();
+    };
+    
+    fetchData();
     const savedTheme = localStorage.getItem('theme');
 
     if (savedTheme) {
@@ -47,7 +46,7 @@ export default {
   <Navbar :categories="categories" :user="user" />
 
   <main class="md:min-h-screen lg:min-h-min">
-    <RouterView :categories="categories" />
+    <RouterView :categories="categories" :user="user" />
   </main>
 
   <Footer />

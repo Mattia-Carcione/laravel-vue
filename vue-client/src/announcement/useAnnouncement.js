@@ -2,19 +2,15 @@ import { reactive, computed } from 'vue';
 import axios from 'axios';
 
 const announcements = reactive({
-    data: {},
+    data: null,
     error: null,
     success: null
 })
 
 const categories = reactive({
-    data: {},
+    data: null,
     error: null,
 })
-
-function getToken() {
-    return decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"));
-}
 
 async function getCSRFToken() {
     return await axios.get('/sanctum/csrf-cookie');
@@ -50,21 +46,21 @@ export default function useAnnouncement() {
         try {
             const response = await axios.get('/api/announcement/categories');
             setCategories(response.data.data);
-            setCategoryError('');
+            setCategoryError(null);
         } catch (error) {
             setCategoryError(error.response.data);
-            setCategories([]);
+            setCategories(null);
         }
     }
 
     const fetchAnnouncements = async (page, userId = '') => {
         try {
-            const response = await axios.get(`/api/announcements/${userId}?page=${page}` );
+            const response = await axios.get(`/api/announcements/${userId}?page=${page}`);
             setData(response.data.data);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setData([]);
+            setData(null);
         }
     }
 
@@ -72,27 +68,23 @@ export default function useAnnouncement() {
         try {
             const response = await axios.get(`/api/category/${slug}?page=${page}`);
             setData(response.data.data);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setData([]);
+            setData(null);
         }
     }
-    
+
     const store = async (data) => {
         try {
             await getCSRFToken();
-            const response = await axios.post('/api/announcement-create', data, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            const response = await axios.post('/api/announcement-create', data);
             setData(response.data.data);
             setSuccess(response.data.message);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setSuccess('');
+            setSuccess(null);
         }
     }
 
@@ -100,47 +92,36 @@ export default function useAnnouncement() {
         try {
             const response = await axios.get(`/api/announcement/${slug}`);
             setData(response.data.data);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setData([]);
+            setData(null);
         }
     }
 
     const update = async (data) => {
-        console.log(data);
         try {
             await getCSRFToken();
-            const response = await axios.put(`/api/announcement-update/`, data, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            const response = await axios.put(`/api/announcement-update/`, data);
             setData(response.data.data);
             setSuccess(response.data.message);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setSuccess('');
+            setSuccess(null);
         }
     }
 
     const destroy = async (data) => {
-        console.log(data);
         try {
-            const token = await getCSRFToken();
-            console.log(token);
-            const response = await axios.delete(`/api/announcement-delete`, { data,
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            await getCSRFToken();
+            const response = await axios.delete(`/api/announcement-delete`, { data });
             setData(response.data.data);
             setSuccess(response.data.message);
-            setError('');
+            setError(null);
         } catch (error) {
             setError(error.response.data);
-            setSuccess('');
+            setSuccess(null);
         }
     }
 

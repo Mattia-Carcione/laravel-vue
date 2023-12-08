@@ -1,36 +1,36 @@
 <script>
 import useAnnouncement from '../announcement/useAnnouncement';
-import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import Card from '../components/Card.vue';
 export default {
+  props: {
+    user: Object,
+  },
   components: {
     Card
   },
   data() {
     return {
-      auth: useAuth(),
-      fetch: useAnnouncement(),
-      announcements: {},
+      announcements: null,
       image: "http://localhost:8000/storage/avatars/",
     }
   },
   methods: {
     async fetchData() {
+      const fetch = useAnnouncement();
       try {
-        await this.fetch.fetchAnnouncements()
-        const response = this.fetch.getData;
+        await fetch.fetchAnnouncements()
+        const response = fetch.getData.value;
         this.announcements = response.data.slice(0, 8);
       } catch (error) {
         console.log(error);
       }
     },
     async becomeRevisor() {
-      const user = this.auth.getUser;
-      console.log(user);
-      await this.auth.becomeRevisor(user.id)
+      const auth = useAuth();
+      await auth.becomeRevisor(this.user.id)
         .then(() => {
-          if (!this.auth.getErrors) {
+          if (!auth.getErrors.value) {
             alert('Candidatura inviata con successo');
           } else {
             alert('Errore candidatura');
@@ -264,7 +264,6 @@ export default {
         </button>
       </div>
     </section>
-
   </main>
 </template>
 

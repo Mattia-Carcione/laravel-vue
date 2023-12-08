@@ -149,7 +149,6 @@ export default function useAuth() {
     }
 
     const becomeRevisor = async (user) => {
-        console.log(user);
         try {
             await getCSRFToken();
             await axios.get('/api/become-revisor/' + user)
