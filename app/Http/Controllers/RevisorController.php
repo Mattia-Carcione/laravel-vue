@@ -25,8 +25,8 @@ class RevisorController extends Controller
     public function makeRevisor(User $user)
     {
         Artisan::call('app:makeUserRevisor', ["email" => $user->email]);
-        return redirect('http://localhost:5173')
-            ->with('message', 'User ' . $user->name . ' is now a Revisor');
+        $message = 'User ' . $user->name . ' is now a Revisor';
+        return redirect('http://localhost:5173?message=' . urlencode($message));
     }
 
     public function getMessage()
