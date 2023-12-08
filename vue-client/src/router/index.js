@@ -3,12 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import useAuth from '../auth/useAuth'
 
 import Profile from '../templateUser/Profile.vue';
-import AccountView from '../views/authView/AccountView.vue';
-import DashboardView from '../views/authView/DashboardView.vue';
-import ShowPreviewView from '../views/revisorView/ShowPreviewView.vue';
-import UpdateUserView from '../views/authView/UpdateUserView.vue';
-import PrivacySecurityView from '../views/authView/PrivacySecurityView.vue';
-import AppereanceView from '../views/authView/AppereanceView.vue';
+import AccountView from '../views/userViews/AccountView.vue';
+import DashboardView from '../views/userViews/DashboardView.vue';
+import ShowPreviewView from '../views/revisorViews/ShowPreviewView.vue';
+import UpdateUserView from '../views/userViews/UpdateUserView.vue';
+import PrivacySecurityView from '../views/userViews/PrivacySecurityView.vue';
+import AppereanceView from '../views/userViews/AppereanceView.vue';
 
 const auth = useAuth()
 
@@ -71,12 +71,12 @@ const routes = [
   {
     path: '/announcements',
     name: 'announcements',
-    component: () => import('../views/announceView/Index.vue'),
+    component: () => import('../views/announceViews/Index.vue'),
   },
   {
     path: '/announcement/:name',
     name: 'announcement/show',
-    component: () => import('../views/announceView/Show.vue'),
+    component: () => import('../views/announceViews/Show.vue'),
   },
   {
     path: '/category/:name',

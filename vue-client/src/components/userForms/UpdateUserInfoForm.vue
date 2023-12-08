@@ -3,32 +3,43 @@ import useAuth from '../../auth/useAuth';
 
 export default {
     props: {
-        account: Object,
-        state: Object,
+        user: Object,
     },
     data() {
         return {
+            error: {
+                name: '',
+                surname: '',
+                about: '',
+                phone: '',
+                bio: '',
+            },
             message: '',
-            useAuth: useAuth(),
         }
     },
     emits: ['update-message'],
     methods: {
         async updateUser(credentials) {
-            await this.useAuth.updateUser(credentials);
-            this.message = this.useAuth.getMessage;
-            this.emitFunction();
+            const auth = useAuth();
+            await auth.updateUser(credentials)
+                .then(() => {
+                    if (!auth.getErrors.value) {
+                        this.message = auth.getMessage;
+                        this.emitFunction();
+                    } else {
+                        this.error = auth.getErrors.value;
+                    }
+                });
         },
         emitFunction() {
             this.$emit('update-message', this.message);
         },
         clearInfo() {
-            this.account.name = '';
-            this.account.surname = '';
-            this.account.phone = '';
-            this.account.about = '';
-            this.account.bio = '';
-            this.account.message = '';
+            this.user.name = '';
+            this.user.surname = '';
+            this.user.about = '';
+            this.user.phone = '';
+            this.user.bio = '';
         },
     }
 }
@@ -45,22 +56,22 @@ export default {
             </div>
             <div class="p-7">
                 <!-- Form Edit -->
-                <form @submit.prevent="updateUser(account)" method="POST">
+                <form @submit.prevent="updateUser(user)" method="POST">
                     <!-- Validation name error -->
-                    <div v-if="state.errors.name"
+                    <div v-if="error.name"
                         class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
-                            {{ state.errors.name[0] }}
+                            {{ error.name[0] }}
                         </span>
                     </div>
 
                     <!-- Validation surname error -->
-                    <div v-if="state.errors.surname"
+                    <div v-if="error.surname"
                         class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
-                            {{ state.errors.surname[0] }}
+                            {{ error.surname[0] }}
                         </span>
                     </div>
 
@@ -85,8 +96,8 @@ export default {
                                     </svg>
                                 </span>
 
-                                <input :class="{ 'border-red-700': state.errors.name, 'border-green-700': message }"
-                                    v-model="account.name"
+                                <input :class="{ 'border-red-700': error.name, 'border-green-700': message }"
+                                    v-model="user.name"
                                     class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-10 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                     placeholder="Your Name" type="text" name="name" id="name">
                             </div>
@@ -98,8 +109,8 @@ export default {
                                 Surname
                             </label>
 
-                            <input :class="{ 'border-red-700': state.errors.surname, 'border-green-700': message }"
-                                v-model="account.surname"
+                            <input :class="{ 'border-red-700': error.surname, 'border-green-700': message }"
+                                v-model="user.surname"
                                 class="w-full rounded border-2 border-stroke bg-slate-200 p-3 pl-11.5 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 placeholder="Your Surname" type="text" name="surname" id="surname">
                         </div>
@@ -107,11 +118,11 @@ export default {
 
 
                     <!-- Validation error -->
-                    <div v-if="state.errors.phone"
+                    <div v-if="error.phone"
                         class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
-                            {{ state.errors.phone[0] }}
+                            {{ error.phone[0] }}
                         </span>
                     </div>
 
@@ -125,19 +136,19 @@ export default {
                                 <i class="fa-solid fa-phone text-black"></i>
                             </span>
 
-                            <input :class="{ 'border-red-700': state.errors.phone, 'border-green-700': message }"
-                                v-model="account.phone"
+                            <input :class="{ 'border-red-700': error.phone, 'border-green-700': message }"
+                                v-model="user.phone"
                                 class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 placeholder="Phone" type="text" name="phone" id="phone">
                         </div>
                     </div>
 
                     <!-- Validation about error -->
-                    <div v-if="state.errors.about"
+                    <div v-if="error.about"
                         class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
-                            {{ state.errors.about[0] }}
+                            {{ error.about[0] }}
                         </span>
                     </div>
 
@@ -149,19 +160,19 @@ export default {
                                 <i class="fa-solid fa-briefcase text-black"></i>
                             </span>
 
-                            <input :class="{ 'border-red-700': state.errors.about, 'border-green-700': message }"
-                                v-model="account.about"
+                            <input :class="{ 'border-red-700': error.about, 'border-green-700': message }"
+                                v-model="user.about"
                                 class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 placeholder="Enter about job" type="text" name="about" id="about">
                         </div>
                     </div>
 
                     <!-- Validation bio error -->
-                    <div v-if="state.errors.bio"
+                    <div v-if="error.bio"
                         class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
-                            {{ state.errors.bio[0] }}
+                            {{ error.bio[0] }}
                         </span>
                     </div>
 
@@ -188,11 +199,11 @@ export default {
                                 </svg>
                             </span>
 
-                            <textarea :class="{ 'border-red-700': state.errors.bio, 'border-green-700': message }"
-                                v-model="account.bio"
+                            <textarea :class="{ 'border-red-700': error.bio, 'border-green-700': message }"
+                                v-model="user.bio"
                                 class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 name="bio" id="bio" rows="6" placeholder="Write your bio here">
-                                                                                            {{ account.bio }}
+                                                                                            {{ user.bio }}
                                                                                         </textarea>
                         </div>
                     </div>

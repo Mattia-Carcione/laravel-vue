@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         async fetchData() {
-            console.log(this.$route.params.name)
             await this.fetch.show(this.$route.params.name).
                 then(() => {
                     if (!this.fetch.getError) {
@@ -97,7 +96,7 @@ export default {
             <form class="md:my-10 md:mx-20" @submit.prevent="updateAnnouncement(announcement)" method="POST">
 
                 <!-- Validation title error -->
-                <div v-if="error.errors.title"
+                <div v-if="error && error.errors.title"
                     class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
@@ -117,14 +116,14 @@ export default {
 
 
                         <input v-model="announcement.title"
-                            :class="{ 'border-red-700': error.errors.title, 'border-green-700': success, }"
+                            :class="{ 'border-red-700': error && error.errors.title, 'border-green-700': success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Title" type="text" name="title" id="title">
                     </div>
                 </div>
 
                 <!-- Validation about error -->
-                <div v-if="error.errors.about"
+                <div v-if="error && error.errors.about"
                     class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
@@ -143,14 +142,14 @@ export default {
                         </span>
 
                         <input v-model="announcement.about"
-                            :class="{ 'border-red-700': error.errors.about, 'border-green-700': success, }"
+                            :class="{ 'border-red-700': error && error.errors.about, 'border-green-700': success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             placeholder="Features" type="text" name="about" id="about">
                     </div>
                 </div>
 
                 <!-- Validation price error -->
-                <div v-if="error.errors.price"
+                <div v-if="error && error.errors.price"
                     class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
@@ -159,7 +158,7 @@ export default {
                 </div>
 
                 <!-- Validation category error -->
-                <div v-if="error.errors.category_id"
+                <div v-if="error && error.errors.category_id"
                     class="hidden lg:flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
@@ -180,14 +179,14 @@ export default {
                             </span>
 
                             <input v-model="announcement.price"
-                                :class="{ 'border-red-700': error.errors.price, 'border-green-700': success, }"
+                                :class="{ 'border-red-700': error && error.errors.price, 'border-green-700': success, }"
                                 class="w-full rounded border-2 border-stroke bg-slate-200 py-3 px-4.5 pl-10 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                                 placeholder="$12.34" type="text" name="price" id="price">
                         </div>
                     </div>
 
                     <!-- Validation category error -->
-                    <div v-if="error.errors.category_id"
+                    <div v-if="error && error.errors.category_id"
                         class="flex w-full mt-5 lg:hidden bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                         role="alert">
                         <span class="font-bold block sm:inline">
@@ -202,7 +201,7 @@ export default {
                         </label>
 
                         <select v-model="announcement.category_id"
-                            :class="{ 'border-red-700': error.errors.category_id, 'border-green-700': success, }"
+                            :class="{ 'border-red-700': error && error.errors.category_id, 'border-green-700': success, }"
                             class="select w-full select-bordered font-medium text-black focus:border-primary focus-visible:outline-none border-2 rounded bg-slate-200">
                             <option disabled selected>--Choose a category</option>
                             <option :value="category.id" v-for="category in categories" :key="category.id">{{
@@ -214,7 +213,7 @@ export default {
                 </div>
 
                 <!-- Validation body error -->
-                <div v-if="error.errors.body"
+                <div v-if="error && error.errors.body"
                     class="flex mt-5 bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
                     role="alert">
                     <span class="font-bold block sm:inline">
@@ -231,7 +230,7 @@ export default {
                         </span>
 
                         <textarea v-model="announcement.body"
-                            :class="{ 'border-red-700': error.errors.body, 'border-green-700': success, }"
+                            :class="{ 'border-red-700': error && error.errors.body, 'border-green-700': success, }"
                             class="w-full rounded border-2 border-stroke bg-slate-200 py-3 pl-11 pr-4.5 font-medium text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
                             name="body" id="body" rows="6" placeholder="Write a description here">
                                 </textarea>

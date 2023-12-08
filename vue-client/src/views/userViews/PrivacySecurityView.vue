@@ -1,6 +1,6 @@
 <script>
-import UpdatePassword from '../../components/authForm/UpdatePasswordForm.vue';
-import TwoFactor from '../../components/authForm/TwoFactorForm.vue';
+import UpdatePassword from '../../components/userForms/UpdatePasswordForm.vue';
+import TwoFactor from '../../components/userForms/TwoFactorForm.vue';
 
 export default {
     props: {

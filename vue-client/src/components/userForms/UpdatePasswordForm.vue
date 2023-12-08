@@ -44,7 +44,7 @@ export default {
     <!-- Update Password Form -->
     <form @submit.prevent="updatePassword" class="md:mx-24">
         <!-- Validation current password error -->
-        <div v-if="form.error.current_password"
+        <div v-if="form.error && form.error.current_password"
             class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
             <span class="font-bold block sm:inline">{{ form.error.current_password[0]
             }}</span>
@@ -56,7 +56,7 @@ export default {
         </label>
         <div class="relative">
             <input :type="showCurrentPassword ? 'text' : 'password'"
-                :class="{ 'border-red-700': form.error.current_password, 'border-2': form.error.current_password }"
+                :class="{ 'border-red-700': form.error && form.error.current_password, 'border-2': form.error && form.error.current_password }"
                 v-model="form.current_password" type="password" id="current_password" name="current_password"
                 placeholder="Enter your Current Password" class="w-full  border rounded-md mb-5 py-2 px-3" />
             <div class="absolute top-0 bottom-5 right-0 pr-3 flex text-sm leading-5">
@@ -69,7 +69,7 @@ export default {
         </div>
 
         <!-- Validation password error -->
-        <div v-if="form.error.password"
+        <div v-if="form.error && form.error.password"
             class=" bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
             <div v-for="error in form.error.password" class="font-bold block sm:inline">{{ error
             }} </div>
@@ -81,7 +81,7 @@ export default {
         </label>
         <div class="relative">
             <input :type="showPassword ? 'text' : 'password'"
-                :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }" v-model="form.password"
+                :class="{ 'border-red-700': form.error && form.error.password, 'border-2': form.error && form.error.password }" v-model="form.password"
                 type="password" id="newPassword" name="newPassword" placeholder="Enter New Password"
                 class="w-full border rounded-md mb-5 py-2 px-3" />
             <div class="absolute top-0 bottom-5 right-0 pr-3 flex text-sm leading-5">
@@ -99,7 +99,7 @@ export default {
         </label>
         <div class="relative">
             <input :type="showPasswordConfirm ? 'text' : 'password'"
-                :class="{ 'border-red-700': form.error.password, 'border-2': form.error.password }"
+                :class="{ 'border-red-700': form.error && form.error.password, 'border-2': form.error && form.error.password }"
                 v-model="form.password_confirmation" type="password" id="newPasswordConfirm" name="newPasswordConfirm"
                 placeholder="Confirm Password" class="w-full border rounded-md mb-5 py-2 px-3" />
             <div class="absolute top-0 bottom-5 right-0 pr-3 flex text-sm leading-5">

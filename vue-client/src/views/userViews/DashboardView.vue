@@ -1,8 +1,8 @@
 <script>
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
-import AnnouncementForm from '../../components/announceForm/AnnouncementForm.vue';
-import UpdateForm from '../../components/announceForm/UpdateForm.vue';
+import AnnouncementForm from '../../components/announceForms/AnnouncementForm.vue';
+import UpdateForm from '../../components/announceForms/UpdateForm.vue';
 import DashboardTable from '../../components/DashboardTable.vue';
 
 export default {

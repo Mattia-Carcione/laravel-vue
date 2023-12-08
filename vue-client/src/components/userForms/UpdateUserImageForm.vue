@@ -3,15 +3,17 @@ import useAuth from '../../auth/useAuth';
 
 export default {
     props: {
-        state: Object,
-        account: Object,
         user: Object
     },
     data() {
         return {
-            error: '',
+            auth: useAuth(),
+            error: {
+                path_image: ''
+            },
             message: '',
             data: new FormData(),
+            getImage: '',
             image: "http://localhost:8000/storage/avatars/" + this.user.path_image,
             default: `http://localhost:8000/storage/default/file.jpeg`
         }
@@ -20,14 +22,14 @@ export default {
     methods: {
         async getUserImage(event) {
             this.message = '';
-            this.account.path_image = event.target.files[0];
-            this.data.append('path_image', this.account.path_image);
-            this.image = URL.createObjectURL(this.account.path_image)
+            this.getImage = event.target.files[0];
+            this.data.append('path_image', this.getImage);
+            this.image = URL.createObjectURL(this.getImage);
             event.target.value = '';
         },
         async updateUserImage() {
-            if (this.account.path_image) {
-                await useAuth().updateUserImage(this.data);
+            if (this.getImage) {
+                await this.auth.updateUserImage(this.data);
                 this.setResponse();
                 this.image = "http://localhost:8000/storage/avatars/" + this.user.path_image
             }
@@ -36,21 +38,22 @@ export default {
             return this.image !== null && this.image !== '' && this.image !== "http://localhost:8000/storage/avatars/null" ? this.image : this.default;
         },
         async deleteUserImage() {
-            this.account.path_image = '';
-            await useAuth().deleteImage();
+            this.user.path_image = '';
+            await this.auth.deleteImage();
             this.setResponse();
             this.image = '';
         },
         clearImage() {
-            this.account.path_image = '';
+            this.user.path_image = '';
             this.image = "http://localhost:8000/storage/avatars/" + this.user.path_image
         },
         emitFunction() {
             this.$emit('update-message', this.message);
         },
         setResponse() {
-            this.message = this.state.success;
-            this.error = this.state.errors;
+            this.message = this.auth.getMessage;
+            this.error = this.auth.getErrors;
+            console.log(this.error);
             this.emitFunction();
         }
     }
@@ -61,7 +64,7 @@ export default {
     <!-- Form Update Photo -->
     <div class="md:col-span-4 col-span-10 mb-12">
         <!-- Validation error -->
-        <div v-if="state.errors.path_image" v-for="error in state.errors.path_image"
+        <div v-if="error.path_image" v-for="error in error.path_image"
             class="flex bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative" role="alert">
             <span class="font-bold block sm:inline">
                 {{ error }}
@@ -80,7 +83,8 @@ export default {
                     <div class="mb-4 flex items-center gap-3">
                         <!-- Profile image -->
                         <div class="h-14 w-14 rounded-full">
-                            <img :src="getImageSource()" alt="Profile Image" class="h-14 w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <img :src="getImageSource()" alt="Profile Image"
+                                class="h-14 w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         </div>
 
                         <!-- Edit -->
@@ -158,7 +162,7 @@ export default {
                     <!-- Save button -->
                     <div class="flex justify-end gap-4.5 mt-2">
                         <div @click="clearImage"
-                        class="flex justify-center btn-outline rounded border border-stroke py-2 px-6 font-medium  hover:shadow-1  cursor-pointer">
+                            class="flex justify-center btn-outline rounded border border-stroke py-2 px-6 font-medium  hover:shadow-1  cursor-pointer">
                             Clear
                         </div>
                         <button

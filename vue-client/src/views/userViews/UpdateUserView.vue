@@ -2,8 +2,8 @@
 import { reactive } from 'vue';
 
 import useAuth from '../../auth/useAuth';
-import UpdateUserInfoForm from '../../components/authForm/UpdateUserInfoForm.vue';
-import UpdateUserImageForm from '../../components/authForm/UpdateUserImageForm.vue';
+import UpdateUserInfoForm from '../../components/userForms/UpdateUserInfoForm.vue';
+import UpdateUserImageForm from '../../components/userForms/UpdateUserImageForm.vue';
 
 export default {
     props: {
@@ -14,21 +14,12 @@ export default {
     UpdateUserImageForm
 },
     data() {
-        const account = reactive({
-            name: this.user.name,
-            surname: this.user.surname,
-            phone: this.user.phone,
-            about: this.user.about,
-            bio: this.user.bio,
-            path_image: this.user.path_image,
-        });
         const state = reactive({
             errors: useAuth().getErrors,
             success: useAuth().getMessage
         });
         return {
             state,
-            account,
             message: '',
         }
     },
@@ -55,9 +46,9 @@ export default {
 
     <div class="grid grid-cols-10 gap-6">
         <!-- Form Update Information -->
-        <UpdateUserInfoForm @update-message="handleUpdateMessage" :account="account" :state="state" />
+        <UpdateUserInfoForm @update-message="handleUpdateMessage" :user="user" />
 
         <!-- Form Update Photo -->
-        <UpdateUserImageForm  @update-message="handleUpdateMessage" :user="user" :account="account" :state="state"/>
+        <UpdateUserImageForm  @update-message="handleUpdateMessage" :user="user"/>
     </div>
 </template>

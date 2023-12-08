@@ -18,12 +18,16 @@ export default {
         async fetchData() {
             await this.fetchRevisor.fetchAnnouncements()
                 .then(async () => {
-                    this.announcement = this.fetchRevisor.getAnnouncements;
-                    this.formatDate();
+                    if (this.fetchRevisor.getAnnouncements) {
+                        this.announcement = this.fetchRevisor.getAnnouncements;
+                        this.formatDate();
+                    } else {
+                        this.announcement = null;
+
+                    }
                 })
                 .catch(error => {
                     console.log(error);
-                    this.announcement = null;
                 })
         },
         formatDate() {

@@ -44,7 +44,6 @@ export default function useAuth() {
         } catch (e) {
             setAuthenticated(false);
             setUser(null);
-            console.log(e);
         }
     }
 
@@ -89,7 +88,7 @@ export default function useAuth() {
     const updateUser = async (credentials) => {
         try {
             await getCSRFToken();
-            const respone = await axios.put(`/api/user-update/${userId}`, credentials);
+            const respone = await axios.put(`/api/user-update/${userId()}`, credentials);
             await attempt();
             setMessage(respone.data.message);
             setErrors(null);
@@ -104,7 +103,7 @@ export default function useAuth() {
     const updateUserImage = async (credentials) => {
         try {
             await getCSRFToken();
-            const respone = await axios.post(`/api/user-update-image/${userId}`, credentials);
+            const respone = await axios.post(`/api/user-update-image/${userId()}`, credentials);
             await attempt();
             setMessage(respone.data.message);
             setErrors(null);
@@ -119,7 +118,7 @@ export default function useAuth() {
     const deleteImage = async () => {
         try {
             await getCSRFToken();
-            await axios.delete(`/api/user-delete-image/${userId}`);
+            await axios.delete(`/api/user-delete-image/${userId()}`);
             await attempt();
             setMessage(respone.data.message);
             setErrors(null);

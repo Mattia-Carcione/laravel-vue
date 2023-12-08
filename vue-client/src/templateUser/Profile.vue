@@ -2,12 +2,12 @@
 import { RouterLink, useRoute } from 'vue-router';
 import { reactive } from 'vue';
 
-import AccountView from '../views/authView/AccountView.vue';
-import DashboardView from '../views/authView/DashboardView.vue';
-import ShowPreviewView from '../views/revisorView/ShowPreviewView.vue';
-import UpdateUserView from '../views/authView/UpdateUserView.vue';
-import UpdateEmailPasswordView from '../views/authView/PrivacySecurityView.vue';
-import AppereanceView from '../views/authView/AppereanceView.vue';
+import AccountView from '../views/userViews/AccountView.vue';
+import DashboardView from '../views/userViews/DashboardView.vue';
+import ShowPreviewView from '../views/revisorViews/ShowPreviewView.vue';
+import UpdateUserView from '../views/userViews/UpdateUserView.vue';
+import UpdateEmailPasswordView from '../views/userViews/PrivacySecurityView.vue';
+import AppereanceView from '../views/userViews/AppereanceView.vue';
 
 import useAuth from '../auth/useAuth';
 import useAnnouncement from '../announcement/useAnnouncement';
@@ -15,23 +15,14 @@ import useRevisor from '../revisor/useRevisor';
 
 export default {
     props: {
+        user: Object,
         categories: Array
     },
     data() {
-        const auth = useAuth();
-        const state = reactive({
-            user: auth.getUser,
-            errors: auth.getErrors,
-            authenticated: auth.getAuthenticated,
-            success: auth.getMessage
-        });
         return {
             sidebarOpen: false,
-            state,
             showMenu: false,
             showMenuRevisor: false,
-            fetch: useAnnouncement(),
-            fetchRevisor: useRevisor(),
             showBadge: false
         }
     },
@@ -60,9 +51,10 @@ export default {
     },
     methods: {
         async isDataToBeRevisioned() {
-            await this.fetchRevisor.fetchAnnouncements()
+            const fetch = useRevisor();
+            await fetch.fetchAnnouncements()
                 .then(() => {
-                    if (this.fetchRevisor.getAnnouncements) {
+                    if (fetch.getAnnouncements.value) {
                         this.showBadge = true;
                     }
                     else {
@@ -80,7 +72,7 @@ export default {
             this.showMenuRevisor = !this.showMenuRevisor;
         },
         getImageSource() {
-            const image = "http://localhost:8000/storage/avatars/" + this.state.user.path_image;
+            const image = "http://localhost:8000/storage/avatars/" + this.user.path_image;
             const defaultImage = `http://localhost:8000/storage/default/file.jpeg`;
             return image !== null && image !== '' && image !== "http://localhost:8000/storage/avatars/null" ? image : defaultImage;
         },
@@ -88,7 +80,8 @@ export default {
             this.sidebarOpen = !this.sidebarOpen;
         },
         logout() {
-            useAuth().logout();
+            const auth = useAuth();
+            auth.logout();
             this.$router.push({ name: 'home' })
         }
     },
@@ -155,7 +148,7 @@ export default {
                     </RouterLink>
                 </li>
 
-                <li v-if="state.user.is_revisor" class="mb-2 dr">
+                <li v-if="user && user.is_revisor" class="mb-2 dr">
                     <div @click="toggleRevisor" class="cursor-pointer">
                         <i class="fas fa-eye"></i>Revisor
                         <i class="fa-solid fa-chevron-down"></i>
@@ -246,7 +239,7 @@ export default {
                 </div>
                 <div class="flex-none gap-2">
                     <ul class="menu items-center menu-horizontal">
-                        <li v-if="state.user.is_revisor">
+                        <li v-if="user && user.is_revisor">
                             <RouterLink to="/profile/revisor" class="p-3 rounded-full">
                                 <div class="indicator">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -259,7 +252,7 @@ export default {
                             </RouterLink>
                         </li>
                         <li class="px-1 hidden tex-end md:block">
-                            {{ state.user.name }} <br> {{ state.user.email }}
+                            {{ user.name }} <br> {{ user.email }}
                         </li>
                     </ul>
                     <div class="dropdown dropdown-end dropdown-hover">
@@ -289,12 +282,12 @@ export default {
             <!-- Main content -->
             <div class="margin-top p-4 min-h-screen">
                 <!-- Qui richiamo i contenuti -->
-                <AccountView :user="state.user" v-if="showProfile" />
-                <DashboardView :user="state.user" v-if="showDashboard" :categories="categories"
+                <AccountView :user="user" v-if="showProfile" />
+                <DashboardView :user="user" v-if="showDashboard" :categories="categories"
                     @fetchData="isDataToBeRevisioned" />
                 <ShowPreviewView v-if="showPreview" @fetchData="isDataToBeRevisioned" />
-                <UpdateUserView :user="state.user" v-if="showEdit" />
-                <UpdateEmailPasswordView :user="state.user" v-if="showUpdatePassword" />
+                <UpdateUserView :user="user" v-if="showEdit" />
+                <UpdateEmailPasswordView :user="user" v-if="showUpdatePassword" />
                 <AppereanceView v-if="showAppereance" />
             </div>
         </main>
