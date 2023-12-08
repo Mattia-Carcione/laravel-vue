@@ -27,18 +27,24 @@ export default {
       }
     },
     async becomeRevisor() {
-      const auth = useAuth();
-      await auth.becomeRevisor(this.user.id)
-        .then(() => {
-          if (!auth.getErrors.value) {
-            alert('Candidatura inviata con successo');
-          } else {
-            alert('Errore candidatura');
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      if (this.user && !this.user.is_revisor) {
+        const auth = useAuth();
+        await auth.becomeRevisor(this.user.id)
+          .then(() => {
+            if (!auth.getErrors.value) {
+              alert('Application submitted successfully.');
+            } else {
+              alert('An error occurred. Please try again later.');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      } else if (this.user && this.user.is_revisor) {
+        alert('You are already a reviewer.');
+      } else {
+        alert('Please login first.');
+      }
     }
   },
   created() {
