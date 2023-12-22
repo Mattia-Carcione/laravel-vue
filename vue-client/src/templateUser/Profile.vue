@@ -5,12 +5,13 @@ import { reactive } from 'vue';
 import AccountView from '../views/userViews/AccountView.vue';
 import DashboardView from '../views/userViews/DashboardView.vue';
 import ShowPreviewView from '../views/revisorViews/ShowPreviewView.vue';
+import IndexView from '../views/revisorViews/IndexView.vue';
 import UpdateUserView from '../views/userViews/UpdateUserView.vue';
 import UpdateEmailPasswordView from '../views/userViews/PrivacySecurityView.vue';
 import AppereanceView from '../views/userViews/AppereanceView.vue';
 
 import useAuth from '../auth/useAuth';
-import useAnnouncement from '../announcement/useAnnouncement';
+// import useAnnouncement from '../announcement/useAnnouncement';
 import useRevisor from '../revisor/useRevisor';
 
 export default {
@@ -36,8 +37,11 @@ export default {
         showDashboard() {
             return this.path.includes('/profile/dashboard');
         },
+        showIndex() {
+            return this.path.includes('/profile/revisor/index');
+        },
         showPreview() {
-            return this.path.includes('/profile/revisor');
+            return this.path.includes('/profile/revisor') && !this.path.includes('/profile/revisor/');
         },
         showEdit() {
             return this.path.includes('/profile/edit');
@@ -88,6 +92,7 @@ export default {
     components: {
         AccountView,
         DashboardView,
+        IndexView,
         ShowPreviewView,
         UpdateUserView,
         UpdateEmailPasswordView,
@@ -160,6 +165,13 @@ export default {
                     <RouterLink @click="() => { sidebarOpen = false, showMenuRevisor = false }" to="/profile/revisor">
                         <div class="ml-3">
                             <i class="pe-1 fa-solid fa-square-check"></i>Review Announcements
+                        </div>
+                    </RouterLink>
+                </li>
+                <li v-if="showMenuRevisor">
+                    <RouterLink @click="() => { sidebarOpen = false, showMenuRevisor = false }" to="/profile/revisor/index">
+                        <div class="ml-3">
+                            <i class="pe-1 fa-solid fa-bars"></i>Announcements
                         </div>
                     </RouterLink>
                 </li>
@@ -285,6 +297,7 @@ export default {
                 <AccountView :user="user" v-if="showProfile" />
                 <DashboardView :user="user" v-if="showDashboard" :categories="categories"
                     @fetchData="isDataToBeRevisioned" />
+                <IndexView :user="user" v-if="showIndex" :categories="categories" @fetchData="isDataToBeRevisioned" />
                 <ShowPreviewView v-if="showPreview" @fetchData="isDataToBeRevisioned" />
                 <UpdateUserView :user="user" v-if="showEdit" />
                 <UpdateEmailPasswordView :user="user" v-if="showUpdatePassword" />

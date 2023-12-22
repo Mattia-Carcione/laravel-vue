@@ -1,16 +1,12 @@
 import { reactive, computed } from 'vue';
 import axios from 'axios';
 
-function getToken() {
-    return decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"));
-}
-
 async function getCSRFToken() {
     return await axios.get('/sanctum/csrf-cookie');
 }
 
 const announcements = reactive({
-    data: {},
+    data: null,
     error: null,
     message: null
 })
@@ -38,19 +34,26 @@ export default function useRevisor() {
             setAnnouncements(response.data.data);
             setError(null);
         } catch (error) {
-            setAnnouncements({});
+            setAnnouncements(null);
             setError(error.response.data);
+        }
+    }
+
+    const index = async (page) => {
+        try {
+            const response = await axios.get(`/api/announcements/index?page=${page}`);
+            setAnnouncements(response.data.data);
+            setError(null);
+        } catch (error) {
+            setError(error.response.data);
+            setAnnouncements(null);
         }
     }
 
     const acceptAnnouncement = async (id) => {
         try {
             await getCSRFToken();
-            await axios.patch(`/api/announcement-accept/${id}`, {}, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            await axios.patch(`/api/announcement-accept/${id}`, {});
             setMessage('Announcement accepted successfully');
         } catch (error) {
             setError(error.response.data);
@@ -61,11 +64,7 @@ export default function useRevisor() {
     const rejectAnnouncement = async (id) => {
         try {
             await getCSRFToken();
-            await axios.patch(`/api/announcement-reject/${id}`, {}, {
-                headers: {
-                    'X-XSRF-TOKEN': getToken()
-                }
-            });
+            await axios.patch(`/api/announcement-reject/${id}`, {});
             setMessage('Announcement rejected successfully');
         } catch (error) {
             setError(error.response.data);
@@ -78,6 +77,7 @@ export default function useRevisor() {
         getError,
         getMessage,
         fetchAnnouncements,
+        index,
         acceptAnnouncement,
         rejectAnnouncement
     }

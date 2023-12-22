@@ -75,7 +75,7 @@ export default {
                     <tr>
                         <th>#</th>
                         <th class="w-44">Title</th>
-                        <th class="display">About</th>
+                        <th class="display">Features</th>
                         <th class="display">Description</th>
                         <th>Category</th>
                         <th class="display">Price</th>

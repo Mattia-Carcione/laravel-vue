@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Mail;
 
 class RevisorController extends Controller
 {
+    public function index(){
+        $index = Announcement::with('user', 'category')->paginate(12);
+
+        return response()->json([
+            'data' => $index,
+            'status' => 200
+        ]);
+    }
     public function becomeRevisor($id)
     {
         $user = User::where('id', $id)->first();

@@ -5,6 +5,7 @@ import useAuth from '../auth/useAuth'
 import Profile from '../templateUser/Profile.vue';
 import AccountView from '../views/userViews/AccountView.vue';
 import DashboardView from '../views/userViews/DashboardView.vue';
+import IndexView from '../views/revisorViews/IndexView.vue';
 import ShowPreviewView from '../views/revisorViews/ShowPreviewView.vue';
 import UpdateUserView from '../views/userViews/UpdateUserView.vue';
 import PrivacySecurityView from '../views/userViews/PrivacySecurityView.vue';
@@ -63,6 +64,7 @@ const routes = [
       { path: 'dashboard/create', name: 'createAnnouncements', component: DashboardView },
       { path: 'dashboard/update/:name', name: 'updateAnnouncements', component: DashboardView },
       { path: 'revisor', name: 'revisor', component: ShowPreviewView, beforeEnter: (to, from, next) => { if (auth.getAuthenticated.value) { if (auth.getUser.value.is_revisor) { next() } else { next({ name: 'home' }) } } } },
+      { path: 'revisor/index', name: 'revisor-index', component: IndexView, beforeEnter: (to, from, next) => { if (auth.getAuthenticated.value) { if (auth.getUser.value.is_revisor) { next() } else { next({ name: 'home' }) } } } },
       { path: 'edit', name: 'edit', component: UpdateUserView },
       { path: 'privacy', name: 'privacy', component: PrivacySecurityView },
       { path: 'appereance', name: 'appereance', component: AppereanceView }

@@ -17,7 +17,7 @@ export default {
             return useRoute();
         },
         bgCurrent() {
-            return this.$route.path.includes('/dashboard');
+            return this.$route.path.includes('/dashboard') || this.$route.path.includes('/revisor');
         }
     }
 }

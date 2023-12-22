@@ -40,7 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // API Become Revisor Routes
     Route::get('/become-revisor/{id}', [RevisorController::class, 'becomeRevisor']);
 
-    // API Revisor Accept/Reject Routes
+    // API Revisor Routes
+    Route::get('/announcements/index', [RevisorController::class, 'index']);
     Route::patch('/announcement-accept/{announcement}', [RevisorController::class, 'accept']);
     Route::patch('/announcement-reject/{announcement}', [RevisorController::class, 'reject']);
 });
