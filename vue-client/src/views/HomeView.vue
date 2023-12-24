@@ -4,6 +4,7 @@ import useAuth from '../auth/useAuth';
 import Card from '../components/Card.vue';
 export default {
   props: {
+    categories: Array,
     user: Object,
   },
   components: {

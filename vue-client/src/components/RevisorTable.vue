@@ -1,6 +1,5 @@
 <script>
 import useRevisor from '../revisor/useRevisor';
-import useAnnouncement from '../announcement/useAnnouncement';
 import ButtonPagination from './ButtonPagination.vue';
 export default {
     props: {
@@ -13,11 +12,10 @@ export default {
         return {
             fetchCounter: 0,
             fetch: useRevisor(),
-            announcements: [],
+            announcements: null,
             currentPage: 1,
             totalPages: 1,
             tr: 1,
-            date: '',
             selectedImage: "http://localhost:8000/storage/default-image.jpeg",
         }
     },
@@ -28,11 +26,8 @@ export default {
             modal.showModal();
         },
         async fetchData(page = 1) {
-            this.fetchCounter++; // Incrementa il contatore
-            console.log(this.fetchCounter);
             await this.fetch.index(page)
                 .then(() => {
-                    console.log(this.fetchCounter);
                     this.announcements = this.fetch.getAnnouncements.data;
                     this.currentPage = this.fetch.getAnnouncements.current_page;
                     this.totalPages = this.fetch.getAnnouncements.last_page;
@@ -57,11 +52,9 @@ export default {
                 })
                 .catch(error => {
                     console.log(error);
-                    this.announcement = null;
                 })
         },
         async rejectAnnouncement(id) {
-            console.log(id);
             this.fetch.rejectAnnouncement(id)
                 .then(async () => {
                     this.fetchData();
@@ -70,16 +63,14 @@ export default {
                     console.log(error);
                 })
         },
-        formatDate(announcement) {
-            const createdDate = new Date(announcement.created_at);
-            const formattedDate = createdDate.toLocaleDateString('en-US', {
+        formatDate(createdAt) {
+            const createdDate = new Date(createdAt);
+            return createdDate.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
                 hour12: true
             });
-            this.date = formattedDate;
-            return this.date
         }
     },
     created() {
@@ -131,7 +122,8 @@ export default {
                                         <form method="dialog">
                                             <!-- if there is a button in form, it will close the modal  -->
                                             <div class="group flex mb-2">
-                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                                <button
+                                                    class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                             </div>
                                         </form>
                                     </div>
@@ -191,7 +183,7 @@ export default {
                                         <div class="flex pb-5">
                                             <p class="font-hk font-bold">Published on:</p>
                                             <p class="font-hkbold pl-3">
-                                                {{ formatDate(announcement) }}
+                                                {{ formatDate(announcement.created_at) }}
                                             </p>
                                         </div>
                                         <div class="flex pb-5">

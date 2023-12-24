@@ -5,6 +5,7 @@ import ButtonCategory from '../components/ButtonCategory.vue';
 import ButtonPagination from '../components/ButtonPagination.vue';
 export default {
     props: {
+        user: Object,
         categories: Array
     },
     components: {

@@ -1,7 +1,5 @@
 <script lang="ts">
 import { RouterLink, useRoute } from 'vue-router';
-import { reactive } from 'vue';
-
 import AccountView from '../views/userViews/AccountView.vue';
 import DashboardView from '../views/userViews/DashboardView.vue';
 import ShowPreviewView from '../views/revisorViews/ShowPreviewView.vue';

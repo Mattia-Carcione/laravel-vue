@@ -3,6 +3,7 @@ import useAnnouncement from '../../announcement/useAnnouncement';
 
 export default {
     props: {
+        user: Object,
         categories: Array
     },
     data() {
