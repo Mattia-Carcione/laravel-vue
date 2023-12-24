@@ -127,6 +127,14 @@ export default {
                                     class="px-1 fa-regular fa-pen-to-square text-warning"></i></button>
                             <dialog :id="`my_modal_${announcement.id}`" class="modal">
                                 <div class="modal-box">
+                                    <div class="modal-action">
+                                        <form method="dialog">
+                                            <!-- if there is a button in form, it will close the modal  -->
+                                            <div class="group flex mb-2">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <div class="flex flex-col-reverse justify-between px-5 sm:flex-row-reverse"
                                         x-data="{ selectedImage: 'http://localhost:8000/storage/default-image.jpeg' }">
                                         <div class="flex flex-row sm:flex-col sm:pl-5 md:pl-4 lg:pl-2 lg:pr-2 xl:pr-3">
