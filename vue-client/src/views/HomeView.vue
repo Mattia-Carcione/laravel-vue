@@ -36,6 +36,7 @@ export default {
               alert('Application submitted successfully.');
             } else {
               alert('An error occurred. Please try again later.');
+              console.log(auth.getErrors.value);
             }
           })
           .catch(error => {

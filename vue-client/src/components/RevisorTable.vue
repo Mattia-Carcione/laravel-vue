@@ -199,7 +199,7 @@ export default {
                                         </p>
                                         <p class="font-hk font-bold pb-3">Description:</p>
 
-                                        <p class="pb-5 font-hk">
+                                        <p class="pb-5 font-hk custom-wrap">
                                             {{ announcement.body }}
                                         </p>
                                         <p class="font-hk">
@@ -238,6 +238,13 @@ export default {
 </template>
 
 <style scoped>
+.custom-wrap {
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75%;
+}
+
 .btn-custom {
     color: white;
     background: linear-gradient(45deg, rgb(97, 69, 180) 0%, #1e618a 100%);

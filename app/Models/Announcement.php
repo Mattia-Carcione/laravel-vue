@@ -32,4 +32,8 @@ class Announcement extends Model
         $this->save();
         return true;
     }
+
+    public function images() {
+        return $this->hasMany(Image::class);
+    }
 }
